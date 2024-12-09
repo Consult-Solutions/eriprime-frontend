@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Styles
 import './styles/App.css';
 
 // Pages
@@ -10,6 +12,9 @@ import VerifyEmail from './pages/auth/verify-email.tsx';
 import ForgotPassword from './pages/auth/forgot-password.tsx';
 import ResetPassword from './pages/auth/reset-password.tsx';
 import Dashboard from './pages/admin/dashboard.tsx';
+import NotFound from './pages/not-found.tsx';
+
+// Utils
 import ProtectedRoute from './utils/ProtectedRoute.tsx';
 
 function App() {
@@ -32,6 +37,9 @@ function App() {
               <Dashboard />
             </ProtectedRoute>
           } />
+
+          {/* NotFound Route */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </div>
