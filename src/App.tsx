@@ -16,30 +16,39 @@ import NotFound from './pages/not-found.tsx';
 
 // Utils
 import ProtectedRoute from './utils/ProtectedRoute.tsx';
+import Listings from './pages/listings.tsx';
+import About from './pages/about.tsx';
+import Contacts from './pages/contacts.tsx';
+import AppLayout from './layouts/app.tsx';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<Home />} />
+            <Route path="listings" element={<Listings />} />
+            <Route path="about-us" element={<About />} />
+            <Route path="contact-us" element={<Contacts />} />
 
-          {/* Authentication Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/verify" element={<VerifyEmail />} />
-          <Route path="/forgot" element={<ForgotPassword />} />
-          <Route path="/reset" element={<ResetPassword />} />
+            {/* Authentication Routes */}
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="verify" element={<VerifyEmail />} />
+            <Route path="forgot" element={<ForgotPassword />} />
+            <Route path="reset" element={<ResetPassword />} />
 
-          {/* Dashboard Routes */}
-          <Route path="/dashboard" element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          } />
+            {/* Dashboard Routes */}
+            <Route path="dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
 
-          {/* NotFound Route */}
-          <Route path="*" element={<NotFound />} />
+            {/* NotFound Route */}
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </Router>
     </div>
