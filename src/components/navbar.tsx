@@ -1,25 +1,34 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
-import { useNavigate } from 'react-router-dom';
 import { useGlobalAlert } from '../contexts/AlertContext.tsx';
 import AlertMessage from './alerts/alert-message.tsx';
+import api from '../services/api.ts';
+import ConfirmModel from './models/confirm-model.tsx';
 
 const NavBar: React.FC = () => {
     const { user, isAuthenticated, setUser } = useAuth();
-    const navigate = useNavigate();
-
     const { setGlobalAlert } = useGlobalAlert();
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleLogout = () => {
         try {
-            axios.post('/auth/logout').then((response) => {
+            const token = localStorage.getItem('accessToken');
+
+            api.post('/auth/logout', {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                },
+            }).then((response) => {
                 localStorage.removeItem('accessToken');
+
                 setUser(null);
                 setGlobalAlert("You have been logged out successfully", 'success');
-                navigate('/');
+
+                window.location.href = '/';
             }).catch((error) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');
@@ -28,6 +37,14 @@ const NavBar: React.FC = () => {
             setAlertMessage('An error occurred. Please try again later.');
             setAlertType('error');
         }
+    };
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+    
+    const confirmLogout = () => {
+        closeModal();
+        handleLogout();
     };
 
     return (
@@ -104,7 +121,7 @@ const NavBar: React.FC = () => {
 
                     {isAuthenticated ? (
                         <>
-                            <button onClick={handleLogout} className="text-base font-medium mx-5 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                            <button onClick={openModal} className="text-base font-medium mx-5 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
@@ -180,6 +197,14 @@ const NavBar: React.FC = () => {
                     </div>
                 </nav>
             </div>
+
+            <ConfirmModel
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onConfirm={confirmLogout}
+                title="Logout Now"
+                message="Are you sure you want to log out?"
+            />
 
             {/* Alert Message */}
             <AlertMessage message={alertMessage} type={alertType} />
