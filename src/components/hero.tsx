@@ -16,8 +16,14 @@ const Hero: React.FC = () => {
                     </div>
 
                     <div className="flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 lg:justify-start">
-                        <a href="/" className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#03783d] px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto"> Start a free Trial </a>
-                        <a href="/" className="inline-flex h-12 w-full items-center justify-center rounded-full border-2 border-[#03783d] px-4 font-semibold text-[#03783d] transition-colors duration-200 hover:border-y-[#03783d] hover:text-[#03783d] sm:w-auto">Watch a demo video</a>
+                        <a href="/" className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#03783d] px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto"> 
+                            <span>Start a free Trial </span>
+                            <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
+                        </a>
+                        <a href="/" className="inline-flex h-12 w-full items-center justify-center rounded-full border-2 border-[#03783d] px-4 font-semibold text-[#03783d] transition-colors duration-200 hover:border-y-[#03783d] hover:text-[#03783d] sm:w-auto">
+                            <span>Watch a demo video</span>
+                            <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7Z" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path opacity=".4" d="M9.102 12v-1.48c0-1.91 1.35-2.68 3-1.73l1.28.74 1.28.74c1.65.95 1.65 2.51 0 3.46l-1.28.74-1.28.74c-1.65.95-3 .17-3-1.73V12Z" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                        </a>
                     </div>
 
                     <div className="mt-6 flex justify-center -space-x-4 lg:justify-start">
