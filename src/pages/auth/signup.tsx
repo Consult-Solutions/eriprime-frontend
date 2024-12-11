@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -11,8 +11,17 @@ import api from '../../services/api.ts';
 import LoadingButton from '../../components/buttons/loading-button.tsx';
 import AlertMessage from '../../components/alerts/alert-message.tsx';
 import { useGlobalAlert } from '../../contexts/AlertContext.tsx';
+import { useAuth } from '../../contexts/AuthContext.tsx';
 
 const Signup: React.FC = () => {
+    const navigate = useNavigate();
+
+    const { isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) navigate('/dashboard');
+    }, [isAuthenticated, navigate]);
+
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,8 +31,6 @@ const Signup: React.FC = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const { setGlobalAlert } = useGlobalAlert();
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
-
-    const navigate = useNavigate();
 
     const validate = () => {
         const newErrors: { fullName?: string; email?: string; password?: string } = {};

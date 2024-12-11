@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext.tsx';
+import { useNavigate } from 'react-router-dom';
+import { useGlobalAlert } from '../contexts/AlertContext.tsx';
+import AlertMessage from './alerts/alert-message.tsx';
 
 const NavBar: React.FC = () => {
+    const { user, isAuthenticated, setUser } = useAuth();
+    const navigate = useNavigate();
+
+    const { setGlobalAlert } = useGlobalAlert();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState<'success' | 'error'>('success');
+
+    const handleLogout = () => {
+        try {
+            axios.post('/auth/logout').then((response) => {
+                localStorage.removeItem('accessToken');
+                setUser(null);
+                setGlobalAlert("You have been logged out successfully", 'success');
+                navigate('/');
+            }).catch((error) => {
+                setAlertMessage('An error occurred. '+error.response.data.message);
+                setAlertType('error');
+            });
+        } catch (error) {
+            setAlertMessage('An error occurred. Please try again later.');
+            setAlertType('error');
+        }
+    };
+
     return (
         <header className="pb-6 bg-white lg:pb-0 border-b border-gray-200">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -58,17 +86,43 @@ const NavBar: React.FC = () => {
                             </span>
                             <span className='ml-2'>Contact Us</span>
                         </Link>
-                        <Link to="/login" title="" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-                                </svg>
-                            </span>
-                            <span className='ml-2'>Login</span>
-                        </Link>
+                        {isAuthenticated ? (<></>) : (<>
+                            <Link to="/login" title="" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                                    </svg>
+                                </span>
+                                <span className='ml-2'>Login</span>
+                            </Link>
+                        </>)}
                     </div>
 
-                    <Link to="/signup" className="inline-flex h-12 w-full items-center justify-center ml-10 rounded-full bg-[#03783d] px-6 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto"> Start a free Trial </Link>
+                    {isAuthenticated ? (<></>) : (<>
+                        <Link to="/signup" className="inline-flex h-12 w-full items-center justify-center ml-10 rounded-full bg-[#03783d] px-6 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto"> Start a free Trial </Link>
+                    </> )}
+
+                    {isAuthenticated ? (
+                        <>
+                            <button onClick={handleLogout} className="text-base font-medium mx-5 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                                    </svg>
+                                </span>
+                                <span className='ml-2'>Logout</span>
+                            </button>
+                            <Link to="/dashboard" title="" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                                <div className="flex items-center gap-4">
+                                    <img className="w-10 h-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1733682631362-5936ee967df3?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                                    <div className="font-medium dark:text-white">
+                                        <div className='text-slate-700 capitalize'>{user.name}</div>
+                                        <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </>
+                    ) : (<></>)}
                 </nav>
 
                 <nav className="pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden">
@@ -126,6 +180,9 @@ const NavBar: React.FC = () => {
                     </div>
                 </nav>
             </div>
+
+            {/* Alert Message */}
+            <AlertMessage message={alertMessage} type={alertType} />
         </header>
     );
 };
