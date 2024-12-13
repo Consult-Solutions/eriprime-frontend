@@ -3,18 +3,62 @@ import SectionTitle from '../../components/admin/section-title.tsx';
 import FormModal from '../../components/models/form-model.tsx';
 import CarForm from '../../components/forms/car-form.tsx';
 import ErrorBoundary from '../../utils/ErrorBoundary.tsx';
+import api from '../../services/api.ts';
+import AlertMessage from '../../components/alerts/alert-message.tsx';
+import { useAuth } from '../../contexts/AuthContext.tsx';
 
 const Cars: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsloading] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState<'success' | 'error'>('success');
 
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
+    const { token } = useAuth();
 
-    const handleSubmitCar = (car: any) => {
-        console.log('Submitted car:', car);
-        setIsloading(true);
-        // handleCloseModal();
+    const handleSubmitCar = (car: any) => {        
+        try {
+            setIsloading(true);
+
+            const formData = new FormData();
+
+            formData.append('title', car.name);
+            formData.append('car_model', car.car_model);
+            formData.append('year', car.year.toString());
+            formData.append('description', car.description);
+            formData.append('category', car.category);
+            formData.append('location', car.location);
+            formData.append('make', car.make);
+            formData.append('mileage', car.mileage.toString());
+            formData.append('price', car.price.toString());
+            formData.append('condition', car.condition);
+            formData.append('transmission', car.transmission);
+            formData.append('fuel_type', car.fuel_type);
+            formData.append('images', car.images);
+
+            api.post('/cars', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json'
+                }
+            }).then((response: any) => {
+                setIsloading(false);
+                setAlertMessage('Car added successfully.');
+                setAlertType('success');
+                handleCloseModal();
+            }).catch((error: { response: { data: { message: string; }; }; }) => {
+                setAlertMessage('An error occurred. '+error.response.data.message);
+                setAlertType('error');
+                handleCloseModal();
+            })
+        } catch (error) {
+            setIsloading(false);
+            setAlertMessage('An error occurred. Please try again.');
+            setAlertType('error');
+            handleCloseModal();
+        }
     };
 
     return (
@@ -159,6 +203,9 @@ const Cars: React.FC = () => {
                     
                     <CarForm onSubmit={handleSubmitCar} isLoading={isLoading} />
                 </FormModal>
+
+                {/* Alert Message */}
+                <AlertMessage message={alertMessage} type={alertType} />
             </div>
         </ErrorBoundary>
     );

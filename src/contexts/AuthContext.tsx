@@ -6,6 +6,7 @@ interface AuthContextProps {
     user: any;
     isAuthenticated: boolean;
     setUser: (user: any) => void;
+    token: string;
 }
 
 interface AuthProviderProps {
@@ -17,6 +18,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [token, setToken] = useState('');
     const { setGlobalAlert } = useGlobalAlert();
 
     useEffect(() => {
@@ -35,6 +37,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                         'Accept': 'application/json',
                     },
                 }).then((response) => {
+                    setToken(token);
                     setUser((response.data as { data: any }).data);
                     setIsAuthenticated(true);
                 }).catch((error) => {
@@ -51,7 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, [setGlobalAlert]);
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, setUser }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, token, setUser }}>
             {children}
         </AuthContext.Provider>
     );
@@ -59,8 +62,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
-    if (!context) {
+
+    if (!context) 
         throw new Error('useAuth must be used within an AuthProvider');
-    }
+    
     return context;
 };

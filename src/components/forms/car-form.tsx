@@ -10,27 +10,27 @@ import Step4 from './cars/step-four.tsx';
 import Step5 from './cars/step-five.tsx';
 
 interface CarFormProps {
-    onSubmit: (car: { 
-        name: string; 
-        model: string; 
-        year: number; 
-        description: string; 
-        category: string; 
-        location: string; 
-        make: string; 
-        mileage: number; 
-        price: number; 
-        condition: string; 
-        transmission: string; 
-        fuelType: string; 
+    onSubmit: (car: {
+        title: string;
+        car_model: string;
+        year: number;
+        description: string;
+        category: string;
+        location: string;
+        make: string;
+        mileage: number;
+        price: number;
+        condition: string;
+        transmission: string;
+        fuel_type: string;
         images: File[]
     }) => void;
     isLoading: boolean;
 }
 
 const CarForm: React.FC<CarFormProps> = ({ onSubmit, isLoading }) => {
-    const [name, setName] = useState('');
-    const [model, setModel] = useState('');
+    const [title, setTitle] = useState('');
+    const [car_model, setCarModel] = useState('');
     const [year, setYear] = useState<number | ''>('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -40,7 +40,7 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, isLoading }) => {
     const [price, setPrice] = useState<number | ''>('');
     const [condition, setCondition] = useState('');
     const [transmission, setTransmission] = useState('');
-    const [fuelType, setFuelType] = useState('');
+    const [fuel_type, setFuelType] = useState('');
     const [images, setImages] = useState<File[]>([]);
 
     const [currentStep, setCurrentStep] = useState(0);
@@ -56,10 +56,10 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, isLoading }) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (name && model && year && description && category && location && make && mileage && price && condition && transmission && fuelType && images.length > 0) {
-            onSubmit({ name, model, year: Number(year), description, category, location, make, mileage: Number(mileage), price: Number(price), condition, transmission, fuelType, images });
-            setName('');
-            setModel('');
+        if (title && car_model && year && description && category && location && make && mileage && price && condition && transmission && fuel_type && images.length > 0) {
+            onSubmit({ title, car_model, year: Number(year), description, category, location, make, mileage: Number(mileage), price: Number(price), condition, transmission, fuel_type, images });
+            setTitle('');
+            setCarModel('');
             setYear('');
             setDescription('');
             setCategory('');
@@ -75,10 +75,10 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, isLoading }) => {
     };
 
     const steps = [
-        <Step1 key="step1" name={name} model={model} year={year} setName={setName} setModel={setModel} setYear={setYear} />,
+        <Step1 key="step1" name={title} model={car_model} year={year} setName={setTitle} setModel={setCarModel} setYear={setYear} />,
         <Step2 key="step2" category={category} description={description} location={location} setCategory={setCategory} setDescription={setDescription} setLocation={setLocation} />,
         <Step3 key="step3" make={make} mileage={mileage} price={price} setMake={setMake} setMileage={setMileage} setPrice={setPrice} />,
-        <Step4 key="step4" condition={condition} transmission={transmission} fuelType={fuelType} setCondition={setCondition} setTransmission={setTransmission} setFuelType={setFuelType} />,
+        <Step4 key="step4" condition={condition} transmission={transmission} fuelType={fuel_type} setCondition={setCondition} setTransmission={setTransmission} setFuelType={setFuelType} />,
         <Step5 key="step5" images={images} setImages={setImages} />,
     ];
 
@@ -90,7 +90,7 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, isLoading }) => {
                 onNext={handleNext}
                 onPrevious={handlePrevious}
             />
-            
+
             {currentStep === steps.length - 1 && (
                 <div className="flex items-center justify-between mt-4">
                     <LoadingButton

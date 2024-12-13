@@ -1,4 +1,3 @@
-// Step3.tsx
 import React from 'react';
 import TextInput from '../../inputs/text-input.tsx';
 
