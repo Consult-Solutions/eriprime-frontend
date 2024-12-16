@@ -38,14 +38,16 @@ const Cars: React.FC = () => {
                 setIsFetching(false);
             });
         } catch (error) {
-            console.error('Error fetching cars:', error);
+            setAlertMessage('An error occurred. Something went wrong');
+            setAlertType('error');
+            setIsFetching(false);
         }
     };
 
     useEffect(() => {
-        if (token) {
+        if (token) 
             fetchCars();
-        }
+        
     }, [token]);
 
     const handleSubmitCar = (car: any) => {        
@@ -188,9 +190,10 @@ const Cars: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Table */}
-                {isFetching && (<FetchLoader />)}
-                <BaseTable title='My Cars Listed' headers={headers} data={cars} renderRow={renderRow} />
+                {/* Table Data */}
+                {isFetching 
+                    ? <FetchLoader /> 
+                    : <BaseTable title='My Cars Listed' headers={headers} data={cars} renderRow={renderRow} />}
 
                 {/* Form for Submitting Cars */}
                 <FormModal isOpen={isModalOpen} onClose={handleCloseModal}>

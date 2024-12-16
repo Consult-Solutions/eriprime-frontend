@@ -33,8 +33,6 @@ const BaseTable: React.FC<BaseTableProps> = ({ title, headers, data, renderRow }
         setSortConfig({ key, direction });
     };
 
-    console.log(sortedData)
-
     return (<div>
         <div className="w-full bg-white border rounded-lg border-gray-200">
             <header className="px-5 py-4 border-b border-gray-100">
