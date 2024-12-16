@@ -25,6 +25,7 @@ import ProtectedRoute from './utils/ProtectedRoute.tsx';
 import Listings from './pages/listings.tsx';
 import About from './pages/about.tsx';
 import Contacts from './pages/contacts.tsx';
+import CarDetails from './pages/car-details.tsx';
 
 // Layouts
 import AppLayout from './layouts/app.tsx';
@@ -46,6 +47,7 @@ function App() {
                 <Route path="listings" element={<Listings />} />
                 <Route path="about-us" element={<About />} />
                 <Route path="contact-us" element={<Contacts />} />
+                <Route path='cars/:id' element={<CarDetails />} />
 
                 {/* Authentication Routes */}
                 <Route path="login" element={<Login />} />
