@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface Car {
     _id: string;
+    title: string;
     transmission: string;
     price:string;
     description: string;
@@ -10,22 +11,21 @@ interface Car {
     car_model: string;
     eco_friendly: boolean;
     status: string;
-    image: string;
+    images: string;
 }
 
 interface CarPostingCardProps {
     car: Car;
 }
 
+const apiURL = process.env.REACT_APP_BACKEND_URL;
+
 const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
     return (
         <Link to={`/car/${car._id}`} className="overflow-hidden transition-shadow duration-300 bg-white rounded">
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
                 <a href="/" aria-label="Article" className='relative'>
-                    {car.image 
-                        ? (<img src="https://images.unsplash.com/photo-1497564245203-66a1216f073a?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="object-cover w-full h-64 rounded-lg" alt="" />)
-                        : <img src="https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180" className="object-cover w-full h-64 rounded-lg" alt="default" />
-                    }
+                    <img src={car.images && car.images.length > 0 ? `${apiURL}${car.images[0]}` : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'} className="object-cover w-full h-64 rounded-lg" alt={car.title} />
                     
                     <div className="inline-flex absolute top-3 left-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-full text-gray-100 bg-[#03783d]/90 mt-1"> {car.status} </div>
                     {car.status === 'sold' && (<div className="inline-flex absolute top-3 right-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-full text-gray-100 bg-red-400 mt-1"> Sold </div>)}
@@ -43,7 +43,9 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                     
                     <div>
                         <a href="/" aria-label="Article" className="inline-block mb-3 mt-2 text-black transition-colors duration-200 hover:text-deep-purple-accent-700">
-                            <p className="text-xl font-bold leading-5 text-slate-700">{car.price} RWF</p>
+                            <p className="text-xl font-bold leading-5 text-slate-700">
+                                {new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(car.price))}
+                            </p>                        
                         </a>
                     </div>
 

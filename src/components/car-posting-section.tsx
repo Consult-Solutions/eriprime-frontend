@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import CarPostingCard from './car-posting-card.tsx';
 import api from '../services/api.ts';
-import { useAuth } from '../contexts/AuthContext.tsx';
 import AlertMessage from './alerts/alert-message.tsx';
 import FetchLoader from './loaders/fetching-loader.tsx';
 
@@ -17,19 +16,13 @@ const CarPostingSection: React.FC<CarPostingSectionProps> = ({ title, descriptio
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [cars, setCars] = useState<any[]>([]);
 
-    const { token } = useAuth();
-
     const fetchCars = async () => {
         try {
-            api.get('/cars?direction=desc', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response: any) => {
+            api.get('/cars/approved?direction=desc').then((response: any) => {
                 setIsFetching(false);
                 setCars(response.data.data);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
+                setAlertMessage('An error occurred. ' + error.response.data.message);
                 setAlertType('error');
                 setIsFetching(false);
             });
@@ -39,10 +32,8 @@ const CarPostingSection: React.FC<CarPostingSectionProps> = ({ title, descriptio
     };
 
     useEffect(() => {
-        if (token) {
-            fetchCars();
-        }
-    }, [token]);
+        fetchCars();
+    }, []);
 
     return (
         <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">

@@ -156,7 +156,7 @@ const NavBar: React.FC = () => {
                     </div>
 
                     {!isAuthenticated && (
-                        <Link to="/signup" className="inline-flex h-12 w-full items-center justify-center ml-10 rounded-full bg-[#03783d] px-6 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto">
+                        <Link to="/signup" className="inline-flex h-11 w-full items-center justify-center text-sm ml-10 rounded-full bg-[#03783d] px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto">
                             <span>Create Account</span>
                             <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
                         </Link>
