@@ -6,13 +6,15 @@ const About: React.FC = () => {
             <div className="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
                 <div className="grid items-center grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-20">
                     <div className="">
-                        <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Grow business with Celebration.</h2>
-                        <p className="mt-4 text-base leading-relaxed text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                        <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Elevate Your Experience with Us</h2>
+                        <p className="text-base leading-relaxed text-gray-600 mt-10">
+                            Join us on a way to transform your experience. Our innovative solutions and dedicated team are here to help you achieve new heights. Experience unparalleled growth and success with our expert guidance and support.
+                        </p>
                     </div>
 
                     <div className="relative pl-20 pr-6 sm:pl-6 md:px-0">
-                        <div className="relative w-full max-w-xs mt-4 mb-10 ml-auto">
-                            <img className="ml-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/features/1/person.jpg" alt="" />
+                        <div className="relative w-[500px] mt-4 mb-10 ml-auto">
+                            <img className="ml-auto" src="https://img.freepik.com/free-photo/family-enjoying-views-car-trip_23-2149401820.jpg?t=st=1734689217~exp=1734692817~hmac=939d7d3dffd544b63df7b1724100dca4d81eef3ac69f90475cf4906760d5f2de&w=1800" alt="Happy clients at Consult Solution" />
 
                             <img className="absolute -top-4 -left-12" src="https://cdn.rareblocks.xyz/collection/celebration/images/features/1/wavey-lines.svg" alt="" />
 

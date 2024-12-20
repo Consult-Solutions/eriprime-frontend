@@ -10,17 +10,19 @@ const Hero: React.FC = () => {
                             <p className="bg-teal-accent-400 mb-4 inline-block rounded-full bg-green-100 px-3 py-1 border border-gray-200 text-sm font-semibold tracking-wider text-green-900">Get started now with free account</p>
                         </div>
                         <h2 className="mb-6 max-w-lg font-sans text-3xl font-bold tracking-tight text-slate-700 sm:text-5xl sm:leading-snug">
-                            The #1 Marketplace for <span className="inline-block text-[#03783d]">cars </span> in <span className="inline-block text-[#03783d]">Africa</span>
+                            The #1 Marketplace for <span className="inline-block text-primary">Cars </span> in <span className="inline-block text-primary">Africa</span>
                         </h2>
-                        <p className="text-base text-gray-700 md:text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, consequuntur quaerat! Optio.</p>
+                        <p className="text-base text-gray-700 md:text-lg">
+                            Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all. Start your journey with us today and find the perfect car for you.
+                        </p>
                     </div>
 
                     <div className="flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 lg:justify-start">
-                        <a href="/" className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#03783d] px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto"> 
-                            <span>Start a free Trial </span>
+                        <a href="/" className="inline-flex h-12 w-full items-center justify-center rounded-full bg-primary px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto"> 
+                            <span>Get Started for free </span>
                             <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
                         </a>
-                        <a href="/" className="inline-flex h-12 w-full items-center justify-center rounded-full border-2 border-[#03783d] px-4 font-semibold text-[#03783d] transition-colors duration-200 hover:border-y-[#03783d] hover:text-[#03783d] sm:w-auto">
+                        <a href="/" className="inline-flex h-12 w-full items-center justify-center rounded-full border-2 border-[#03783d] px-4 font-semibold text-primary transition-colors duration-200 hover:border-y-[#03783d] hover:text-primary sm:w-auto">
                             <span>Watch a demo video</span>
                             <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7Z" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path opacity=".4" d="M9.102 12v-1.48c0-1.91 1.35-2.68 3-1.73l1.28.74 1.28.74c1.65.95 1.65 2.51 0 3.46l-1.28.74-1.28.74c-1.65.95-3 .17-3-1.73V12Z" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
                         </a>
@@ -28,8 +30,9 @@ const Hero: React.FC = () => {
 
                     <div className="mt-6 flex justify-center -space-x-4 lg:justify-start">
                         <img className="h-12 w-12 rounded-full ring ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt='' />
-                        <img className="h-12 w-12 rounded-full ring ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt='' />
-                        <img className="h-12 w-12 rounded-full ring ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt='' />
+                        <img className="h-12 w-12 rounded-full ring ring-white" src="/images/member2.jpg" alt='Manirabona Patience At Consult Solutions' />
+                        <img className="h-12 w-12 rounded-full ring ring-white" src="/images/member1.jpeg" alt='Eric Niyongira at Consult Solutions' />
+                        
                         <div className="">
                             <span className="pl-8 font-semibold">Customer Reviews</span>
                             <div className="flex w-auto items-center justify-center space-x-1 pl-8">
