@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useEffect } from 'react';
 
@@ -32,24 +33,37 @@ const Step5: React.FC<StepFiveProps> = ({ images, setImages, currentImages }) =>
         setImages(newImages);
     };
 
+    /**
+     * Convert URL to File
+     * 
+     * @param url 
+     * @param filename 
+     * @param mimeType 
+     * @returns 
+     */
     const urlToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
         const response = await fetch(url);
         const buffer = await response.arrayBuffer();
         return new File([buffer], filename, { type: mimeType });
     };
 
-    useEffect(() => {
-        const fetchImages = async () => {
+    /**
+     * Fetch current images
+     * 
+     * @returns void
+     */
+    const fetchImages = async () => {
+        if (currentImages && currentImages.length > 0) {
             const currentImageFiles = await Promise.all(
                 currentImages.map((image, index) => urlToFile(apiURL + image, `currentImage${index}.jpg`, 'image/jpeg'))
             );
-
+    
             setImages(currentImageFiles);
-        };
+        }
+    };
 
+    useEffect(() => {
         fetchImages();
-        
-        currentImages.map((image, index) => urlToFile(apiURL + image, `currentImage${index}.jpg`, 'image/jpeg'))
     }, [currentImages, setImages]);
 
     return (
