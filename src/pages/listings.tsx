@@ -32,7 +32,7 @@ const Listings: React.FC = () => {
         setIsFetchingNewCar(true);
         
         try {
-            api.get('/cars/approved?condition=new&direction=desc')
+            api.get('/cars/approved?condition=New&direction=asc')
                 .then((response: any) => {
                     setAutoCars(response.data.data);
                 }).catch((error: { response: { data: { message: string; }; }; }) => {
