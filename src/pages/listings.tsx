@@ -24,52 +24,6 @@ const Listings: React.FC = () => {
     const [conditionFilter, setConditionFilter] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
-    /**
-     * Fetches the newly arrival cars
-     * @returns void
-     */
-    const getNewCars = async () => {
-        setIsFetchingNewCar(true);
-        
-        try {
-            api.get('/cars/approved?condition=New&direction=asc')
-                .then((response: any) => {
-                    setAutoCars(response.data.data);
-                }).catch((error: { response: { data: { message: string; }; }; }) => {
-                    setAlertMessage('An error occurred. ' + error.response.data.message);
-                    setAlertType('error');
-                });
-        } catch (error) {
-            setAlertMessage('An error occurred. Something went wrong');
-            setAlertType('error');
-        } finally {
-            setIsFetchingNewCar(false);
-        }
-    };
-
-    /**
-     * Fetches the automatic cars
-     * @returns void
-     */
-    const getAutoCars = async () => {
-        setIsFetchingAutoCar(true);
-        
-        try {
-            api.get('/cars/approved?transmission=Automatics&direction=desc')
-                .then((response: any) => {
-                    setNewCars(response.data.data);
-                }).catch((error: { response: { data: { message: string; }; }; }) => {
-                    setAlertMessage('An error occurred. ' + error.response.data.message);
-                    setAlertType('error');
-                });
-        } catch (error) {
-            setAlertMessage('An error occurred. Something went wrong');
-            setAlertType('error');
-        } finally {
-            setIsFetchingAutoCar(false);
-        }
-    };
-
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') setSearchQuery(e.currentTarget.value);
     };
@@ -107,6 +61,52 @@ const Listings: React.FC = () => {
                 setIsLoading(false);
             }
         }
+
+        /**
+         * Fetches the newly arrival cars
+         * @returns void
+         */
+        const getNewCars = async () => {
+            setIsFetchingNewCar(true);
+            
+            try {
+                api.get('/cars/approved?condition=New&direction=asc')
+                    .then((response: any) => {
+                        setAutoCars(response.data.data);
+                    }).catch((error: { response: { data: { message: string; }; }; }) => {
+                        setAlertMessage('An error occurred. ' + error.response.data.message);
+                        setAlertType('error');
+                    });
+            } catch (error) {
+                setAlertMessage('An error occurred. Something went wrong');
+                setAlertType('error');
+            } finally {
+                setIsFetchingNewCar(false);
+            }
+        };
+
+        /**
+         * Fetches the automatic cars
+         * @returns void
+         */
+        const getAutoCars = async () => {
+            setIsFetchingAutoCar(true);
+            
+            try {
+                api.get('/cars/approved?transmission=Automatics&direction=desc')
+                    .then((response: any) => {
+                        setNewCars(response.data.data);
+                    }).catch((error: { response: { data: { message: string; }; }; }) => {
+                        setAlertMessage('An error occurred. ' + error.response.data.message);
+                        setAlertType('error');
+                    });
+            } catch (error) {
+                setAlertMessage('An error occurred. Something went wrong');
+                setAlertType('error');
+            } finally {
+                setIsFetchingAutoCar(false);
+            }
+        };
 
         getCars();
         getNewCars();
