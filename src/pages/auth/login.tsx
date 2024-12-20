@@ -117,7 +117,7 @@ const Login: React.FC = () => {
                         </div>
 
                         {/* Continue with oauth */}
-                        <OAuth />
+                        <OAuth onLoading={setLoading} />
                     </div>
                 </div>
             </div>

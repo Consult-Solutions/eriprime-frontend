@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from '../spinner.tsx';
+import Spinner from '../loaders/spinner.tsx';
 
 interface LoadingButtonProps {
   text: string;

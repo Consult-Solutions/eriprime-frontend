@@ -106,7 +106,7 @@ const Contacts: React.FC = () => {
                                         </div>
 
                                         <div>
-                                            <button type="submit" className="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-[#03783d] border border-transparent rounded-md focus:outline-none hover:bg-orange-600 focus:bg-orange-600">
+                                            <button type="submit" className="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-primary border border-transparent rounded-md focus:outline-none hover:bg-orange-600 focus:bg-orange-600">
                                                 Get Free Quote
                                             </button>
                                         </div>
