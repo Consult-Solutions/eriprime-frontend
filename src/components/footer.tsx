@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
     return (
@@ -6,13 +7,15 @@ const Footer: React.FC = () => {
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                 <div className="grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-16 gap-x-12">
                     <div className="col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8">
-                        <img className="w-auto h-9" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
+                        <img className="w-32" src="/images/logo.jpeg" alt="Consult Solutions" />
 
-                        <p className="text-base leading-relaxed text-gray-600 mt-7">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
+                        <p className="text-base leading-relaxed text-gray-600 mt-2">
+                            Wide range of cars to suit every need and budget. Whether you're looking for the latest models, we have it all.
+                        </p>
 
-                        <ul className="flex items-center space-x-3 mt-9">
+                        <ul className="flex items-center space-x-3 mt-5">
                             <li>
-                                <a href="/" title="" className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-[#03783d] focus:bg-[#03783d]">
+                                <a href="/" className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-primary focus:bg-primary">
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                         <path
                                             d="M19.633 7.997c.013.175.013.349.013.523 0 5.325-4.053 11.461-11.46 11.461-2.282 0-4.402-.661-6.186-1.809.324.037.636.05.973.05a8.07 8.07 0 0 0 5.001-1.721 4.036 4.036 0 0 1-3.767-2.793c.249.037.499.062.761.062.361 0 .724-.05 1.061-.137a4.027 4.027 0 0 1-3.23-3.953v-.05c.537.299 1.16.486 1.82.511a4.022 4.022 0 0 1-1.796-3.354c0-.748.199-1.434.548-2.032a11.457 11.457 0 0 0 8.306 4.215c-.062-.3-.1-.611-.1-.923a4.026 4.026 0 0 1 4.028-4.028c1.16 0 2.207.486 2.943 1.272a7.957 7.957 0 0 0 2.556-.973 4.02 4.02 0 0 1-1.771 2.22 8.073 8.073 0 0 0 2.319-.624 8.645 8.645 0 0 1-2.019 2.083z"
@@ -22,7 +25,7 @@ const Footer: React.FC = () => {
                             </li>
 
                             <li>
-                                <a href="/" title="" className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-[#03783d] focus:bg-[#03783d]">
+                                <a href="/" className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-primary focus:bg-primary">
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A22.336 22.336 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.355H7.332v3.209h2.753v8.202h3.312z"></path>
                                     </svg>
@@ -30,7 +33,7 @@ const Footer: React.FC = () => {
                             </li>
 
                             <li>
-                                <a href="/" title="" className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-[#03783d] focus:bg-[#03783d]">
+                                <a href="/" className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-primary focus:bg-primary">
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M11.999 7.377a4.623 4.623 0 1 0 0 9.248 4.623 4.623 0 0 0 0-9.248zm0 7.627a3.004 3.004 0 1 1 0-6.008 3.004 3.004 0 0 1 0 6.008z"></path>
                                         <circle cx="16.806" cy="7.207" r="1.078"></circle>
@@ -42,7 +45,7 @@ const Footer: React.FC = () => {
                             </li>
 
                             <li>
-                                <a href="/" title="" className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-[#03783d] focus:bg-[#03783d]">
+                                <a href="/" className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-primary focus:bg-primary">
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                         <path
                                             fill-rule="evenodd"
@@ -60,19 +63,15 @@ const Footer: React.FC = () => {
 
                         <ul className="mt-6 space-y-4">
                             <li>
-                                <a href="/" title="" className="flex text-base text-black transition-all duration-200 hover:text-[#03783d] focus:text-[#03783d]"> About </a>
+                                <Link to="/about-us" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> About </Link>
                             </li>
 
                             <li>
-                                <a href="/" title="" className="flex text-base text-black transition-all duration-200 hover:text-[#03783d] focus:text-[#03783d]"> Features </a>
+                                <Link to="/listings" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Listings </Link>
                             </li>
 
                             <li>
-                                <a href="/" title="" className="flex text-base text-black transition-all duration-200 hover:text-[#03783d] focus:text-[#03783d]"> Works </a>
-                            </li>
-
-                            <li>
-                                <a href="/" title="" className="flex text-base text-black transition-all duration-200 hover:text-[#03783d] focus:text-[#03783d]"> Career </a>
+                                <Link to="/contact-us" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Contact Us </Link>
                             </li>
                         </ul>
                     </div>
@@ -82,19 +81,15 @@ const Footer: React.FC = () => {
 
                         <ul className="mt-6 space-y-4">
                             <li>
-                                <a href="/" title="" className="flex text-base text-black transition-all duration-200 hover:text-[#03783d] focus:text-[#03783d]"> Customer Support </a>
+                                <a href="/" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Customer Support </a>
                             </li>
 
                             <li>
-                                <a href="/" title="" className="flex text-base text-black transition-all duration-200 hover:text-[#03783d] focus:text-[#03783d]"> Delivery Details </a>
+                                <a href="/" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Terms & Conditions </a>
                             </li>
 
                             <li>
-                                <a href="/" title="" className="flex text-base text-black transition-all duration-200 hover:text-[#03783d] focus:text-[#03783d]"> Terms & Conditions </a>
-                            </li>
-
-                            <li>
-                                <a href="/" title="" className="flex text-base text-black transition-all duration-200 hover:text-[#03783d] focus:text-[#03783d]"> Privacy Policy </a>
+                                <a href="/" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Privacy Policy </a>
                             </li>
                         </ul>
                     </div>
@@ -103,12 +98,11 @@ const Footer: React.FC = () => {
                         <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Subscribe to newsletter</p>
 
                         <form action="#" method="POST" className="mt-6">
-                            <div>
+                            <div className="flex items-center justify-between w-full py-2 px-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-full focus:outline-none focus:border-[#03783d] caret-[#03783d]">
                                 <label className="sr-only">Email</label>
-                                <input type="email" name="email" id="email" placeholder="Enter your email" className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-[#03783d] caret-[#03783d]" />
+                                <input type="email" name="email" id="email" placeholder="Enter your email" className="border-none outline-none focus:outline-none focus:border-none" />
+                                <button type="submit" className="inline-flex items-center justify-center px-4 py-2 font-semibold text-white transition-all duration-200 bg-primary rounded-full hover:bg-primary/90 focus:bg-primary/90">Subscribe</button>
                             </div>
-
-                            <button type="submit" className="inline-flex items-center justify-center px-5 py-3 mt-3 font-semibold text-white transition-all duration-200 bg-[#03783d] rounded-full hover:bg-[#03783d]/90 focus:bg-[#03783d]/90">Subscribe</button>
                         </form>
                     </div>
                 </div>

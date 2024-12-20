@@ -89,7 +89,7 @@ const BaseTable: React.FC<BaseTableProps> = ({ title, headers, data, itemsPerPag
                     <span className='text-sm text-slate-700'>
                         Page {currentPage} of {totalPages}
                     </span>
-                    <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="px-4 py-2 cursor-pointer bg-[#03783d] text-gray-100 rounded-lg text-sm disabled:opacity-50 flex items-center">
+                    <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="px-4 py-2 cursor-pointer bg-primary text-gray-100 rounded-lg text-sm disabled:opacity-50 flex items-center">
                         <span>Next</span>
                         <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
                     </button>

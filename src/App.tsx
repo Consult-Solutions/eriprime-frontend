@@ -34,46 +34,51 @@ import AdminLayout from './layouts/admin.tsx';
 // Contexts
 import { AlertProvider } from './contexts/AlertContext.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'NoAuth';
 
 function App() {
   return (
     <div className="App">
       <AlertProvider>
         <AuthProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<AppLayout />}>
-                <Route index element={<Home />} />
-                <Route path="listings" element={<Listings />} />
-                <Route path="about-us" element={<About />} />
-                <Route path="contact-us" element={<Contacts />} />
-                <Route path='cars/:id' element={<CarDetails />} />
+          <GoogleOAuthProvider clientId={clientId}>
+            <Router>
+              <Routes>
+                <Route path="/" element={<AppLayout />}>
+                  <Route index element={<Home />} />
+                  <Route path="listings" element={<Listings />} />
+                  <Route path="about-us" element={<About />} />
+                  <Route path="contact-us" element={<Contacts />} />
+                  <Route path='cars/:id' element={<CarDetails />} />
 
-                {/* Authentication Routes */}
-                <Route path="login" element={<Login />} />
-                <Route path="signup" element={<Signup />} />
-                <Route path="verify" element={<VerifyEmail />} />
-                <Route path="forgot" element={<ForgotPassword />} />
-                <Route path="reset" element={<ResetPassword />} />
+                  {/* Authentication Routes */}
+                  <Route path="login" element={<Login />} />
+                  <Route path="signup" element={<Signup />} />
+                  <Route path="verify" element={<VerifyEmail />} />
+                  <Route path="forgot" element={<ForgotPassword />} />
+                  <Route path="reset" element={<ResetPassword />} />
 
-                {/* Dashboard Routes */}
-                <Route path="/" element={<ProtectedRoute />}>
-                  <Route path="/" element={<AdminLayout />}>
-                    <Route path="dashboard" element={<Dashboard />} />
-                    <Route path="cars" element={<Cars />} />
-                    <Route path="account" element={<Account />} />
-                    <Route path="reports" element={<Reports />} />
-                    <Route path="users" element={<Users />} />
-                    <Route path="activities" element={<Activities />} />
-                    <Route path="subscribers" element={<Subscribers />} />
+                  {/* Dashboard Routes */}
+                  <Route path="/" element={<ProtectedRoute />}>
+                    <Route path="/" element={<AdminLayout />}>
+                      <Route path="dashboard" element={<Dashboard />} />
+                      <Route path="cars" element={<Cars />} />
+                      <Route path="account" element={<Account />} />
+                      <Route path="reports" element={<Reports />} />
+                      <Route path="users" element={<Users />} />
+                      <Route path="activities" element={<Activities />} />
+                      <Route path="subscribers" element={<Subscribers />} />
+                    </Route>
                   </Route>
-                </Route>
 
-                {/* NotFound Route */}
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </Router>
+                  {/* NotFound Route */}
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+              </Routes>
+            </Router>
+          </GoogleOAuthProvider>
         </AuthProvider>
       </AlertProvider>
     </div>

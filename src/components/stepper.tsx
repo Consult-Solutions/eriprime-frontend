@@ -13,7 +13,9 @@ const Stepper: React.FC<StepperProps> = ({ steps, currentStep, onNext, onPreviou
             <div className="mb-4">
                 {steps[currentStep]}
             </div>
+            
             <hr className="my-5 border-gray-200" />
+            
             <div className="flex justify-between">
                 {currentStep > 0 && (
                     <button

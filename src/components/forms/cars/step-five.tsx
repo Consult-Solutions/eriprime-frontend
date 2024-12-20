@@ -1,12 +1,20 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface StepFiveProps {
     images: File[];
     setImages: (images: File[]) => void;
+    currentImages: string[];
 }
 
-const Step5: React.FC<StepFiveProps> = ({ images, setImages }) => {
+const apiURL = process.env.REACT_APP_BACKEND_URL || '';
+
+const Step5: React.FC<StepFiveProps> = ({ images, setImages, currentImages }) => {
+    /**
+     * Handle image change
+     * 
+     * @param e 
+     */
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const newImages = Array.from(e.target.files);
@@ -14,23 +22,43 @@ const Step5: React.FC<StepFiveProps> = ({ images, setImages }) => {
         }
     };
 
+    /**
+    * Handle remove image
+    * 
+    * @param index 
+    */
     const handleRemoveImage = (index: number) => {
         const newImages = images.filter((_, i) => i !== index);
         setImages(newImages);
     };
 
+    const urlToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
+        const response = await fetch(url);
+        const buffer = await response.arrayBuffer();
+        return new File([buffer], filename, { type: mimeType });
+    };
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            const currentImageFiles = await Promise.all(
+                currentImages.map((image, index) => urlToFile(apiURL + image, `currentImage${index}.jpg`, 'image/jpeg'))
+            );
+
+            setImages(currentImageFiles);
+        };
+
+        fetchImages();
+        
+        currentImages.map((image, index) => urlToFile(apiURL + image, `currentImage${index}.jpg`, 'image/jpeg'))
+    }, [currentImages, setImages]);
+
     return (
         <div>
             <label className="text-base font-medium text-slate-700 capitalize">Car Images</label>
-            <input
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={handleImageChange}
-                className="block w-full py-2 px-3 mt-2 mb-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
-            />
+            <input type="file" multiple accept="image/*" onChange={handleImageChange} className="block w-full py-2 px-3 mt-2 mb-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"/>
+            
             <div className="grid grid-cols-2 gap-4 max-h-60 overflow-auto border border-gray-200 p-2 rounded-lg">
-                {images.map((image, index) => (
+                {images && images.map((image, index) => (
                     <div key={index} className="relative">
                         <img src={URL.createObjectURL(image)} alt={`Car Image ${index + 1}`} className="w-full h-32 object-cover rounded-md" />
                         <button type="button" onClick={() => handleRemoveImage(index)} className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">

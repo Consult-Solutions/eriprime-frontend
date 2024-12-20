@@ -53,8 +53,9 @@ const NavBar: React.FC = () => {
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <nav className="flex items-center justify-between h-16 lg:h-20 overflow-hidden">
                     <div className="flex-shrink-0">
-                        <Link to="/" title="" className="flex">
-                            <img className="w-auto h-8 lg:h-10" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
+                        <Link to="/" title="" className="flex items-center space-x-2">
+                            <img className="w-12 h-10 lg:h-12 bg-black" src="/images/logo.jpeg" alt="Consult Solutions" />
+                            <span className='font-bold capitalize leading-10'>Consult Solutions</span>
                         </Link>
                     </div>
 
@@ -78,7 +79,7 @@ const NavBar: React.FC = () => {
                                         </svg>
                                     </span>
                                     <span className="ml-2">Home</span>
-                                    {isActive && <div className="absolute w-full bg-[#03783d] h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
+                                    {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
                                 </>
                             )}
                         </NavLink>
@@ -90,7 +91,7 @@ const NavBar: React.FC = () => {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><g opacity=".4" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                                     </span>
                                     <span className='ml-2'>Listings</span>
-                                    {isActive && <div className="absolute w-full bg-[#03783d] h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
+                                    {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
                                 </>
                             )}
                         </NavLink>
@@ -102,7 +103,7 @@ const NavBar: React.FC = () => {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M13 22H5c-2 0-3-1-3-3v-8c0-2 1-3 3-3h5v11c0 2 1 3 3 3Z" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path opacity=".4" d="M10.11 4c-.08.3-.11.63-.11 1v3H5V6c0-1.1.9-2 2-2h3.11ZM14 8v5M18 8v5" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17 17h-2c-.55 0-1 .45-1 1v4h4v-4c0-.55-.45-1-1-1Z" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path opacity=".4" d="M6 13v4" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10 19V5c0-2 1-3 3-3h6c2 0 3 1 3 3v14c0 2-1 3-3 3h-6c-2 0-3-1-3-3Z" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                                     </span>
                                     <span className='ml-2'>About us</span>
-                                    {isActive && <div className="absolute w-full bg-[#03783d] h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
+                                    {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
                                 </>)}
                         </NavLink>
 
@@ -113,7 +114,7 @@ const NavBar: React.FC = () => {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#697689" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M22 9v6c0 2.5-.5 4.25-1.62 5.38L14 14l7.73-7.73c.18.79.27 1.69.27 2.73z"></path><path stroke="#697689" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.73 6.27L6.27 21.73C3.26 21.04 2 18.96 2 15V9c0-5 2-7 7-7h6c3.96 0 6.04 1.26 6.73 4.27z"></path><path stroke="#697689" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.38 20.38C19.25 21.5 17.5 22 15 22H9c-1.04 0-1.94-.09-2.73-.27L14 14l6.38 6.38z"></path><path stroke="#697689" stroke-width="1.5" d="M6.24 7.98c.68-2.93 5.08-2.93 5.76 0 .39 1.72-.69 3.18-1.64 4.08a1.8 1.8 0 01-2.48 0c-.95-.9-2.04-2.36-1.64-4.08z" opacity=".4"></path><path stroke="#697689" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.094 8.7h.01" opacity=".4"></path></svg>
                                     </span>
                                     <span className='ml-2'>Contact Us</span>
-                                    {isActive && <div className="absolute w-full bg-[#03783d] h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
+                                    {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
                                 </>)}
                         </NavLink>
 
@@ -125,7 +126,7 @@ const NavBar: React.FC = () => {
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#697689" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.9 7.56c.31-3.6 2.16-5.07 6.21-5.07h.13c4.47 0 6.26 1.79 6.26 6.26v6.52c0 4.47-1.79 6.26-6.26 6.26h-.13c-4.02 0-5.87-1.45-6.2-4.99"></path><g opacity=".4"><path stroke="#697689" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2 12h12.88M12.65 8.65L16 12l-3.35 3.35"></path></g></svg>
                                         </span>
                                         <span className='ml-2'>Login</span>
-                                        {isActive && <div className="absolute w-full bg-[#03783d] h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
+                                        {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
                                     </>)}
                             </NavLink>
                         )}
@@ -145,7 +146,7 @@ const NavBar: React.FC = () => {
                         {isAuthenticated && (
                             <Link to="/dashboard" title="" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
                                 <div className="flex items-center gap-4">
-                                    <img className="w-10 h-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1733682631362-5936ee967df3?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                                    <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
                                     <div className="font-medium dark:text-white">
                                         <div className='text-slate-700 capitalize'>{user.name}</div>
                                         <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
@@ -156,7 +157,7 @@ const NavBar: React.FC = () => {
                     </div>
 
                     {!isAuthenticated && (
-                        <Link to="/signup" className="inline-flex h-11 w-full items-center justify-center text-sm ml-10 rounded-full bg-[#03783d] px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto">
+                        <Link to="/signup" className="inline-flex h-11 w-full items-center justify-center text-sm ml-10 rounded-full bg-primary px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
                             <span>Create Account</span>
                             <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
                         </Link>
@@ -215,7 +216,7 @@ const NavBar: React.FC = () => {
                     </div>
 
                     <div className="px-6 mt-6">
-                        <Link to="/signup" className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#03783d] px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-[#03783d] focus:ring sm:w-auto"> Start a free Trial </Link>
+                        <Link to="/signup" className="inline-flex h-12 w-full items-center justify-center rounded-full bg-primary px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto"> Start a free Trial </Link>
                     </div>
                 </nav>
             </div>
