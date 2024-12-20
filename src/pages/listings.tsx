@@ -70,7 +70,7 @@ const Listings: React.FC = () => {
             setIsFetchingNewCar(true);
             
             try {
-                api.get('/cars/approved?condition=New&direction=asc')
+                api.get('/cars/approved?condition=new&direction=asc')
                     .then((response: any) => {
                         setAutoCars(response.data.data);
                     }).catch((error: { response: { data: { message: string; }; }; }) => {
@@ -93,7 +93,7 @@ const Listings: React.FC = () => {
             setIsFetchingAutoCar(true);
             
             try {
-                api.get('/cars/approved?transmission=Automatics&direction=desc')
+                api.get('/cars/approved?transmission=automatic&direction=desc')
                     .then((response: any) => {
                         setNewCars(response.data.data);
                     }).catch((error: { response: { data: { message: string; }; }; }) => {
