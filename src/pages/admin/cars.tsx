@@ -133,6 +133,8 @@ const Cars: React.FC = () => {
             }).then((response: any) => {
                 setAlertMessage('Car added successfully.');
                 setAlertType('success');
+                setIsloading(false);
+                handleCloseModal();
                 fetchCars();
             }).catch((error: { response: { data: { message: string; }; }; }) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
@@ -142,7 +144,6 @@ const Cars: React.FC = () => {
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
         } finally {
-            handleCloseModal();
             setIsloading(false);
         }
     };

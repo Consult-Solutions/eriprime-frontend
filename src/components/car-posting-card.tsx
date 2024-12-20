@@ -92,7 +92,7 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                         </div>
                         <div className='mt-5'>
                             <Link to={`/cars/${car._id}`} className="inline-flex items-center justify-center rounded bg-primary px-3 py-1 font-medium text-sm tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
-                                <span className='mr-2'>Read More</span>
+                                <span>Read More</span>
                                 {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg> */}
                             </Link>
                         </div>
