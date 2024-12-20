@@ -102,7 +102,7 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onUpdate, isLoading, isEdit
         <Step2 key="step2" category={category} description={description} location={location} status={status} setCategory={setCategory} setDescription={setDescription} setLocation={setLocation} setStatus={setStatus} />,
         <Step3 key="step3" make={make} mileage={mileage} price={price} setMake={setMake} setMileage={setMileage} setPrice={setPrice} />,
         <Step4 key="step4" condition={condition} transmission={transmission} fuelType={fuel_type} setCondition={setCondition} setTransmission={setTransmission} setFuelType={setFuelType} />,
-        <Step5 key="step5" images={images} setImages={setImages} currentImages={initialData?.images || []} />,
+        <Step5 key="step5" images={images} setImages={setImages} currentImages={initialData ? (initialData.images ?? []) : []} />,
     ];
 
     useEffect(() => {
