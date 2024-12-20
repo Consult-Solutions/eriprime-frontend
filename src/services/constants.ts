@@ -1,4 +1,5 @@
 export const TYPE_OPTIONS = [
+    { value: '', label: 'Select Type' },
     { value: 'suv', label: 'SUV' },
     { value: 'sedan', label: 'Sedan' },
     { value: 'truck', label: 'Truck' },
@@ -64,11 +65,13 @@ export const CONDITION_OPTIONS = [
 ];
 
 export const TRANSMISSION_OPTIONS = [
+    { value: '', label: 'Select Transmission' },
     { value: 'automatic', label: 'Automatic' },
     { value: 'manual', label: 'Manual' }
 ];
 
 export const FUELTYPE_OPTIONS = [
+    { value: '', label: 'Select Fuel Type' },
     { value: 'petrol', label: 'Petrol' },
     { value: 'iesel', label: 'Diesel' },
     { value: 'electric', label: 'Electric' },
@@ -77,6 +80,7 @@ export const FUELTYPE_OPTIONS = [
 ];
 
 export const CAR_STATUS_OPTIONS = [
+    { value: '', label: 'Select Status' },
     { value: 'available', label: 'Available' },
     { value: 'sold', label: 'Sold' },
 ];
