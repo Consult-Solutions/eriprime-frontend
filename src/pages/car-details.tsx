@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useEffect, useState } from 'react';
 import CarPostingSection from '../components/car-posting-section.tsx';
 import { useAuth } from '../contexts/AuthContext.tsx';
@@ -8,61 +6,85 @@ import { useParams } from 'react-router-dom';
 import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 
+interface Car {
+    title: string;
+    images: string[];
+    price: string;
+    make: string;
+    car_model: string;
+    transmission: string;
+    fuel_type: string;
+    description: string;
+}
+
 const CarDetails: React.FC = () => {
     const [isLoading, setIsloading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     
-    interface Car {
-        title: string;
-        images: string[];
-        price: string;
-        make: string;
-        car_model: string;
-        transmission: string;
-        fuel_type: string;
-        description: string;
-    }
-    
     const [car, setCar] = useState<Car | null>(null);
+    const [relatedCars, setRelatedCars] = useState<any[]>([]);
 
     const { token } = useAuth();
     const { id } = useParams<{ id: string }>();
     const apiURL = process.env.REACT_APP_BACKEND_URL;
 
-    const fetchCarDetails = async () => {
-        
-        setIsloading(true);
-
-        try {
-            api.get(`/cars/show/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response: any) => {
-                setCar(response.data.data);
-            }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
-                setAlertType('error');
-            });
-        } catch (error) {
-            setAlertMessage('An error occurred. Something went wrong');
-            setAlertType('error');
-        } finally {
-            setIsloading(false);
-        }
-    };
-
     useEffect(() => {
-        if (id) fetchCarDetails();
-    }, [id]);
+        if (id) {
+            const fetchCarDetails = async () => {
+        
+                setIsloading(true);
+        
+                try {
+                    api.get(`/cars/show/${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }).then((response: any) => {
+                        setCar(response.data.data);
+                    }).catch(() => {
+                        setAlertMessage('An error occurred. Unable to fetch car details.');
+                        setAlertType('error');
+                    });
+                } catch (error) {
+                    setAlertMessage('An error occurred. Something went wrong');
+                    setAlertType('error');
+                } finally {
+                    setIsloading(false);
+                }
+            }
+
+            const fetchRelatedCars = async () => {
+                try {
+                    api.get(`/cars/related/${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }).then((response: any) => {
+                        setRelatedCars(response.data.data);
+                    }).catch(() => {
+                        setAlertMessage('An error occurred. Unable to fetch related cars.');
+                        setAlertType('error');
+                    });
+                } catch (error) {
+                    setAlertMessage('An error occurred. Something went wrong');
+                    setAlertType('error');
+                } finally {
+                    setIsloading(false);
+                }
+            }
+
+            fetchCarDetails();
+            fetchRelatedCars();
+        }
+    }, [id, isLoading, token]);
 
     return (
         <div>
-            {isLoading && <div className='h-96 flex items-center justify-center'><FetchLoader /></div>}
+            {isLoading && (<div className='h-96 flex items-center justify-center'><FetchLoader /></div>)}
 
             {/* Car Details */}
-            <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
+            {(!isLoading && car) && <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
                 <div className="container">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         <div>
@@ -86,7 +108,7 @@ const CarDetails: React.FC = () => {
                                                     <div className="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next  w-[133.75px] mr-[8px]" data-swiper-slide-index="1" role="group" aria-label="2 / 5">
                                                         <div key={index} className="swiper-slide w-[133.75px] mr-[8px]" data-swiper-slide-index={index} role="group" aria-label={`${index + 1} / ${car.images.length}`}>
                                                             <a href="/">
-                                                                <img src={apiURL+image} alt={`Image of ${car.title}`} className='rounded-lg' />
+                                                                <img src={apiURL+image} alt={car.title} className='rounded-lg' />
                                                             </a>
                                                         </div>
                                                     </div>
@@ -146,16 +168,18 @@ const CarDetails: React.FC = () => {
                         </div>
                     </div>
                 </div> */}
-            </div>
+            </div>}
 
             {/* Car Posting Section */}
-            <section className='py-4 lg:py-4'>
+            {relatedCars.length > 1 && <section className='py-4 lg:py-4'>
                 {/* new cars */}
                 <CarPostingSection
                     title="Related Listings"
                     description="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis."
+                    cars={relatedCars}
+                    isLoading={isLoading}
                 />
-            </section>
+            </section>}
 
             {/* Alert Message */}
             <AlertMessage message={alertMessage} type={alertType} />
