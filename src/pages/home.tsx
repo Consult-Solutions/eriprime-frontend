@@ -12,37 +12,42 @@ const Home: React.FC = () => {
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [cars, setCars] = useState<any[]>([]);
 
+    const getCars = async () => {
+        setIsLoading(true);
+        
+        try {
+            api.get(`/cars/approved`, {
+                    params: {
+                        direction: 'desc',
+                        limit: 8,
+                    },
+                })
+                .then((response: any) => {
+                    setCars(response.data.data);
+                    setIsLoading(false)
+                }).catch((error: { response: { data: { message: string; }; }; }) => {
+                    setAlertMessage('An error occurred. ' + error.response.data.message);
+                    setAlertType('error');
+                    setIsLoading(false);
+                });
+        } catch (error) {
+            setAlertMessage('An error occurred. Something went wrong');
+            setAlertType('error');
+            setIsLoading(false);
+        }
+    };
+
     /**
      * Fetches the cars
      * 
      * @returns void
      */
     useEffect(() => {
-        const getCars = async () => {
-            setIsLoading(true);
-            
-            try {
-                api.get(`/cars/approved`, {
-                        params: {
-                            direction: 'desc',
-                            limit: 8,
-                        },
-                    })
-                    .then((response: any) => {
-                        setCars(response.data.data);
-                    }).catch((error: { response: { data: { message: string; }; }; }) => {
-                        setAlertMessage('An error occurred. ' + error.response.data.message);
-                        setAlertType('error');
-                    });
-            } catch (error) {
-                setAlertMessage('An error occurred. Something went wrong');
-                setAlertType('error');
-            } finally {
-                setIsLoading(false);
-            }
+        const fetchData = async () => {
+            await getCars();
         };
 
-        getCars();
+        fetchData();
     }, []);
 
     return (
