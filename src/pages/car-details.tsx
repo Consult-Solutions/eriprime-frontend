@@ -21,13 +21,11 @@ const CarDetails: React.FC = () => {
     const [isLoading, setIsloading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
-    
+
     const [car, setCar] = useState<Car | null>(null);
     const [relatedCars, setRelatedCars] = useState<any[]>([]);
-
     const { token } = useAuth();
     const { id } = useParams<{ id: string }>();
-    const apiURL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         if (id) {
@@ -95,7 +93,7 @@ const CarDetails: React.FC = () => {
                                     <div className="swiper-container swiper-initialized swiper-horizontal swiper-pointer-events">
                                         <div className="swiper-wrapper" id="swiper-wrapper-5b26c8f3eb7d9756" aria-live="polite">
                                             <div className="swiper-slide swiper-slide-active w-[559px] border border-gray-200 rounded-lg" role="group" aria-label="1 / 5">
-                                                <img src={car && car.images ? `${apiURL}${car.images[0]}` : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'} alt={car ? car.title : 'default title'} className='rounded-lg' />
+                                                <img src={car && car.images ? `${car.images[0]}` : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'} alt={car ? car.title : 'default title'} className='rounded-lg' />
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +106,7 @@ const CarDetails: React.FC = () => {
                                                     <div className="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next  w-[133.75px] mr-[8px]" data-swiper-slide-index="1" role="group" aria-label="2 / 5">
                                                         <div key={index} className="swiper-slide w-[133.75px] mr-[8px]" data-swiper-slide-index={index} role="group" aria-label={`${index + 1} / ${car.images.length}`}>
                                                             <a href="/">
-                                                                <img src={apiURL+image} alt={car.title} className='rounded-lg' />
+                                                                <img src={image} alt={car.title} className='rounded-lg' />
                                                             </a>
                                                         </div>
                                                     </div>

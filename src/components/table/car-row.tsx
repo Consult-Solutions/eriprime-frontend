@@ -8,8 +8,6 @@ interface CarRowProps {
     updateCar: (car: any) => () => void;
 }
 
-const apiURL = process.env.REACT_APP_BACKEND_URL;
-
 const CarRow: React.FC<CarRowProps> = ({ index, car, deleteCar, updateCar }) => {
     return (
         <>
@@ -17,7 +15,7 @@ const CarRow: React.FC<CarRowProps> = ({ index, car, deleteCar, updateCar }) => 
                 <div className="font-medium text-gray-800 truncate">{index}</div>
             </td>
             <td className="p-2 whitespace-nowrap">
-                <img className="rounded-lg object-cover w-10 h-10" src={car.images ? `${apiURL}${car.images[0]}` : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'} alt={car.title} />
+                <img className="rounded-lg object-cover w-10 h-10" src={car.images ? `${car.images[0]}` : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'} alt={car.title} />
             </td>
             <td className="p-2 whitespace-nowrap max-w-24">
                 <div className="font-medium text-gray-800 truncate">{car.title}</div>

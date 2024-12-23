@@ -23,14 +23,12 @@ interface CarPostingCardProps {
     car: Car;
 }
 
-const apiURL = process.env.REACT_APP_BACKEND_URL;
-
 const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
     return (
         <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
                 <Link to={`/cars/${car._id}`} aria-label="Article" className='relative'>
-                    <img src={car.images && car.images.length > 0 ? `${apiURL}${car.images[0]}` : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'} className="object-cover w-full h-64 rounded-lg" alt={car.title} />
+                    <img src={car.images && car.images.length > 0 ? `${car.images[0]}` : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'} className="object-cover w-full h-64 rounded-lg" alt={car.title} />
                     
                     <div className="inline-flex absolute top-3 left-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-full text-gray-100 bg-primary/90 mt-1">{car.category ? car.category.name : 'Vehicle'}</div>
                     
