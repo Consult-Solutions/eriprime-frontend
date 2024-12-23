@@ -59,14 +59,15 @@ const Cars: React.FC = () => {
                 }
             }).then((response: any) => {
                 setCars(response.data.data);
+                setIsFetching(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');
+                setIsFetching(false);
             });
         } catch (error) {
             setAlertMessage('An error occurred. Something went wrong');
             setAlertType('error');
-        } finally {
             setIsFetching(false);
         }
     };
@@ -263,7 +264,7 @@ const Cars: React.FC = () => {
                     <SectionTitle title='Manage Cars' path='cars' />
 
                     <div className='flex items-center'>
-                        {/* {(isLoading || isFetching) && <div className='mr-3'> <FetchLoader /> </div>} */}
+                        {(isLoading || isFetching) && <div className='mr-3'> <FetchLoader /> </div>}
                         <button onClick={handleOpenModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex items-center text-sm">
                             <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 12h12M12 18V6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
                             <span>Add New Car</span>
@@ -272,7 +273,6 @@ const Cars: React.FC = () => {
                 </div>
 
                 {/* Table Data */}
-                {isFetching && <FetchLoader />}
                 <BaseTable title='My Cars Listed' headers={headers} data={cars} itemsPerPage={5} renderRow={renderRow} />
 
                 {/* Form for Submitting Cars */}
