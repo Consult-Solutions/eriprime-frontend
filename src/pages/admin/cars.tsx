@@ -140,11 +140,11 @@ const Cars: React.FC = () => {
             }).catch((error: { response: { data: { message: string; }; }; }) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');
+                setIsloading(false);
             })
         } catch (error) {
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
-        } finally {
             setIsloading(false);
         }
     };
@@ -191,18 +191,26 @@ const Cars: React.FC = () => {
                 setAlertMessage('Car Updated Successfully.');
                 setAlertType('success');
                 fetchCars();
+                setIsEditing(false);
+                setIsloading(false);
+                setIsModalOpen(false);
+                setCarToUpdate(null);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');
+                setIsEditing(false);
+                setIsloading(false);
+                setIsModalOpen(false);
+                setCarToUpdate(null);
             })
         } catch (error) {
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
-        } finally {
-            setIsModalOpen(false);
-            setCarToUpdate(null);
+
             setIsEditing(false);
             setIsloading(false);
+            setIsModalOpen(false);
+            setCarToUpdate(null);
         }
     }
 
