@@ -8,8 +8,6 @@ interface StepFiveProps {
     currentImages: string[];
 }
 
-const apiURL = process.env.REACT_APP_BACKEND_URL || '';
-
 const Step5: React.FC<StepFiveProps> = ({ images, setImages, currentImages }) => {
     /**
      * Handle image change
@@ -55,7 +53,7 @@ const Step5: React.FC<StepFiveProps> = ({ images, setImages, currentImages }) =>
     const fetchImages = async () => {
         if (currentImages && currentImages.length > 0) {
             const currentImageFiles = await Promise.all(
-                currentImages.map((image, index) => urlToFile(apiURL + image, `currentImage${index}.jpg`, 'image/jpeg'))
+                currentImages.map((image, index) => urlToFile(image, `currentImage${index}.jpg`, 'image/jpeg'))
             );
     
             setImages(currentImageFiles);
