@@ -13,6 +13,7 @@ const NavBar: React.FC = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [responsiveNavOpen, setResponsiveNavOpen] = useState(false);
 
     const handleLogout = () => {
         try {
@@ -48,8 +49,10 @@ const NavBar: React.FC = () => {
         handleLogout();
     };
 
+    const openResponsiveNav = () => setResponsiveNavOpen(!responsiveNavOpen);
+
     return (
-        <header className="pb-6 bg-white lg:pb-0 border-b border-gray-200">
+        <header className="bg-white lg:pb-0 border-b border-gray-200">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <nav className="flex items-center justify-between h-16 lg:h-20 overflow-hidden">
                     <div className="flex-shrink-0">
@@ -59,7 +62,7 @@ const NavBar: React.FC = () => {
                         </Link>
                     </div>
 
-                    <button type="button" className="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
+                    <button onClick={openResponsiveNav} type="button" className="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
                         <svg className="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16M4 16h16" />
                         </svg>
@@ -164,7 +167,7 @@ const NavBar: React.FC = () => {
                     )}
                 </nav>
 
-                <nav className="pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden">
+                {responsiveNavOpen && <nav className="pt-4 pb-6 mb-5 bg-white border border-gray-200 rounded-md shadow-md lg:hidden">
                     <div className="flow-root">
                         <div className="flex flex-col px-6 -my-2 space-y-1">
                             <Link to="/" title="" className="inline-flex py-2 relative text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
@@ -196,7 +199,7 @@ const NavBar: React.FC = () => {
                                 </span>
                                 <span className='ml-2'>About us</span>
                             </NavLink>
-                            <NavLink to="/contact-us" title="" className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
+                            <NavLink to="/contact-us" title="" className="inline-flex py-2 mb-5 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
@@ -204,21 +207,53 @@ const NavBar: React.FC = () => {
                                 </span>
                                 <span className='ml-2'>Contact Us</span>
                             </NavLink>
-                            <NavLink to="/login" title="" className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-                                    </svg>
-                                </span>
-                                <span className='ml-2'>Login</span>
-                            </NavLink>
+                            
+                            {!isAuthenticated && (
+                                <NavLink to="/login" title="" className="text-base mt-10 relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                                    {({ isActive }) => (
+                                        <>
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8.9 7.56c.31-3.6 2.16-5.07 6.21-5.07h.13c4.47 0 6.26 1.79 6.26 6.26v6.52c0 4.47-1.79 6.26-6.26 6.26h-.13c-4.02 0-5.87-1.45-6.2-4.99"></path><g opacity=".4"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2 12h12.88M12.65 8.65L16 12l-3.35 3.35"></path></g></svg>
+                                            </span>
+                                            <span className='ml-2'>Login</span>
+                                            {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
+                                        </>)}
+                                </NavLink>
+                            )}
+
+                            {isAuthenticated && (
+                                <NavLink to="#" onClick={openModal} className={({ isActive }) => `text-base mt-10 relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
+                                    {({ isActive }) => (
+                                        <>
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8.9 7.56c.31-3.6 2.16-5.07 6.21-5.07h.13c4.47 0 6.26 1.79 6.26 6.26v6.52c0 4.47-1.79 6.26-6.26 6.26h-.13c-4.02 0-5.87-1.45-6.2-4.99"></path><g opacity=".4"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 12H3.62M5.85 8.65L2.5 12l3.35 3.35"></path></g></svg>
+                                            </span>
+                                            <span className='ml-2'>Logout</span>
+                                        </>)}
+                                </NavLink>
+                            )}
+
+                            {isAuthenticated && (
+                                <Link to="/cars" title="" className="text-base font-medium mt-10 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                                    <div className="flex items-center gap-4">
+                                        <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
+                                        <div className="font-medium dark:text-white">
+                                            <div className='text-slate-700 capitalize'>{user.name}</div>
+                                            <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )}
                         </div>
                     </div>
 
-                    <div className="px-6 mt-6">
-                        <Link to="/signup" className="inline-flex h-12 w-full items-center justify-center rounded-full bg-primary px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto"> Start a free Trial </Link>
-                    </div>
-                </nav>
+                    {!isAuthenticated && (
+                        <Link to="/signup" className="inline-flex h-11 w-full items-center justify-center text-sm ml-10 rounded-full bg-primary px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
+                            <span>Create Account</span>
+                            <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
+                        </Link>
+                    )}
+                </nav>}
             </div>
 
             <ConfirmModel

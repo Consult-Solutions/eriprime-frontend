@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
                         <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Help & Support</p>
 
                         <ul className="mt-6 space-y-4">
-                            <li><Link to="privacy-policy" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Customer Support </Link></li>
+                            <li><Link to="custom-support" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Customer Support </Link></li>
                             <li><Link to="terms-and-conditions" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Terms & Conditions </Link></li>
                             <li><Link to="privacy-policy" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Privacy Policy </Link></li>
                         </ul>
