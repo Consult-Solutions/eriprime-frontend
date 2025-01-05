@@ -5,7 +5,8 @@ import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import CarPostingCard from '../components/car-posting-card.tsx';
-import { BRAND_OPTIONS, CONDITION_OPTIONS, PRICE_OPTIONS, TYPE_OPTIONS } from '../services/constants.ts';   
+import { BRAND_OPTIONS, CONDITION_OPTIONS, TYPE_OPTIONS } from '../services/constants.ts';   
+import PriceRangeInput from '../components/inputs/PriceRangeInput.tsx';
 
 const Listings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +20,7 @@ const Listings: React.FC = () => {
     const [newCars, setNewCars] = useState<any[]>([]);
     const [autoCars, setAutoCars] = useState<any[]>([]);
 
-    const [priceFilter, setPriceFilter] = useState('');
+    const [priceFilter, setPriceFilter] = useState<number>(30000000);
     const [typeFilter, setTypeFilter] = useState('');
     const [brandFilter, setBrandFilter] = useState('');
     const [conditionFilter, setConditionFilter] = useState('');
@@ -133,18 +134,7 @@ const Listings: React.FC = () => {
                     {/* Filters */}
                     <div className="bg-white p-4 rounded-lg flex flex-wrap gap-4 items-center justify-between border border-gray-200">
                         {/* Filter by Price */}
-                        <div className="flex items-center">
-                            <label className="text-sm font-semibold text-gray-600 mr-2">Price:</label>
-                            
-                            <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                <select id="price" value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)} className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white">
-                                    {PRICE_OPTIONS.map((item, index) => (
-                                        <option key={index} value={item.value}>{item.label}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
+                        <PriceRangeInput price={priceFilter} setPrice={setPriceFilter} />
 
                         {/* Filter by Type */}
                         <div className="flex items-center">
@@ -185,6 +175,11 @@ const Listings: React.FC = () => {
                                 </select>
                             </div>
                         </div>
+
+                        {/* Apply Filter */}
+                        <button onClick={getCars} className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
+                            Apply Filter
+                        </button>
                     </div>
 
                     {/* Listing */}
