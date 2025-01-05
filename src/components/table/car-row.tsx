@@ -62,7 +62,7 @@ const CarRow: React.FC<CarRowProps> = ({ index, car, deleteCar, updateCar }) => 
                 </div>
             </td>
             <td className="p-2 whitespace-nowrap">
-                <div className={`rounded-md text-gray-100 text-center px-2 text-sm ${car.status === 'active' ? 'bg-green-600/70' : 'bg-red-600/70'}`}>
+                <div className={`rounded-md text-gray-100 text-center px-2 text-sm ${car.status === 'available' ? 'bg-green-600/70' : 'bg-red-600/70'}`}>
                     {car.status}
                 </div>
             </td>

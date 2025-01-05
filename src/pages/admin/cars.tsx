@@ -269,13 +269,14 @@ const Cars: React.FC = () => {
             <div className='section'>
                 <div className='flex justify-between mb-5'>
                     {/* Section Title */}
-                    <SectionTitle title='Manage Cars' path='cars' />
+                    <SectionTitle title='Manage All Cars' path='cars' />
 
                     <div className='flex items-center'>
                         {(isLoading || isFetching) && <div className='mr-3'> <FetchLoader /> </div>}
-                        <button onClick={handleOpenModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex items-center text-sm">
+                        
+                        <button onClick={handleOpenModal} className="bg-primary hover:bg-primary/80 text-white font-bold py-2 px-4 rounded-full flex items-center text-sm">
                             <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 12h12M12 18V6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                            <span>Add New Car</span>
+                            <span>Post New Car</span>
                         </button>
                     </div>
                 </div>

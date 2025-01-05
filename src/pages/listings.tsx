@@ -5,7 +5,9 @@ import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import CarPostingCard from '../components/car-posting-card.tsx';
-import { BRAND_OPTIONS, CONDITION_OPTIONS, PRICE_OPTIONS, TYPE_OPTIONS } from '../services/constants.ts';   
+import { BRAND_OPTIONS, CONDITION_OPTIONS, TYPE_OPTIONS } from '../services/constants.ts';   
+import PriceRangeInput from '../components/inputs/PriceRangeInput.tsx';
+import MetaTags from '../components/MetaTags.tsx';
 
 const Listings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +21,7 @@ const Listings: React.FC = () => {
     const [newCars, setNewCars] = useState<any[]>([]);
     const [autoCars, setAutoCars] = useState<any[]>([]);
 
-    const [priceFilter, setPriceFilter] = useState('');
+    const [priceFilter, setPriceFilter] = useState<number>(30000000);
     const [typeFilter, setTypeFilter] = useState('');
     const [brandFilter, setBrandFilter] = useState('');
     const [conditionFilter, setConditionFilter] = useState('');
@@ -117,6 +119,17 @@ const Listings: React.FC = () => {
     
     return (
         <div>
+            <MetaTags 
+                title="Car Listings - Consult Solutions" 
+                description="Explore our extensive car listings to find the perfect vehicle for you. From the latest models to reliable used cars, we have something for everyone. Start your journey with Consult Solutions today!"
+                keywords="Consult Solutions, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                canonical={`${process.env.PUBLIC_URL}/listings`}
+                ogTitle="Car Listings - Consult Solutions" 
+                ogDescription="Discover your dream car from our extensive listings. Quality cars for every budget and need."
+                ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
+                twitterCard="summary_large_image"
+            />
+
             <section className='py-6 lg:py-6'>
                 {/* Filter */}
                 <div className="px-4 py-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-5">
@@ -133,18 +146,7 @@ const Listings: React.FC = () => {
                     {/* Filters */}
                     <div className="bg-white p-4 rounded-lg flex flex-wrap gap-4 items-center justify-between border border-gray-200">
                         {/* Filter by Price */}
-                        <div className="flex items-center">
-                            <label className="text-sm font-semibold text-gray-600 mr-2">Price:</label>
-                            
-                            <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                <select id="price" value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)} className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white">
-                                    {PRICE_OPTIONS.map((item, index) => (
-                                        <option key={index} value={item.value}>{item.label}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
+                        <PriceRangeInput price={priceFilter} setPrice={setPriceFilter} />
 
                         {/* Filter by Type */}
                         <div className="flex items-center">
@@ -185,10 +187,15 @@ const Listings: React.FC = () => {
                                 </select>
                             </div>
                         </div>
+
+                        {/* Apply Filter */}
+                        <button onClick={getCars} className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
+                            Apply Filter
+                        </button>
                     </div>
 
                     {/* Listing */}
-                    <div className='mt-10'>
+                    {cars.length > 0 && <div className='mt-10'>
                         <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">
                             {isLoading && (<FetchLoader />)}
                             
@@ -196,7 +203,12 @@ const Listings: React.FC = () => {
                                 <CarPostingCard key={index} car={item} />
                             ))}
                         </div>
-                    </div>
+                    </div>}
+
+                    {(cars.length === 0) && <div className='flex flex-col items-center justify-center mt-10'>
+                        <img src="/images/empty-pana.svg" alt="" className='w-80' />
+                        <span className='font-bold text-slate-400'>No Search Result Found.</span>
+                    </div>}
                 </div>
 
                 {/* Filter By Condition */}

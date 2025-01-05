@@ -1,7 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../services/api.ts';
+import AlertMessage from './alerts/alert-message.tsx';
+import FetchLoader from './loaders/fetching-loader.tsx';
 
 const Footer: React.FC = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState<'success' | 'error'>('success');
+
+    const subscribe = () => {
+        if (!email) {
+            setAlertMessage('Please enter your email');
+            setAlertType('error');
+            return;
+        }
+
+        try {
+            setIsLoading(true);
+
+            api.post('/user/subscribe', { email: email }, {
+                headers: { 'Accept': 'application/json' }
+            }).then((response: any) => {
+                setAlertMessage('You have successfully subscribed to our newsletter');
+                setAlertType('success');
+                setIsLoading(false);
+            }).catch((error: { response: { data: { message: string; }; }; }) => {
+                setAlertMessage('An error occurred. '+error.response.data.message);
+                setAlertType('error');
+                setIsLoading(false);
+            })
+        } catch (error) {
+            setAlertMessage('An error occurred. Please try again.');
+            setAlertType('error');
+            setIsLoading(false);
+        }
+    }
+
     return (
         <section className="py-10 bg-white sm:pt-16 lg:pt-24 border-t border-gray-200">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
@@ -62,54 +98,40 @@ const Footer: React.FC = () => {
                         <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Company</p>
 
                         <ul className="mt-6 space-y-4">
-                            <li>
-                                <Link to="/about-us" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> About </Link>
-                            </li>
-
-                            <li>
-                                <Link to="/listings" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Listings </Link>
-                            </li>
-
-                            <li>
-                                <Link to="/contact-us" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Contact Us </Link>
-                            </li>
+                            <li><Link to="/about-us" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> About </Link></li>
+                            <li><Link to="/listings" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Listings </Link></li>
+                            <li><Link to="/contact-us" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Contact Us </Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Help</p>
+                        <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Help & Support</p>
 
                         <ul className="mt-6 space-y-4">
-                            <li>
-                                <a href="/" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Customer Support </a>
-                            </li>
-
-                            <li>
-                                <a href="/" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Terms & Conditions </a>
-                            </li>
-
-                            <li>
-                                <a href="/" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Privacy Policy </a>
-                            </li>
+                            <li><Link to="custom-support" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Customer Support </Link></li>
+                            <li><Link to="terms-and-conditions" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Terms & Conditions </Link></li>
+                            <li><Link to="privacy-policy" className="flex text-base text-black transition-all duration-200 hover:text-primary focus:text-primary"> Privacy Policy </Link></li>
                         </ul>
                     </div>
 
                     <div className="col-span-2 md:col-span-1 lg:col-span-2 lg:pl-8">
-                        <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Subscribe to newsletter</p>
+                        <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Subscribe to Newsletter</p>
 
-                        <form action="#" method="POST" className="mt-6">
-                            <div className="flex items-center justify-between w-full py-2 px-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-full focus:outline-none focus:border-[#03783d] caret-[#03783d]">
-                                <label className="sr-only">Email</label>
-                                <input type="email" name="email" id="email" placeholder="Enter your email" className="border-none outline-none focus:outline-none focus:border-none" />
-                                <button type="submit" className="inline-flex items-center justify-center px-4 py-2 font-semibold text-white transition-all duration-200 bg-primary rounded-full hover:bg-primary/90 focus:bg-primary/90">Subscribe</button>
-                            </div>
-                        </form>
+                        <div className="flex mt-5 items-center justify-between w-full py-2 px-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-full focus:outline-none focus:border-[#03783d] caret-[#03783d]">
+                            <label className="sr-only">Email</label>
+                            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="Enter your email" className="border-none outline-none focus:outline-none focus:border-none" />
+                            {!isLoading && <button onClick={subscribe} type="submit" className="inline-flex items-center justify-center px-4 py-2 font-semibold text-white transition-all duration-200 bg-primary rounded-full hover:bg-primary/90 focus:bg-primary/90">Subscribe</button>}
+                            {isLoading && <div className='mr-3'> <FetchLoader /> </div>}
+                        </div>
                     </div>
                 </div>
 
                 <hr className="mt-16 mb-10 border-gray-200" />
                 <p className="text-sm text-center text-gray-600">© Copyright 2024, All Rights Reserved by Consult Solutions</p>
             </div>
+
+            {/* Alert Message */}
+            <AlertMessage message={alertMessage} type={alertType} />
         </section>
     );
 };

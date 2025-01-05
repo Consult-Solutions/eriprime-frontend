@@ -19,6 +19,9 @@ import Users from './pages/admin/users.tsx';
 import Activities from './pages/admin/activities.tsx';
 import Subscribers from './pages/admin/subscribers.tsx';
 import NotFound from './pages/not-found.tsx';
+import CustomSupport from './pages/privacy/custom-support.tsx';
+import PrivacyPolicy from './pages/privacy/privacy-policy.tsx';
+import TermsAndConditions from './pages/privacy/terms-and-conditions.tsx';
 
 // Utils
 import ProtectedRoute from './utils/ProtectedRoute.tsx';
@@ -72,6 +75,11 @@ function App() {
                       <Route path="subscribers" element={<Subscribers />} />
                     </Route>
                   </Route>
+
+                  {/* Privacy Policy Pages */}
+                  <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="custom-support" element={<CustomSupport />} />
+                  <Route path="terms-and-conditions" element={<TermsAndConditions />} />
 
                   {/* NotFound Route */}
                   <Route path="*" element={<NotFound />} />
