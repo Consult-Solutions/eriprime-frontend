@@ -5,6 +5,7 @@ import CarPostingCard from '../components/car-posting-card.tsx';
 import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import { Link } from 'react-router-dom';
+import MetaTags from '../components/MetaTags.tsx';
 
 const Home: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +53,18 @@ const Home: React.FC = () => {
 
     return (
         <div>
+            {/* SEO */}
+            <MetaTags 
+                title="Consult Solutions" 
+                description="Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all. Start your journey with us today and find the perfect car for you."
+                keywords="Consult Solutions, cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                canonical={`${process.env.PUBLIC_URL}/`}
+                ogTitle="Consult Solutions" 
+                ogDescription="Find your dream car from our extensive collection. Quality cars for every budget." 
+                ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
+                twitterCard="summary_large_image"
+            />
+
             {/* Hero Component */}
             <Hero />
 

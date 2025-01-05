@@ -5,6 +5,7 @@ import api from '../services/api.ts';
 import { useParams } from 'react-router-dom';
 import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import AlertMessage from '../components/alerts/alert-message.tsx';
+import MetaTags from '../components/MetaTags.tsx';
 
 interface Car {
     title: string;
@@ -79,6 +80,17 @@ const CarDetails: React.FC = () => {
 
     return (
         <div>
+            <MetaTags
+                title={`${car?.title} - Consult Solutions`} 
+                description={car ? car.description : 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
+                keywords="Consult Solutions, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                canonical={`${process.env.PUBLIC_URL}/cars/${id}`}
+                ogTitle={`${car?.title} - Consult Solutions`} 
+                ogDescription={car ? car.description : 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
+                ogImage={car ? car.images[0] : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'}
+                twitterCard="summary_large_image"
+            />
+
             {isLoading && (<div className='h-96 flex items-center justify-center'><FetchLoader /></div>)}
 
             {/* Car Details */}

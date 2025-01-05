@@ -7,6 +7,7 @@ import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import CarPostingCard from '../components/car-posting-card.tsx';
 import { BRAND_OPTIONS, CONDITION_OPTIONS, TYPE_OPTIONS } from '../services/constants.ts';   
 import PriceRangeInput from '../components/inputs/PriceRangeInput.tsx';
+import MetaTags from '../components/MetaTags.tsx';
 
 const Listings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -118,6 +119,17 @@ const Listings: React.FC = () => {
     
     return (
         <div>
+            <MetaTags 
+                title="Car Listings - Consult Solutions" 
+                description="Explore our extensive car listings to find the perfect vehicle for you. From the latest models to reliable used cars, we have something for everyone. Start your journey with Consult Solutions today!"
+                keywords="Consult Solutions, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                canonical={`${process.env.PUBLIC_URL}/listings`}
+                ogTitle="Car Listings - Consult Solutions" 
+                ogDescription="Discover your dream car from our extensive listings. Quality cars for every budget and need."
+                ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
+                twitterCard="summary_large_image"
+            />
+
             <section className='py-6 lg:py-6'>
                 {/* Filter */}
                 <div className="px-4 py-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-5">
