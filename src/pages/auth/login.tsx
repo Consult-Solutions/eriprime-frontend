@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
-        if (isAuthenticated) navigate('/dashboard');
+        if (isAuthenticated) navigate('/cars');
     }, [isAuthenticated, navigate]);
 
     const [email, setEmail] = useState('');
@@ -66,7 +66,7 @@ const Login: React.FC = () => {
                 setGlobalAlert('Successfully Logged in', 'success');
                 setLoading(false);
                 
-                navigate('/dashboard');
+                navigate('/cars');
             }).catch((error) => {
                 setLoading(false);
                 setAlertMessage('An error occurred. '+error.response.data.message);

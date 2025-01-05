@@ -1,17 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
+import api from '../services/api.ts';
+import AlertMessage from '../components/alerts/alert-message.tsx';
+import FetchLoader from '../components/loaders/fetching-loader.tsx';
 
 const Contacts: React.FC = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState<'success' | 'error'>('success');
+
+    const handleSubmit = async () => {
+        if (!name || !email || !message) {
+            setAlertType('error');
+            setAlertMessage('Please fill all fields!');
+            return;
+        }
+
+        setIsLoading(true);
+
+        try {
+            api.post('/user/contacts', { name, email, message })
+                .then(() => {
+                    setAlertType('success');
+                    setAlertMessage('Message sent successfully!');
+                    setIsLoading(false);
+
+                    setName('');
+                    setEmail('');
+                    setMessage('');
+                }).catch(() => {
+                    setAlertType('error');
+                    setAlertMessage('An error occurred, please try again!');
+                    setIsLoading(false);
+                });
+        } catch (error) {
+            setAlertType('error');
+            setAlertMessage('An error occurred, please try again!');
+            setIsLoading(false);
+        }
+    }
+
     return (
-        <section className="py-10 bg-gray-900 sm:py-16 lg:py-24">
+        <section className="py-10 bg-white sm:py-16 lg:py-24">
             <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:items-stretch md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-10">
                     <div className="flex flex-col justify-between lg:py-5">
                         <div>
-                            <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl lg:leading-tight lg:text-5xl">It’s time to build something exciting!</h2>
-                            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-white">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.</p>
+                            <h2 className="text-3xl font-bold leading-tight text-slate-700 sm:text-4xl lg:leading-tight lg:text-5xl">It’s time to build something exciting!</h2>
+                            
+                            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-slate-700">
+                                Partner with us to unlock the full potential of your business. Reach out today and let's turn your vision into reality. Your success story begins with a single step!
+                            </p>
 
                             <img className="relative z-10 max-w-xs mx-auto -mb-16 md:hidden" src="https://cdn.rareblocks.xyz/collection/celebration/images/contact/4/curve-line-mobile.svg" alt="" />
-
                             <img className="hidden w-full translate-x-24 translate-y-8 md:block" src="https://cdn.rareblocks.xyz/collection/celebration/images/contact/4/curve-line.svg" alt="" />
                         </div>
 
@@ -45,73 +89,75 @@ const Contacts: React.FC = () => {
                             </div>
 
                             <blockquote className="mt-6">
-                                <p className="text-lg leading-relaxed text-white">You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change and click save.</p>
+                                <p className="text-lg leading-relaxed text-slate-700">You made it so simple. This site is so much faster and easier to work with than my old site. I just choose the page, make the change and click save.</p>
                             </blockquote>
 
                             <div className="flex items-center mt-8">
-                                <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="https://cdn.rareblocks.xyz/collection/celebration/images/contact/4/avatar.jpg" alt="" />
+                                <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="/images/member1.jpeg" alt='Eric Niyongira at Consult Solutions' />
                                 <div className="ml-4">
-                                    <p className="text-base font-semibold text-white">Jenny Wilson</p>
-                                    <p className="mt-px text-sm text-gray-400">Product Designer</p>
+                                    <p className="text-base font-semibold text-slate-700">Eric NIYONGIRA</p>
+                                    <p className="mt-px text-sm text-gray-400">Research Officer</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div className="lg:pl-12">
-                        <div className="overflow-hidden bg-white rounded-md">
+                        <div className="overflow-hidden bg-white rounded-lg border border-gray-200">
                             <div className="p-6 sm:p-10">
-                                <h3 className="text-3xl font-semibold text-black">Get a free quote</h3>
-                                <p className="mt-4 text-base text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</p>
+                                <h3 className="text-3xl font-semibold text-black">Get a Free Quote Today!</h3>
+                                <p className="mt-4 text-base text-gray-600">
+                                    Unlock the potential of your business with our expert solutions. Contact us now and take the first step towards success.
+                                </p>
 
-                                <form action="#" method="POST" className="mt-4">
-                                    <div className="space-y-6">
-                                        <div>
-                                            <label className="text-base font-medium text-gray-900"> Your name </label>
-                                            <div className="mt-2.5 relative">
-                                                <input
-                                                    type="text"
-                                                    name=""
-                                                    id=""
-                                                    placeholder="Enter your full name"
-                                                    className="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-[#03783d] focus:border-[#03783d] caret-[#03783d]"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <label className="text-base font-medium text-gray-900"> Email address </label>
-                                            <div className="mt-2.5 relative">
-                                                <input
-                                                    type="text"
-                                                    name=""
-                                                    id=""
-                                                    placeholder="Enter your full name"
-                                                    className="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-[#03783d] focus:border-[#03783d] caret-[#03783d]"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <label className="text-base font-medium text-gray-900"> Project brief </label>
-                                            <div className="mt-2.5 relative">
-                                                <textarea
-                                                    name=""
-                                                    id=""
-                                                    placeholder="Enter your project brief"
-                                                    className="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md resize-y focus:outline-none focus:ring-[#03783d] focus:border-[#03783d] caret-[#03783d]"
-                                                    rows={4}
-                                                ></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <button type="submit" className="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-primary border border-transparent rounded-md focus:outline-none hover:bg-orange-600 focus:bg-orange-600">
-                                                Get Free Quote
-                                            </button>
+                                <div className="space-y-6 mt-10">
+                                    <div>
+                                        <label className="text-base font-medium text-gray-900"> Your name </label>
+                                        <div className="mt-2.5 relative">
+                                            <input
+                                                type="text"
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                placeholder="Enter your full name"
+                                                className="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-[#03783d] focus:border-[#03783d] caret-[#03783d]"
+                                            />
                                         </div>
                                     </div>
-                                </form>
+
+                                    <div>
+                                        <label className="text-base font-medium text-gray-900"> Email address </label>
+                                        <div className="mt-2.5 relative">
+                                            <input
+                                                type="text"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                placeholder="Enter your full name"
+                                                className="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-[#03783d] focus:border-[#03783d] caret-[#03783d]"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="text-base font-medium text-gray-900"> Short Message </label>
+                                        <div className="mt-2.5 relative">
+                                            <textarea
+                                                value={message}
+                                                onChange={(e) => setMessage(e.target.value)}
+                                                placeholder="Enter your message"
+                                                className="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md resize-y focus:outline-none focus:ring-[#03783d] focus:border-[#03783d] caret-[#03783d]"
+                                                rows={4}
+                                            ></textarea>
+                                        </div>
+                                    </div>
+
+                                    {!isLoading && <div>
+                                        <button onClick={handleSubmit} type="submit" className="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-primary border border-transparent rounded-md focus:outline-none hover:bg-primary/90 focus:bg-primary/80">
+                                            Get Free Quote
+                                        </button>
+                                    </div>}
+
+                                    {isLoading && <div className='mr-3'> <FetchLoader /> </div>}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -146,19 +192,22 @@ const Contacts: React.FC = () => {
                         </div>
 
                         <blockquote className="mt-6">
-                            <p className="text-lg leading-relaxed text-white">You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change and click save.</p>
+                            <p className="text-lg leading-relaxed text-white">You made it so simple. This site is so much faster and easier to work with than my old site. I just choose the page, make the change and click save.</p>
                         </blockquote>
 
                         <div className="flex items-center mt-8">
-                            <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="https://cdn.rareblocks.xyz/collection/celebration/images/contact/4/avatar.jpg" alt="" />
+                            <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="/images/member1.jpeg" alt='Eric Niyongira at Consult Solutions' />
                             <div className="ml-4">
-                                <p className="text-base font-semibold text-white">Jenny Wilson</p>
-                                <p className="mt-px text-sm text-gray-400">Product Designer</p>
+                                <p className="text-base font-semibold text-white">Eric NIYONGIRA</p>
+                                <p className="mt-px text-sm text-gray-400">Research Officer</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Alert Message */}
+            <AlertMessage message={alertMessage} type={alertType} />
         </section>
     );
 };

@@ -183,7 +183,7 @@ const Listings: React.FC = () => {
                     </div>
 
                     {/* Listing */}
-                    <div className='mt-10'>
+                    {cars.length > 0 && <div className='mt-10'>
                         <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">
                             {isLoading && (<FetchLoader />)}
                             
@@ -191,7 +191,12 @@ const Listings: React.FC = () => {
                                 <CarPostingCard key={index} car={item} />
                             ))}
                         </div>
-                    </div>
+                    </div>}
+
+                    {(cars.length === 0) && <div className='flex flex-col items-center justify-center mt-10'>
+                        <img src="/images/empty-pana.svg" alt="" className='w-80' />
+                        <span className='font-bold text-slate-400'>No Search Result Found.</span>
+                    </div>}
                 </div>
 
                 {/* Filter By Condition */}

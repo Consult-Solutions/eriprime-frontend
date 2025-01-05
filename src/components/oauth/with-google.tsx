@@ -49,7 +49,7 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading }) => {
                 setAlertMessage(response.data.message);
                 setAlertType('success');
 
-                navigate('/dashboard');
+                navigate('/cars');
             }).catch((error) => {
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');

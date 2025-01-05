@@ -19,7 +19,7 @@ const Signup: React.FC = () => {
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
-        if (isAuthenticated) navigate('/dashboard');
+        if (isAuthenticated) navigate('/cars');
     }, [isAuthenticated, navigate]);
 
     const [fullName, setFullName] = useState('');

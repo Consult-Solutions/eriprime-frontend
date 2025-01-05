@@ -20,7 +20,7 @@ const PriceRangeInput: React.FC<PriceRangeInputProps> = ({ price, setPrice }) =>
                     max="1000000000"
                     value={price}
                     onChange={handleChange}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                 />
                 <span className="ml-4 text-sm font-bold text-slate-700">{`${new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(price))}`}</span>
             </div>

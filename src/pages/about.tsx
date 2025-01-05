@@ -21,8 +21,8 @@ const About: React.FC = () => {
                             <div className="absolute -bottom-10 -left-16">
                                 <div className="bg-yellow-300">
                                     <div className="px-8 py-10">
-                                        <span className="block text-4xl font-bold text-black lg:text-5xl"> 53% </span>
-                                        <span className="block mt-2 text-base leading-tight text-black"> High Conversions<br />Everything </span>
+                                        <span className="block text-4xl font-bold text-black lg:text-5xl"> 50% </span>
+                                        <span className="block mt-2 text-base leading-tight text-black"> Low Price Rate <br />On Everything </span>
                                     </div>
                                 </div>
                             </div>

@@ -33,8 +33,8 @@ const Stepper: React.FC<StepperProps> = ({ steps, currentStep, onNext, onPreviou
                         type="button"
                         onClick={onNext}
                         disabled={currentStep === steps.length - 1}
-                        className="bg-blue-500 hover:bg-blue-700 flex items-center text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
-                        <span className='mr-2'>Next</span>
+                        className="bg-primary hover:bg-primary flex items-center text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+                        <span className='mr-2'>Continue</span>
                         <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07M3.5 12h16.83"></path></svg></span>
                     </button>
                 )}

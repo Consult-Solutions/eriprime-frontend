@@ -79,6 +79,11 @@ const BaseTable: React.FC<BaseTableProps> = ({ title, headers, data, itemsPerPag
                         </tbody>
                     </table>
                 </div>
+
+                {(paginatedData.length === 0) && <div className='flex flex-col items-center justify-center my-10'>
+                        <img src="/images/empty-cuate.svg" alt="" className='w-80' />
+                        <span className='font-bold text-slate-400'>No car posted Yet.</span>
+                </div>}
                 
                 {/* Paginations */}
                 {data && <div className="flex justify-between items-center mt-4">

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 
 interface AlertMessageProps {
@@ -15,6 +16,8 @@ const AlertMessage: React.FC<AlertMessageProps> = ({ message, type = 'success', 
 
             const timer = setTimeout(() => {
                 setVisible(false);
+                message = '';
+                type = 'error';
             }, duration);
 
             return () => clearTimeout(timer);
