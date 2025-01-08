@@ -14,6 +14,11 @@ const NavBar: React.FC = () => {
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [responsiveNavOpen, setResponsiveNavOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
 
     const handleLogout = () => {
         try {
@@ -54,7 +59,7 @@ const NavBar: React.FC = () => {
     return (
         <header className="bg-white lg:pb-0 border-b border-gray-200">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <nav className="flex items-center justify-between h-16 lg:h-20 overflow-hidden">
+                <nav className="flex items-center justify-between">
                     <div className="flex-shrink-0">
                         <Link to="/" title="" className="flex items-center space-x-2">
                             <img className="w-12 h-10 lg:h-12 bg-black" src="/images/logo.jpeg" alt="Consult Solutions" />
@@ -71,7 +76,7 @@ const NavBar: React.FC = () => {
                         </svg>
                     </button>
 
-                    <div className="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10">
+                    <div className="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10 overflow-hidden h-15 lg:h-20">
                         <NavLink to="/" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
                             {({ isActive }) => (
                                 <>
@@ -133,29 +138,32 @@ const NavBar: React.FC = () => {
                                     </>)}
                             </NavLink>
                         )}
+                    </div>
 
+                    <div className='ml-5'>
                         {isAuthenticated && (
-                            <NavLink to="#" onClick={openModal} className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
-                                {({ isActive }) => (
-                                    <>
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8.9 7.56c.31-3.6 2.16-5.07 6.21-5.07h.13c4.47 0 6.26 1.79 6.26 6.26v6.52c0 4.47-1.79 6.26-6.26 6.26h-.13c-4.02 0-5.87-1.45-6.2-4.99"></path><g opacity=".4"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 12H3.62M5.85 8.65L2.5 12l3.35 3.35"></path></g></svg>
-                                        </span>
-                                        <span className='ml-2'>Logout</span>
-                                    </>)}
-                            </NavLink>
-                        )}
-
-                        {isAuthenticated && (
-                            <Link to="/cars" title="" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
-                                <div className="flex items-center gap-4">
-                                    <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
-                                    <div className="font-medium dark:text-white">
-                                        <div className='text-slate-700 capitalize'>{user.name}</div>
-                                        <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                            <nav className="relative">
+                                <Link to="/cars" title="" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                                    <div className="flex items-center gap-4 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer">
+                                        <img className="w-8 h-8 rounded-lg object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
+                                        <span onClick={toggleDropdown}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8.47 10.74L12 14.26l3.53-3.52" opacity=".4"></path></svg></span>
                                     </div>
-                                </div>
-                            </Link>
+                                </Link>
+                    
+                                {isDropdownOpen && (
+                                    <div className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-md shadow-lg z-20">
+                                        <div className="flex items-center gap-4 px-3 py-4">
+                                            <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
+                                            <div className="font-medium dark:text-white">
+                                                <div className='text-slate-700 capitalize'>{user.name}</div>
+                                                <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                                            </div>
+                                        </div>
+                                        <Link to="/cars" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
+                                        <NavLink to="#" onClick={openModal} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</NavLink>
+                                    </div>
+                                )}
+                            </nav>
                         )}
                     </div>
 

@@ -84,14 +84,13 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                                     <div className="mr-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.15 2v20" stroke="#555555" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".34" d="M5.15 4h11.2c2.7 0 3.3 1.5 1.4 3.4l-1.2 1.2c-.8.8-.8 2.1 0 2.8l1.2 1.2c1.9 1.9 1.2 3.4-1.4 3.4H5.15" stroke="#555555" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                                     </div>
-                                    <p className="font-semibold text-sm text-slate-700">{car.condition}</p>
+                                    <p className="font-semibold text-sm text-slate-700 uppercase">{car.condition}</p>
                                 </a>
                             </div>
                         </div>
                         <div className='mt-5'>
                             <Link to={`/cars/${car._id}`} className="inline-flex items-center justify-center rounded bg-primary px-3 py-1 font-medium text-sm tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
                                 <span>Read More</span>
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg> */}
                             </Link>
                         </div>
                     </div>
