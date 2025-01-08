@@ -72,7 +72,7 @@ export const TRANSMISSION_OPTIONS = [
 export const FUELTYPE_OPTIONS = [
     { value: '', label: 'Select Fuel Type' },
     { value: 'petrol', label: 'Petrol' },
-    { value: 'iesel', label: 'Diesel' },
+    { value: 'diesel', label: 'Diesel' },
     { value: 'electric', label: 'Electric' },
     { value: 'hybrid', label: 'Hybrid' },
     { value: 'hydrogen', label: 'Hydrogen' }
