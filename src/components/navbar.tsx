@@ -59,7 +59,7 @@ const NavBar: React.FC = () => {
     return (
         <header className="bg-white lg:pb-0 border-b border-gray-200">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <nav className="flex items-center justify-between h-16 lg:h-20">
+                <nav className="flex items-center justify-between">
                     <div className="flex-shrink-0">
                         <Link to="/" title="" className="flex items-center space-x-2">
                             <img className="w-12 h-10 lg:h-12 bg-black" src="/images/logo.jpeg" alt="Consult Solutions" />
@@ -76,7 +76,7 @@ const NavBar: React.FC = () => {
                         </svg>
                     </button>
 
-                    <div className="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10">
+                    <div className="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10 overflow-hidden h-15 lg:h-20">
                         <NavLink to="/" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
                             {({ isActive }) => (
                                 <>
@@ -138,13 +138,15 @@ const NavBar: React.FC = () => {
                                     </>)}
                             </NavLink>
                         )}
+                    </div>
 
+                    <div className='ml-5'>
                         {isAuthenticated && (
                             <nav className="relative">
                                 <Link to="/cars" title="" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
-                                    <div className="flex items-center gap-4 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer" onClick={toggleDropdown}>
+                                    <div className="flex items-center gap-4 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer">
                                         <img className="w-8 h-8 rounded-lg object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
-                                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#697689" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" strokeWidth="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path stroke="#697689" stroke-linecap="round" stroke-linejoin="round" strokeWidth="1.5" d="M8.47 10.74L12 14.26l3.53-3.52" opacity=".4"></path></svg></span>
+                                        <span onClick={toggleDropdown}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path stroke="#697689" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8.47 10.74L12 14.26l3.53-3.52" opacity=".4"></path></svg></span>
                                     </div>
                                 </Link>
                     

@@ -61,7 +61,6 @@ export const CONDITION_OPTIONS = [
     { value: '', label: 'Select Condition' },
     { value: 'new', label: 'New' },
     { value: 'used', label: 'Used' },
-    { value: 'damaged', label: 'Damaged' },
 ];
 
 export const TRANSMISSION_OPTIONS = [

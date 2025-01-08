@@ -117,6 +117,10 @@ const Cars: React.FC = () => {
             formData.append('transmission', car.transmission);
             formData.append('fuel_type', car.fuel_type);
             formData.append('status', car.status);
+            formData.append('seats', car.seats.toString());
+            formData.append('autonomy', car.autonomy);
+            formData.append('color', car.color);
+            formData.append('features', JSON.stringify(car.features));
 
             // Append images array
             if (car.images && car.images.length > 0) {
@@ -173,6 +177,10 @@ const Cars: React.FC = () => {
             formData.append('transmission', car.transmission);
             formData.append('fuel_type', car.fuel_type);
             formData.append('status', car.status);
+            formData.append('seats', car.seats.toString());
+            formData.append('autonomy', car.autonomy);
+            formData.append('color', car.color);
+            formData.append('features', JSON.stringify(car.features));
 
             // Append images array
             if (car.images && car.images.length > 0) {
