@@ -182,8 +182,6 @@ const CarDetails: React.FC = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         <div>
                             <div className="relative overflow-hidden">
-                                <span className="font-semibold uppercase text-sm text-white inline-block py-1 px-2 leading-none absolute top-3  z-10 right-3 bg-orange">Sale</span>
-
                                 <div>
                                     <div className="gallery mb-6">
                                         <div className="swiper-container swiper-initialized swiper-horizontal swiper-pointer-events">
