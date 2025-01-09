@@ -43,17 +43,17 @@ const Listings: React.FC = () => {
         setTransmissionFilter('');
         setLocationFilter('');
         setFuelFilter('');
-        getCars();
+        getCars(9);
     }
 
     /**
      * Fetches the cars
      * @returns void
      */
-    const getCars = async () => {
+    const getCars = async (limit = 50) => {
         const params: any = {
             direction: 'desc',
-            limit: 12,
+            limit: limit,
         };
 
         if (priceFilter !== 0) params.price = priceFilter;
@@ -89,10 +89,16 @@ const Listings: React.FC = () => {
      * @returns void
      */
     const getNewCars = async () => {
+        const params: any = {
+            condition: 'new',
+            direction: 'desc',
+            limit: 8,
+        };
+
         setIsFetchingNewCar(true);
         
         try {
-            api.get('/cars/approved?condition=new&direction=desc&orderBy=createdAt').then((response: any) => {
+            api.get('/cars/approved', { params }).then((response: any) => {
                 setAutoCars(response.data.data);
                 setIsFetchingNewCar(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
@@ -112,10 +118,16 @@ const Listings: React.FC = () => {
      * @returns void
      */
     const getAutoCars = async () => {
+        const params: any = {
+            transmission: 'automatic',
+            direction: 'desc',
+            limit: 8,
+        };
+
         setIsFetchingAutoCar(true);
         
         try {
-            api.get('/cars/approved?transmission=automatic&direction=desc').then((response: any) => {
+            api.get('/cars/approved', { params }).then((response: any) => {
                 setNewCars(response.data.data);
                 setIsFetchingAutoCar(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
@@ -135,7 +147,7 @@ const Listings: React.FC = () => {
      * @returns void
      */
     useEffect(() => {
-        getCars();
+        getCars(9);
         getNewCars();
         getAutoCars();
     }, []);
@@ -274,7 +286,7 @@ const Listings: React.FC = () => {
 
                             {/* Apply Filter */}
                             <div>
-                                <button onClick={getCars} className="bg-primary text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
+                                <button onClick={() => getCars(9)} className="bg-primary text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
                                     Apply Filter
                                 </button>
                                 <button onClick={clearFilter} className="bg-white text-primary px-4 py-2 rounded-lg text-sm focus:outline-none ml-2 border border-gray-200">
