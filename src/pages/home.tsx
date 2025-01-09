@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         try {
             api.get(`/cars/approved`, {
                     params: {
-                        limit: 8,
+                        limit: 12,
                         orderBy: 'createdAt',
                         direction: 'desc',
                     },
@@ -71,7 +71,7 @@ const Home: React.FC = () => {
 
             <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
                 <div className="text-left mb-5">
-                    <h3 className="text-xl font-bold leading-loose text-slate-700 sm:text-2xl lg:text-4xl capitalize">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
+                    <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
                     <p className="max-w-xl text-base leading-relaxed text-gray-600 mt-6">
                         Find your dream car from our extensive collection. Quality cars for every budget.
                     </p>

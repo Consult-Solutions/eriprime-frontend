@@ -1,5 +1,5 @@
 export const TYPE_OPTIONS = [
-    { value: '', label: 'Select Type' },
+    { value: '', label: 'Select Body Type' },
     { value: 'suv', label: 'SUV' },
     { value: 'sedan', label: 'Sedan' },
     { value: 'truck', label: 'Truck' },
@@ -17,12 +17,6 @@ export const TYPE_OPTIONS = [
     { value: 'microcar', label: 'Microcar', examples: ["Smart Fortwo", "Tata Nano", "Citroën Ami"] },
     { value: 'off_road_vehicle', label: 'Off-Road Vehicle', examples: ["Land Rover Defender", "Jeep Gladiator", "Toyota Land Cruiser"] },
     { value: 'commercial_van', label: 'Commercial Van', examples: ["Ford Transit", "Mercedes-Benz Sprinter", "Ram ProMaster"] }
-];
-
-export const PRICE_OPTIONS = [
-    { value: '', label: 'Select Price' },
-    { value: 'low', label: 'Low to High' },
-    { value: 'high', label: 'High to Low' },
 ];
 
 export const BRAND_OPTIONS = [
