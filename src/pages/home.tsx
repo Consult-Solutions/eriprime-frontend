@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         try {
             api.get(`/cars/approved`, {
                     params: {
-                        limit: 12,
+                        limit: 8,
                         orderBy: 'createdAt',
                         direction: 'desc',
                     },

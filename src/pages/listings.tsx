@@ -43,17 +43,17 @@ const Listings: React.FC = () => {
         setTransmissionFilter('');
         setLocationFilter('');
         setFuelFilter('');
-        getCars();
+        getCars(9);
     }
 
     /**
      * Fetches the cars
      * @returns void
      */
-    const getCars = async () => {
+    const getCars = async (limit = 50) => {
         const params: any = {
             direction: 'desc',
-            limit: 12,
+            limit: limit,
         };
 
         if (priceFilter !== 0) params.price = priceFilter;
@@ -89,10 +89,16 @@ const Listings: React.FC = () => {
      * @returns void
      */
     const getNewCars = async () => {
+        const params: any = {
+            condition: 'new',
+            direction: 'desc',
+            limit: 8,
+        };
+
         setIsFetchingNewCar(true);
         
         try {
-            api.get('/cars/approved?condition=new&direction=desc&orderBy=createdAt').then((response: any) => {
+            api.get('/cars/approved', { params }).then((response: any) => {
                 setAutoCars(response.data.data);
                 setIsFetchingNewCar(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
@@ -112,10 +118,16 @@ const Listings: React.FC = () => {
      * @returns void
      */
     const getAutoCars = async () => {
+        const params: any = {
+            transmission: 'automatic',
+            direction: 'desc',
+            limit: 8,
+        };
+
         setIsFetchingAutoCar(true);
         
         try {
-            api.get('/cars/approved?transmission=automatic&direction=desc').then((response: any) => {
+            api.get('/cars/approved', { params }).then((response: any) => {
                 setNewCars(response.data.data);
                 setIsFetchingAutoCar(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
@@ -135,7 +147,7 @@ const Listings: React.FC = () => {
      * @returns void
      */
     useEffect(() => {
-        getCars();
+        getCars(9);
         getNewCars();
         getAutoCars();
     }, []);
@@ -155,10 +167,10 @@ const Listings: React.FC = () => {
 
             <section className=''>
                 {/* Filter */}
-                <div className='py-10 relative px-4 md:px-24 lg:px-8' style={{ backgroundImage: 'url(https://www.explorerwandatours.com/wp-content/uploads/2019/08/Kigali.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                <div className='py-10 md:py-19 relative px-4 md:px-28 lg:px-28 bg-center bg-cover bg-no-repeat' style={{ backgroundImage: 'url(https://visitrwanda.com/wp-content/uploads/fly-images/1210/Visit-Rwanda-Kigali-Centre-Roads-1920x1281.jpg)' }}>
                     <div className="absolute inset-0 bg-black opacity-20"></div>
                     
-                    <div className="px-4 py-2 mx-auto relative z-50 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-7 bg-white bg-opacity-90 rounded-lg">
+                    <div className="px-4 py-2 mx-auto relative z-50 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-2 lg:px-8 lg:py-7 bg-white bg-opacity-90 rounded-lg">
                         {/* Title */}
                         <div className='flex flex-wrap gap-4 items-center justify-center mb-5'>
                             <span className='text-slate-700 text-2xl font-bold text-center'>Find Your Dream Car Across the City</span>
@@ -274,7 +286,7 @@ const Listings: React.FC = () => {
 
                             {/* Apply Filter */}
                             <div>
-                                <button onClick={getCars} className="bg-primary text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
+                                <button onClick={() => getCars(9)} className="bg-primary text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
                                     Apply Filter
                                 </button>
                                 <button onClick={clearFilter} className="bg-white text-primary px-4 py-2 rounded-lg text-sm focus:outline-none ml-2 border border-gray-200">
