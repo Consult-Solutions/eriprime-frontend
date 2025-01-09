@@ -11,9 +11,10 @@ const PriceRangeInput: React.FC<PriceRangeInputProps> = ({ price, setPrice }) =>
     };
 
     return (
-        <div className="flex flex-col items-center">
-            <label className="text-sm font-semibold text-gray-600 mb-2">Price Range:</label>
-            <div className="flex items-center w-full">
+        <div className="flex flex-col items-center w-full">
+            <label className="text-sm font-semibold text-gray-600 mb-2">Price Range: <span className="ml-4 text-sm font-bold text-slate-700">{`${new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(price))}`}</span></label>
+            
+            <div className="w-full">
                 <input
                     type="range"
                     min="0"
@@ -22,7 +23,6 @@ const PriceRangeInput: React.FC<PriceRangeInputProps> = ({ price, setPrice }) =>
                     onChange={handleChange}
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                 />
-                <span className="ml-4 text-sm font-bold text-slate-700">{`${new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(price))}`}</span>
             </div>
         </div>
     );
