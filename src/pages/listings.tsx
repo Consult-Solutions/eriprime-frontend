@@ -21,7 +21,7 @@ const Listings: React.FC = () => {
     const [newCars, setNewCars] = useState<any[]>([]);
     const [autoCars, setAutoCars] = useState<any[]>([]);
 
-    const [priceFilter, setPriceFilter] = useState<number>(0);
+    const [priceFilter, setPriceFilter] = useState<number[]>([1000000, 100000000]);
     const [typeFilter, setTypeFilter] = useState('');
     const [brandFilter, setBrandFilter] = useState('');
     const [conditionFilter, setConditionFilter] = useState('');
@@ -35,7 +35,7 @@ const Listings: React.FC = () => {
     };
 
     const clearFilter = () => {
-        setPriceFilter(0);
+        setPriceFilter([1000000, 100000000]);
         setTypeFilter('');
         setBrandFilter('');
         setConditionFilter('');
@@ -48,15 +48,16 @@ const Listings: React.FC = () => {
 
     /**
      * Fetches the cars
+     * 
      * @returns void
      */
     const getCars = async (limit = 50) => {
         const params: any = {
             direction: 'desc',
             limit: limit,
+            price: JSON.stringify(priceFilter),
         };
 
-        if (priceFilter !== 0) params.price = priceFilter;
         if (typeFilter !== '') params.type = typeFilter;
         if (brandFilter !== '') params.make = brandFilter;
         if (conditionFilter !== '') params.condition = conditionFilter;
