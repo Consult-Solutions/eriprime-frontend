@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
-        if (isAuthenticated) navigate('/cars');
+        if (isAuthenticated) navigate('/user/dashboard');
     }, [isAuthenticated, navigate]);
 
     const [email, setEmail] = useState('');

@@ -24,7 +24,7 @@ interface Car {
     mileage: string;
     category: { name: string };
     condition: string;
-    seller: { name: string };
+    seller: { fullname: string, email: string, phone: string };
     features: any[];
     autonomy: string;
     seats: string;
@@ -222,7 +222,7 @@ const CarDetails: React.FC = () => {
                                 <div className="font-bold">{car && car.transmission} - {car && car.fuel_type}</div>
                             </div>
 
-                            <div className="mb-3"><span>Dealler:</span> <span className="font-semibold">{ car.seller.name }</span></div>
+                            <div className="mb-3"><span>Dealler:</span> <span className="font-semibold">{ car.seller?.fullname }</span></div>
                             <div className="h-0 mt-6 mb-4 border-t-2 border-gray-200 border-dashed"></div>
                             <p className="mb-8">{car && car.description}</p>
 

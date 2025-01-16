@@ -94,135 +94,6 @@ const UserDashboard: React.FC = () => {
     }, [token]);
 
     /**
-     * Submit Car
-     * 
-     * @param car 
-     */
-    const handleSubmitCar = (car: any) => {        
-        setIsloading(true);
-
-        try {
-            const formData = new FormData();
-            
-            formData.append('title', car.title);
-            formData.append('car_model', car.car_model);
-            formData.append('year', car.year.toString());
-            formData.append('description', car.description);
-            formData.append('category', car.category);
-            formData.append('location', car.location);
-            formData.append('make', car.make);
-            formData.append('mileage', car.mileage.toString());
-            formData.append('price', car.price.toString());
-            formData.append('condition', car.condition);
-            formData.append('transmission', car.transmission);
-            formData.append('fuel_type', car.fuel_type);
-            formData.append('status', car.status);
-            formData.append('seats', car.seats.toString());
-            formData.append('autonomy', car.autonomy);
-            formData.append('color', car.color);
-            formData.append('features', JSON.stringify(car.features));
-
-            // Append images array
-            if (car.images && car.images.length > 0) {
-                car.images.forEach((image: File) => {
-                    formData.append("images", image);
-                });
-            }
-
-            api.post('/cars', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json'
-                }
-            }).then((response: any) => {
-                setAlertMessage('Car added successfully.');
-                setAlertType('success');
-                setIsloading(false);
-                handleCloseModal();
-                fetchCars();
-            }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
-                setAlertType('error');
-                setIsloading(false);
-            })
-        } catch (error) {
-            setAlertMessage('An error occurred. Please try again.');
-            setAlertType('error');
-            setIsloading(false);
-        }
-    };
-
-    /**
-     * Update Car
-     * 
-     * @param car 
-     */
-    const handleUpdateCar = (car: any, id: string) => {
-        setIsloading(true);
-
-        try {
-            const formData = new FormData();
-            
-            formData.append('title', car.title);
-            formData.append('car_model', car.car_model);
-            formData.append('year', car.year.toString());
-            formData.append('description', car.description);
-            formData.append('category', car.category);
-            formData.append('location', car.location);
-            formData.append('make', car.make);
-            formData.append('mileage', car.mileage.toString());
-            formData.append('price', car.price.toString());
-            formData.append('condition', car.condition);
-            formData.append('transmission', car.transmission);
-            formData.append('fuel_type', car.fuel_type);
-            formData.append('status', car.status);
-            formData.append('seats', car.seats.toString());
-            formData.append('autonomy', car.autonomy);
-            formData.append('color', car.color);
-            formData.append('features', JSON.stringify(car.features));
-
-            // Append images array
-            if (car.images && car.images.length > 0) {
-                car.images.forEach((image: File) => {
-                    formData.append("images", image);
-                });
-            }
-
-            api.post(`/cars/update/${id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json'
-                }
-            }).then((response: any) => {
-                setAlertMessage('Car Updated Successfully.');
-                setAlertType('success');
-                fetchCars();
-                setIsEditing(false);
-                setIsloading(false);
-                setIsModalOpen(false);
-                setCarToUpdate(null);
-            }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
-                setAlertType('error');
-                setIsEditing(false);
-                setIsloading(false);
-                setIsModalOpen(false);
-                setCarToUpdate(null);
-            })
-        } catch (error) {
-            setAlertMessage('An error occurred. Please try again.');
-            setAlertType('error');
-
-            setIsEditing(false);
-            setIsloading(false);
-            setIsModalOpen(false);
-            setCarToUpdate(null);
-        }
-    }
-
-    /**
      * Confurm Delete Car
      * 
      * @param id 
@@ -264,13 +135,12 @@ const UserDashboard: React.FC = () => {
     };
 
     /**
-     *  Handle Form Error
+     *  Handle Callbacks
      * 
      * @param errors 
      */
-    const handleFormError = (errors: any) => {
-        setFormValidation(errors);
-    };
+    const handleFormError = (error: any) => setFormValidation(error);
+    const handleCarSubmit = (response: any) => {}
 
     return (
         <ErrorBoundary>
@@ -290,7 +160,13 @@ const UserDashboard: React.FC = () => {
                 </div>
 
                 {/* Table Data */}
-                <BaseTable title='My Cars Listed' headers={headers} data={cars} itemsPerPage={5} renderRow={renderRow} />
+                <BaseTable 
+                    title='My Cars Listed' 
+                    headers={headers} 
+                    data={cars} 
+                    itemsPerPage={5} 
+                    renderRow={renderRow} 
+                />
 
                 {/* Form for Submitting Cars */}
                 <FormModal isOpen={isModalOpen} onClose={handleCloseModal}>
@@ -298,6 +174,7 @@ const UserDashboard: React.FC = () => {
                         <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.83H8.49C6 2.83 5.45 4.07 5.13 5.59L4 11h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.99 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37H9.44c-1.44 0-1.65.62-1.9 1.37l-.2.6C7.15 21.54 7 22 5.92 22H4.04c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09C2.71 12.23 3 11 5.62 11h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1M12 3v2M10.5 5h3M6 15h3M15 15h3" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
                         <span className='ml-2'>List Your Car in Minutes!</span>
                     </h2>
+
                     <p>Reach potential Buyers with an eye-catching Listing. Fill out the details below to get started</p>
                     
                     {formValidation && (<div className='bg-transparent my-5 flex items-center'>
@@ -307,20 +184,24 @@ const UserDashboard: React.FC = () => {
                     <hr className="my-5 border-gray-200" />
                     
                     <CarForm 
-                        onSubmit={handleSubmitCar} 
-                        onUpdate={handleUpdateCar}
-                        isLoading={isLoading} 
+                        onCallback={handleCarSubmit} 
+                        onFallback={handleFormError}
                         isEditing={isEditing} 
                         initialData={carToUpdate} 
-                        onError={handleFormError} 
                     />
                 </FormModal>
 
                 {/* Alert Message */}
                 <AlertMessage message={alertMessage} type={alertType} />
 
-                {/* Confirm Model */}
-                <ConfirmModel isOpen={isDeleteOpen} onClose={closeDeleteModal} onConfirm={handleDeleteCar}  title='Delete Car' message='Are you sure you want to delete this car?' />
+                {/* Confirm Model for Delete car */}
+                <ConfirmModel 
+                    isOpen={isDeleteOpen} 
+                    onClose={closeDeleteModal} 
+                    onConfirm={handleDeleteCar}  
+                    title='Delete Car' 
+                    message='Are you sure you want to delete this car?' 
+                />
             </div>
         </ErrorBoundary>
     );

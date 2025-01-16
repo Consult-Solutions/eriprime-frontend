@@ -128,7 +128,7 @@ const NavBar: React.FC = () => {
                     </div>
 
                     <div className='ml-5 hidden md:block'>
-                        {isAuthenticated && (
+                        {(isAuthenticated && user) && (
                             <nav className="relative cursor-pointer">
                                 <div className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
                                     <div className="flex items-center gap-4 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer">
@@ -146,8 +146,7 @@ const NavBar: React.FC = () => {
                                                 <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
                                             </div>
                                         </div>
-                                        <Link to="/admin/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Administration</Link>
-                                        <Link to="/user/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
+                                        {user && user.roles.includes('admin') && (<Link to="/admin/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"> Administration</Link> )}                                        <Link to="/user/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
                                         <NavLink to="#" onClick={openModal} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</NavLink>
                                     </div>
                                 )}
@@ -219,7 +218,7 @@ const NavBar: React.FC = () => {
                                 </NavLink>
                             )}
 
-                            {isAuthenticated && (
+                            {isAuthenticated && user && (
                                 <NavLink to="#" onClick={openModal} className={({ isActive }) => `text-base mt-10 relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
                                     {({ isActive }) => (
                                         <>
@@ -231,8 +230,8 @@ const NavBar: React.FC = () => {
                                 </NavLink>
                             )}
 
-                            {isAuthenticated && (
-                                <Link to="/cars" title="" className="text-base font-medium mt-10 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                            {isAuthenticated && user && (
+                                <Link to="/user/dashboard" title="" className="text-base font-medium mt-10 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
                                     <div className="flex items-center gap-4">
                                         <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
                                         <div className="font-medium dark:text-white">

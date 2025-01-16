@@ -1,88 +1,16 @@
 import React, { useState } from 'react';
 import CarForm from '../components/forms/car-form.tsx';
-import api from '../services/api.ts';
-import AlertMessage from '../components/alerts/alert-message.tsx';
 
 const Postcar: React.FC = () => {
-    const [isLoading, setIsloading] = useState(false);    
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [formValidation, setFormValidation] = useState('');
 
     /**
-     * Submit Car
-     * 
-     * @param car 
-     */
-    const handleSubmitCar = (car: any) => {        
-        setIsloading(true);
-
-        try {
-            const formData = new FormData();
-            
-            formData.append('title', car.title);
-            formData.append('car_model', car.car_model);
-            formData.append('year', car.year.toString());
-            formData.append('description', car.description);
-            formData.append('category', car.category);
-            formData.append('location', car.location);
-            formData.append('make', car.make);
-            formData.append('mileage', car.mileage.toString());
-            formData.append('price', car.price.toString());
-            formData.append('condition', car.condition);
-            formData.append('transmission', car.transmission);
-            formData.append('fuel_type', car.fuel_type);
-            formData.append('status', car.status);
-            formData.append('seats', car.seats.toString());
-            formData.append('autonomy', car.autonomy);
-            formData.append('color', car.color);
-            formData.append('features', JSON.stringify(car.features));
-
-            // Append images array
-            if (car.images && car.images.length > 0) {
-                car.images.forEach((image: File) => {
-                    formData.append("images", image);
-                });
-            }
-
-            api.post('/cars', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Accept': 'application/json'
-                }
-            }).then((response: any) => {
-                setAlertMessage('Car added successfully.');
-                setAlertType('success');
-                setIsloading(false);
-            }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
-                setAlertType('error');
-                setIsloading(false);
-            })
-        } catch (error) {
-            setAlertMessage('An error occurred. Please try again.');
-            setAlertType('error');
-            setIsloading(false);
-        }
-    };
-
-    /**
-     * Update Car
-     * 
-     * @param car 
-     */
-    const handleUpdateCar = (car: any, id: string) => {
-        setIsloading(false);
-    }
-
-    /**
-     *  Handle Form Error
+     *  Handle Callbacks
      * 
      * @param errors 
      */
-    const handleFormError = (errors: any) => {
-        setFormValidation(errors);
-    };
+    const handleFormError = (error: any) => setFormValidation(error);
+    const handleCarSubmit = (response: any) => {}
 
     return (
         <section className="bg-white">
@@ -135,8 +63,9 @@ const Postcar: React.FC = () => {
                         </ul>
                         </div>
                     </div>
-                    </div>
+                </div>
 
+                {/* Post Car Form  */}
                 <div className="flex items-center justify-center px-2 py-10 bg-white sm:px-6 lg:px-10 sm:py-16 lg:py-10">
                     <div className="xl:w-full 2xl:max-w-md xl:mx-auto">
                         <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">List Your Car in Minutes!</h2>
@@ -147,19 +76,14 @@ const Postcar: React.FC = () => {
                         </div>)}
 
                         <CarForm 
-                            onSubmit={handleSubmitCar} 
-                            onUpdate={handleUpdateCar}
-                            isLoading={isLoading} 
+                            onCallback={handleCarSubmit} 
+                            onFallback={handleFormError}
                             isEditing={false} 
                             initialData={null} 
-                            onError={handleFormError} 
                         />
                     </div>
                 </div>
             </div>
-
-            {/* Alert Message */}
-            <AlertMessage message={alertMessage} type={alertType} />
         </section>
     );
 }
