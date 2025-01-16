@@ -1,5 +1,5 @@
 export const TYPE_OPTIONS = [
-    { value: '', label: 'Select Body Type' },
+    { value: '', label: 'Select Car Type' },
     { value: 'suv', label: 'SUV' },
     { value: 'sedan', label: 'Sedan' },
     { value: 'truck', label: 'Truck' },
@@ -60,7 +60,9 @@ export const CONDITION_OPTIONS = [
 export const TRANSMISSION_OPTIONS = [
     { value: '', label: 'Select Transmission' },
     { value: 'automatic', label: 'Automatic' },
-    { value: 'manual', label: 'Manual' }
+    { value: 'manual', label: 'Manual' },
+    { value: 'semi automatic', label: 'Semi-Automatic' },
+    { value: 'dual clutch', label: 'Dual Clutch' },
 ];
 
 export const FUELTYPE_OPTIONS = [

@@ -66,7 +66,7 @@ const Login: React.FC = () => {
                 setGlobalAlert('Successfully Logged in', 'success');
                 setLoading(false);
                 
-                navigate('/cars');
+                navigate('/user/dashboard');
             }).catch((error) => {
                 setLoading(false);
                 setAlertMessage('An error occurred. '+error.response.data.message);

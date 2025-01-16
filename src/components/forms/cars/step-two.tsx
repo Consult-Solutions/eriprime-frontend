@@ -18,9 +18,10 @@ interface StepTwoProps {
     description: string;
     setDescription: (value: string) => void;
     getErrorField: (field: string) => string;
+    inEditMode?: boolean;
 }
 
-const StepTwo: React.FC<StepTwoProps> = ({ category, description, location, status, setCategory, setDescription, setLocation, setStatus, getErrorField }) => {
+const StepTwo: React.FC<StepTwoProps> = ({ category, description, location, status, setCategory, setDescription, setLocation, setStatus, getErrorField, inEditMode }) => {
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [categories, setCategories] = useState<{ value: string; label: string }[]>([]);
@@ -66,7 +67,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ category, description, location, stat
         <div>
             {loading ? (<>Fetching Categories...</>) : (
                 <SelectInput
-                    label="Body Type"
+                    label="Car Type"
                     value={category}
                     options={categories}
                     onChange={setCategory}
@@ -77,21 +78,21 @@ const StepTwo: React.FC<StepTwoProps> = ({ category, description, location, stat
 
             <TextInput
                 label="Current Location"
-                placeholder="Eg: Kigal, Rwanda"
+                placeholder="Eg: Kigali, Rwanda"
                 value={location}
                 onChange={setLocation}
                 errorMessage={getErrorField('location')}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
             </TextInput>
 
-            <SelectInput
+            {inEditMode && <SelectInput
                 label="Car Status"
                 value={status}
                 options={CAR_STATUS_OPTIONS}
                 onChange={setStatus}
                 errorMessage={getErrorField('status')}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-            </SelectInput>
+            </SelectInput>}
 
             <TextAreaInput
                 label="Description"

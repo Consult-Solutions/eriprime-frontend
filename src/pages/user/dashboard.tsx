@@ -12,7 +12,7 @@ import FetchLoader from '../../components/loaders/fetching-loader.tsx';
 import CarRow from '../../components/table/car-row.tsx';
 import ConfirmModel from '../../components/models/confirm-model.tsx';
 
-const Cars: React.FC = () => {
+const UserDashboard: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -326,4 +326,4 @@ const Cars: React.FC = () => {
     );
 }
 
-export default Cars;
+export default UserDashboard;

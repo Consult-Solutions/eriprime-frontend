@@ -51,12 +51,12 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onUpdate, isLoading, isEdit
     const [make, setMake] = useState('');
     const [mileage, setMileage] = useState<number | ''>('');
     const [price, setPrice] = useState<number | ''>('');
-    const [autonomy, setAutonomy] = useState('');
+    const [autonomy, setAutonomy] = useState('N/A');
     const [condition, setCondition] = useState('');
     const [transmission, setTransmission] = useState('');
     const [fuel_type, setFuelType] = useState('');
     const [seats, setSeats] = useState(0);
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('available');
     const [images, setImages] = useState<File[]>([]);
     const [features, setFeatures] = useState<string[]>([]);
     const [currentStep, setCurrentStep] = useState(0);
@@ -121,11 +121,9 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onUpdate, isLoading, isEdit
 
         const payload = { title, car_model, year: Number(year), description, category, location, make, mileage: Number(mileage), price: Number(price), condition, transmission, fuel_type, images, status, features, seats, autonomy, color };
 
-        if (isEditing) {
-            onUpdate(payload, initialData._id);
-        } else {
-            onSubmit(payload);
-        }
+        (isEditing) 
+            ? onUpdate(payload, initialData._id)
+            : onSubmit(payload);
 
         resetForm();
     };
@@ -137,7 +135,7 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onUpdate, isLoading, isEdit
     // Steps
     const steps = [
         <StepOne key="step1" getErrorField={getErrorField} name={title} setName={setTitle} model={car_model} setModel={setCarModel} year={year === '' ? 2024 : year} setYear={(value) => setYear(value)} color={color} setColor={setColor} />,
-        <StepTwo key="step2" getErrorField={getErrorField} category={category} description={description} location={location} status={status} setCategory={setCategory} setDescription={setDescription} setLocation={setLocation} setStatus={setStatus} />,
+        <StepTwo key="step2" getErrorField={getErrorField} category={category} description={description} location={location} status={status} setCategory={setCategory} setDescription={setDescription} setLocation={setLocation} setStatus={setStatus} inEditMode={initialData ? true : false} />,
         <StepThree key="step3" getErrorField={getErrorField} make={make} setMake={setMake} mileage={mileage === '' ? 0 : mileage} setMileage={setMileage} price={price === '' ? 0 : price} setPrice={setPrice} autonomy={autonomy} setAutonomy={setAutonomy} />,
         <StepFour key="step4" getErrorField={getErrorField} condition={condition} setCondition={setCondition} transmission={transmission} setTransmission={setTransmission} fuelType={fuel_type} setFuelType={setFuelType} seats={seats} setSeats={setSeats} />,
         <StepFive key="step5" getErrorField={getErrorField} images={images} setImages={setImages} currentImages={initialData ? (initialData.images ?? []) : []} features={features} setFeatures={setFeatures} />,

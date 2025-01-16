@@ -98,9 +98,9 @@ const StepFive: React.FC<StepFiveProps> = ({ images, setImages, currentImages, f
                     {(!features || features.length === 0) && <div className='flex items-center justify-center text-sm p-3'>
                         <span className='text-gray-500 font-bold'>No Features Added</span>
                     </div>}
-                    {features && features.map((feature, index) => (
+                    {features && [...features].reverse().map((feature, index) => (
                         <div key={index} className="flex items-center justify-between bg-gray-100 py-2 px-3 rounded mb-2 text-sm">
-                            <span>{feature}</span>
+                            <span className='capitalize'>{index + 1}. {feature}</span>
                             <button
                                 type="button"
                                 className="text-red-500"

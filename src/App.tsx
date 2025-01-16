@@ -11,12 +11,9 @@ import Signup from './pages/auth/signup.tsx';
 import VerifyEmail from './pages/auth/verify-email.tsx';
 import ForgotPassword from './pages/auth/forgot-password.tsx';
 import ResetPassword from './pages/auth/reset-password.tsx';
-import Dashboard from './pages/admin/dashboard.tsx';
-import Cars from './pages/admin/cars.tsx';
-import Account from './pages/admin/account.tsx';
+import UserDashboard from './pages/user/dashboard.tsx';
 import Reports from './pages/admin/reports.tsx';
 import Users from './pages/admin/users.tsx';
-import Activities from './pages/admin/activities.tsx';
 import Subscribers from './pages/admin/subscribers.tsx';
 import NotFound from './pages/not-found.tsx';
 import CustomSupport from './pages/privacy/custom-support.tsx';
@@ -32,12 +29,15 @@ import CarDetails from './pages/car-details.tsx';
 
 // Layouts
 import AppLayout from './layouts/app.tsx';
-import AdminLayout from './layouts/admin.tsx';
+import AuthUserLayout from './layouts/user.tsx';
+import AuthAdminLayout from './layouts/admin.tsx';
 
 // Contexts
 import { AlertProvider } from './contexts/AlertContext.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Postcar from './pages/car-post.tsx';
+import AdminDashboard from './pages/admin/dashboard.tsx';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'NoAuth';
 
@@ -51,9 +51,11 @@ function App() {
               <Routes>
                 <Route path="/" element={<AppLayout />}>
                   <Route index element={<Home />} />
-                  <Route path="listings" element={<Listings />} />
                   <Route path="about-us" element={<About />} />
                   <Route path="contact-us" element={<Contacts />} />
+
+                  <Route path='postcar' element={<Postcar />} />
+                  <Route path="listings" element={<Listings />} />
                   <Route path='cars/:id' element={<CarDetails />} />
 
                   {/* Authentication Routes */}
@@ -65,14 +67,17 @@ function App() {
 
                   {/* Dashboard Routes */}
                   <Route path="/" element={<ProtectedRoute />}>
-                    <Route path="/" element={<AdminLayout />}>
-                      <Route path="dashboard" element={<Dashboard />} />
-                      <Route path="cars" element={<Cars />} />
-                      <Route path="account" element={<Account />} />
-                      <Route path="reports" element={<Reports />} />
+                    {/* User Dashboard */}
+                    <Route path="/user" element={<AuthUserLayout />}>
+                      <Route path="dashboard" element={<UserDashboard />} />
+                    </Route>
+
+                    {/* Administration Dashboard */}
+                    <Route path="/admin" element={<AuthAdminLayout />}>
+                      <Route path="dashboard" element={<AdminDashboard />} />
                       <Route path="users" element={<Users />} />
-                      <Route path="activities" element={<Activities />} />
                       <Route path="subscribers" element={<Subscribers />} />
+                      <Route path="reports" element={<Reports />} />
                     </Route>
                   </Route>
 

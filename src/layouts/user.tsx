@@ -1,14 +1,13 @@
 import React from 'react';
 import MainContents from '../components/admin/main-content.tsx';
-import SideBar from '../components/admin/side-bar.tsx';
 import { Outlet } from 'react-router-dom';
 
-const AuthAdminLayout: React.FC = () => {
+const AuthUserLayout: React.FC = () => {
     return (
         <div className='bg-slate-50'>
             <div className="flex overflow-hidden px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 {/* Side Base */}
-                <SideBar />
+                {/* <SideBar /> */}
 
                 {/* Main Content */}
                 <MainContents>
@@ -19,4 +18,4 @@ const AuthAdminLayout: React.FC = () => {
     );
 };
 
-export default AuthAdminLayout;
+export default AuthUserLayout;
