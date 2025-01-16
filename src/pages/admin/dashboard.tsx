@@ -62,11 +62,16 @@ const AdminDashboard: React.FC = () => {
     const handleFormError = (error: any) => setFormValidation(error);
     const handleCarSubmit = (response: any) => {}
 
+    /**
+     * Fetch All Cars
+     * 
+     * @returns
+     */
     const fetchAllCars = async () => {
         try {
             setIsFetching(true);
 
-            api.get('/cars', {
+            api.get('/cars/registered', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -118,6 +123,37 @@ const AdminDashboard: React.FC = () => {
         }
     };
 
+    /**
+     * Handle Car Approval
+     * 
+     * @param car 
+     */
+    const handleCarApproval = (car: any) => () => {
+        setIsloading(true);
+
+        try {
+            api.post(`/cars/approve/${car._id}`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                },
+            }).then(() => {
+                setAlertMessage('Car approved successfully.');
+                setAlertType('success');
+                setIsloading(false);
+                fetchAllCars();
+            }).catch((error) => {
+                setAlertMessage('An error occurred. Something went wrong');
+                setAlertType('error');
+                setIsloading(false);
+            });
+        } catch (error) {
+            setAlertMessage('An error occurred. ' + (error.response?.data?.message || 'Something went wrong'));
+            setAlertType('error');
+            setIsloading(false);
+        }
+    }
+
     useEffect(() => {
         if (token) 
             fetchAllCars();
@@ -151,11 +187,11 @@ const AdminDashboard: React.FC = () => {
                     { key: 'model', label: 'Model', sortable: true },
                     { key: 'year', label: 'Year', sortable: true },
                     { key: 'transmission', label: 'Transmission' },
-                    { key: 'ecoFriendly', label: 'Eco Friendly' },
+                    { key: 'verified', label: 'Verified' },
                     { key: 'price', label: 'Price', sortable: true },
                     { key: 'status', label: 'Status' },
                     { key: 'actions', label: 'Actions' },
-                ]} renderRow={(index: number, car: any) => <CarRow index={index} car={car} deleteCar={openDeleteModal} updateCar={handleUpdateCarForm} />} />
+                ]} renderRow={(index: number, car: any) => <CarRow index={index} car={car} deleteCar={openDeleteModal} updateCar={handleUpdateCarForm} approveCar={handleCarApproval} />} />
 
                 {/* Form for Submitting Cars */}
                 <FormModal isOpen={isModalOpen} onClose={handleCloseModal}>
