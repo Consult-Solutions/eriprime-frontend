@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import CarPostingSection from '../components/car-posting-section.tsx';
 import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
-import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import CarPostingCard from '../components/car-posting-card.tsx';
 import { BRAND_OPTIONS, CONDITION_OPTIONS, FUELTYPE_OPTIONS, TRANSMISSION_OPTIONS, TYPE_OPTIONS } from '../services/constants.ts';   
 import PriceRangeInput from '../components/inputs/PriceRangeInput.tsx';
 import MetaTags from '../components/MetaTags.tsx';
+import CardListingSkeleton from '../components/cards/CardListingSkeleton.tsx';
 
 const Listings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -299,11 +299,12 @@ const Listings: React.FC = () => {
 
                     {/* Listing */}
                     <div className="md:ml-2 w-full mt-5 md:mt-0">
+                        {/* Skeleton */}
+                        {isLoading && <CardListingSkeleton numberOfCards={6} numberOfColumns={3} />}
+
                         {/* Listing */}
-                        {cars.length > 0 && <div className=''>
-                            <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
-                                {isLoading && (<FetchLoader />)}
-                                
+                        {(!isLoading && cars.length > 0) && <div className=''>
+                            <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">                                
                                 {!isLoading && cars.map((item, index) => (
                                     <CarPostingCard key={index} car={item} />
                                 ))}

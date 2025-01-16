@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import CarPostingCard from './car-posting-card.tsx';
-import FetchLoader from './loaders/fetching-loader.tsx';
+import CardListingSkeleton from './cards/CardListingSkeleton.tsx';
 
 interface CarPostingSectionProps {
     title: string;
@@ -19,9 +19,10 @@ const CarPostingSection: React.FC<CarPostingSectionProps> = ({ title, descriptio
             </div>
 
             <div className='mt-4'>
-                <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">
-                    {isLoading && (<FetchLoader />)}
-                    
+                {/* Skeleton */}
+                {isLoading && <CardListingSkeleton numberOfCards={8} numberOfColumns={4} />}
+
+                <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                    
                     {cars && cars.map((item, index) => (
                         <CarPostingCard key={index} car={item} />
                     ))}
