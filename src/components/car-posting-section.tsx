@@ -18,7 +18,7 @@ const CarPostingSection: React.FC<CarPostingSectionProps> = ({ title, descriptio
                 <p className="max-w-xl mt-4 text-base leading-relaxed text-gray-600">{description}</p>
             </div>
 
-            <div className='mt-4'>
+            <div className='mt-10'>
                 {/* Skeleton */}
                 {isLoading && <CardListingSkeleton numberOfCards={8} numberOfColumns={4} />}
 

@@ -298,7 +298,7 @@ const Listings: React.FC = () => {
                     </div>
 
                     {/* Listing */}
-                    <div className="md:ml-2 w-full mt-5 md:mt-0">
+                    <div className="md:ml-5 w-full mt-5 md:mt-0">
                         {/* Skeleton */}
                         {isLoading && <CardListingSkeleton numberOfCards={6} numberOfColumns={3} />}
 
@@ -311,7 +311,7 @@ const Listings: React.FC = () => {
                             </div>
                         </div>}
 
-                        {(cars.length === 0) && <div className='flex items-center justify-center mt-10'>
+                        {(!isLoading && cars.length === 0) && <div className='flex items-center justify-center mt-10'>
                             <div className='flex flex-col items-center justify-center'>
                                 <img src="/images/empty-pana.svg" alt="" className='w-80' />
                                 <span className='font-bold text-slate-400'>No Search Result Found.</span>
@@ -320,10 +320,10 @@ const Listings: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Filter By Condition */}
+                {/* Fresh Arrivals */}
                 <CarPostingSection 
-                    title="Newly Arrival Cars" 
-                    description="Discover the latest arrivals in our car collection. Find the newest models with the best features and performance." 
+                    title="Hot Off the Lot: Fresh Arrivals" 
+                    description="Be the first to explore our latest collection of cars. Discover cutting-edge models with top-notch features and unbeatable performance."
                     cars={newCars}
                     isLoading={isFetchingNewCar}
                 />
@@ -331,7 +331,7 @@ const Listings: React.FC = () => {
                 {/* Automatic Cars */}
                 <CarPostingSection 
                     title="Automatic Cars" 
-                    description="Explore our range of automatic cars for a smooth and effortless driving experience. Perfect for city driving and long journeys." 
+                    description="Automatic cars designed for a seamless and enjoyable driving experience. Ideal for both city commutes and long-distance travels, That offer unmatched convenience and comfort."
                     cars={autoCars}
                     isLoading={isFetchingAutoCar}
                 />
