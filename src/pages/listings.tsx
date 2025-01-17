@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import CarPostingSection from '../components/car-posting-section.tsx';
 import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
-import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import CarPostingCard from '../components/car-posting-card.tsx';
 import { BRAND_OPTIONS, CONDITION_OPTIONS, FUELTYPE_OPTIONS, TRANSMISSION_OPTIONS, TYPE_OPTIONS } from '../services/constants.ts';   
 import PriceRangeInput from '../components/inputs/PriceRangeInput.tsx';
 import MetaTags from '../components/MetaTags.tsx';
+import CardListingSkeleton from '../components/cards/CardListingSkeleton.tsx';
 
 const Listings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,7 @@ const Listings: React.FC = () => {
     const [newCars, setNewCars] = useState<any[]>([]);
     const [autoCars, setAutoCars] = useState<any[]>([]);
 
-    const [priceFilter, setPriceFilter] = useState<number>(0);
+    const [priceFilter, setPriceFilter] = useState<number[]>([1000000, 100000000]);
     const [typeFilter, setTypeFilter] = useState('');
     const [brandFilter, setBrandFilter] = useState('');
     const [conditionFilter, setConditionFilter] = useState('');
@@ -35,7 +35,7 @@ const Listings: React.FC = () => {
     };
 
     const clearFilter = () => {
-        setPriceFilter(0);
+        setPriceFilter([1000000, 100000000]);
         setTypeFilter('');
         setBrandFilter('');
         setConditionFilter('');
@@ -48,15 +48,16 @@ const Listings: React.FC = () => {
 
     /**
      * Fetches the cars
+     * 
      * @returns void
      */
     const getCars = async (limit = 50) => {
         const params: any = {
             direction: 'desc',
             limit: limit,
+            price: JSON.stringify(priceFilter),
         };
 
-        if (priceFilter !== 0) params.price = priceFilter;
         if (typeFilter !== '') params.type = typeFilter;
         if (brandFilter !== '') params.make = brandFilter;
         if (conditionFilter !== '') params.condition = conditionFilter;
@@ -297,19 +298,20 @@ const Listings: React.FC = () => {
                     </div>
 
                     {/* Listing */}
-                    <div className="md:ml-2 w-full mt-5 md:mt-0">
+                    <div className="md:ml-5 w-full mt-5 md:mt-0">
+                        {/* Skeleton */}
+                        {isLoading && <CardListingSkeleton numberOfCards={6} numberOfColumns={3} />}
+
                         {/* Listing */}
-                        {cars.length > 0 && <div className=''>
-                            <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
-                                {isLoading && (<FetchLoader />)}
-                                
+                        {(!isLoading && cars.length > 0) && <div className=''>
+                            <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">                                
                                 {!isLoading && cars.map((item, index) => (
                                     <CarPostingCard key={index} car={item} />
                                 ))}
                             </div>
                         </div>}
 
-                        {(cars.length === 0) && <div className='flex items-center justify-center mt-10'>
+                        {(!isLoading && cars.length === 0) && <div className='flex items-center justify-center mt-10'>
                             <div className='flex flex-col items-center justify-center'>
                                 <img src="/images/empty-pana.svg" alt="" className='w-80' />
                                 <span className='font-bold text-slate-400'>No Search Result Found.</span>
@@ -318,10 +320,10 @@ const Listings: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Filter By Condition */}
+                {/* Fresh Arrivals */}
                 <CarPostingSection 
-                    title="Newly Arrival Cars" 
-                    description="Discover the latest arrivals in our car collection. Find the newest models with the best features and performance." 
+                    title="Hot Off the Lot: Fresh Arrivals" 
+                    description="Be the first to explore our latest collection of cars. Discover cutting-edge models with top-notch features and unbeatable performance."
                     cars={newCars}
                     isLoading={isFetchingNewCar}
                 />
@@ -329,7 +331,7 @@ const Listings: React.FC = () => {
                 {/* Automatic Cars */}
                 <CarPostingSection 
                     title="Automatic Cars" 
-                    description="Explore our range of automatic cars for a smooth and effortless driving experience. Perfect for city driving and long journeys." 
+                    description="Automatic cars designed for a seamless and enjoyable driving experience. Ideal for both city commutes and long-distance travels, That offer unmatched convenience and comfort."
                     cars={autoCars}
                     isLoading={isFetchingAutoCar}
                 />

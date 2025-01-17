@@ -1,7 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import FetchLoader from './loaders/fetching-loader.tsx';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+    onLoading?: Boolean;
+    onChange?: (query: any) => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && onChange) onChange({ query: searchQuery });
+    };
+
+    const handleSearch = () => {
+        if (onChange) onChange({ query: searchQuery });
+    };
+
     return (
         <section className="relative bg-gradient-to-br bg-white text-white overflow-hidden">
             <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -16,36 +31,44 @@ const Hero: React.FC = () => {
                                 <div>
                                     <p className="bg-teal-accent-400 mb-4 inline-block rounded-full bg-green-100 px-3 py-1 border border-gray-200 text-sm font-semibold tracking-wider text-green-900">Get started now with free account</p>
                                 </div>
-                                <h2 className="mb-6 max-w-lg font-sans text-3xl font-bold tracking-tight text-slate-700 sm:text-5xl sm:leading-snug">
-                                    The #1 Marketplace for <span className="inline-block text-primary">Cars </span> in <span className="inline-block text-primary">Rwanda</span>
+                                <h2 className="mb-6 max-w-lg font-sans text-3xl font-bold text-slate-700 sm:text-5xl mt-5 leading-snug tracking-wide">
+                                    Buy & Sell On <br /> #1 Marketplace for <span className="inline-block text-primary">Cars </span> in <span className="inline-block text-primary">Rwanda</span>
                                 </h2>
                                 <p className="text-base text-gray-700 md:text-lg">
-                                    Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all. Start your journey with us today and find the perfect car for you.
+                                    Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all.
                                 </p>
                             </div>
 
                             <div className="flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 lg:justify-start">
-                                <Link to="signup" className="inline-flex h-12 w-full items-center justify-center rounded-full bg-primary px-6 font-medium tracking-wide text-white outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto"> 
-                                    <span>Get Started for free </span>
-                                    <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
-                                </Link>
-                                <Link to="listings" className="inline-flex h-12 w-full items-center justify-center rounded-full border-2 border-[#03783d] px-4 font-semibold text-primary transition-colors duration-200 hover:border-y-[#03783d] hover:text-primary sm:w-auto">
-                                    <span>View Our Listings</span>
-                                    <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                </Link>
+                                <div className='border border-gray-300 rounded-full pl-4 pr-2 py-2 w-full text-sm focus:outline-none flex items-center bg-white'>
+                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M11 20a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M18.93 20.689c.53 1.6 1.74 1.76 2.67.36.85-1.28.29-2.33-1.25-2.33-1.14-.01-1.78.88-1.42 1.97Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                                    <input
+                                        type="text"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        onKeyDown={handleKeyDown}
+                                        placeholder="Search your desired car..."
+                                        className="border-none font-bold outline-none focus:border-none focus:outline-none ml-3 bg-white w-full h-full text-slate-700"
+                                    />
+                                    <div className='hidden md:block'>
+                                        {onLoading && <FetchLoader />}
+
+                                        {!onLoading && <button onClick={handleSearch} className="inline-flex h-11 w-full items-center justify-center text-sm ml-10 rounded-full bg-primary px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
+                                            <span className='uppercase'>Search</span>
+                                        </button>}
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="mt-6 flex justify-center -space-x-4 lg:justify-start">
-                                <img className="h-12 w-12 rounded-full ring ring-white" src="/images/member2.jpg" alt='Manirabona Patience At Consult Solutions' />
-                                <img className="h-12 w-12 rounded-full ring ring-white" src="/images/member1.jpeg" alt='Eric Niyongira at Consult Solutions' />
+                                <img className="h-10 w-10 rounded-full ring ring-white" src="/images/member2.jpg" alt='Manirabona Patience At Consult Solutions' />
+                                <img className="h-10 w-10 rounded-full ring ring-white" src="/images/member1.jpeg" alt='Eric Niyongira at Consult Solutions' />
                                 
                                 <div className="">
-                                    <span className="pl-8 font-semibold text-slate-700">Customer Reviews</span>
-                                    <div className="flex w-auto items-center justify-center space-x-1 pl-8">
-                                        <svg className="h-auto w-5 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                            <path d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" />
-                                        </svg>
-                                        <span className="text-sm font-medium text-slate-400"> 4.9 • <a href="/" className="text-sm font-normal underline">129 reviews</a> </span>
+                                    <span className="pl-8 font-semibold text-slate-700 text-[12px]">Customer Reviews</span>
+                                    <div className="flex w-auto items-center justify-center space-x-1 pl-8 text-[12px]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m13.73 3.51 1.76 3.52c.24.49.88.96 1.42 1.05l3.19.53c2.04.34 2.52 1.82 1.05 3.28l-2.48 2.48c-.42.42-.65 1.23-.52 1.81l.71 3.07c.56 2.43-.73 3.37-2.88 2.1l-2.99-1.77c-.54-.32-1.43-.32-1.98 0l-2.99 1.77c-2.14 1.27-3.44.32-2.88-2.1l.71-3.07c.13-.58-.1-1.39-.52-1.81l-2.48-2.48c-1.46-1.46-.99-2.94 1.05-3.28l3.19-.53c.53-.09 1.17-.56 1.41-1.05l1.76-3.52c.96-1.91 2.52-1.91 3.47 0Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                                        <span className="text-[12px] font-medium text-slate-400"> 4.9 • <a href="/" className="text-[12px] font-normal underline">129 reviews</a> </span>
                                     </div>
                                 </div>
                             </div>

@@ -92,15 +92,15 @@ const StepFive: React.FC<StepFiveProps> = ({ images, setImages, currentImages, f
                     onChange={setFeatureInput}
                     onKeyDown={handleFeatureAdd}
                     errorMessage={getErrorField('features')}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                 </TextInput>
                 <div className="mt-4 overflow-auto border border-gray-200 p-2 rounded-lg max-h-32">
                     {(!features || features.length === 0) && <div className='flex items-center justify-center text-sm p-3'>
                         <span className='text-gray-500 font-bold'>No Features Added</span>
                     </div>}
-                    {features && features.map((feature, index) => (
+                    {features && [...features].reverse().map((feature, index) => (
                         <div key={index} className="flex items-center justify-between bg-gray-100 py-2 px-3 rounded mb-2 text-sm">
-                            <span>{feature}</span>
+                            <span className='capitalize'>{index + 1}. {feature}</span>
                             <button
                                 type="button"
                                 className="text-red-500"

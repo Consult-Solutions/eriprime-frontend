@@ -6,9 +6,10 @@ interface CarRowProps {
     car: any;
     deleteCar: (id: string) => () => void;
     updateCar: (car: any) => () => void;
+    approveCar?: (car: any) => () => void;
 }
 
-const CarRow: React.FC<CarRowProps> = ({ index, car, deleteCar, updateCar }) => {
+const CarRow: React.FC<CarRowProps> = ({ index, car, deleteCar, updateCar, approveCar }) => {
     return (
         <>
             <td className="p-2 whitespace-nowrap">
@@ -21,7 +22,7 @@ const CarRow: React.FC<CarRowProps> = ({ index, car, deleteCar, updateCar }) => 
                 <div className="font-medium text-gray-800 truncate">{car.title}</div>
             </td>
             <td className="p-2 whitespace-nowrap">
-                <div className="text-left">{car.seller ? car.seller.name : 'Unknown'}</div>
+                <div className="text-left">{car.seller ? car.seller.fullname : 'Unknown'}</div>
             </td>
             <td className="p-2 whitespace-nowrap">
                 <div className="text-left font-medium text-green-500">{car.make}</div>
@@ -37,7 +38,7 @@ const CarRow: React.FC<CarRowProps> = ({ index, car, deleteCar, updateCar }) => 
             </td>
             <td className="p-2 whitespace-nowrap">
                 <div className="text-left flex items-center">
-                    {car.eco_friendly ? (
+                    {car.verified ? (
                         <>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
                                 <path opacity=".34" d="m8.38 11.998 2.41 2.42 4.83-4.84" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -68,6 +69,9 @@ const CarRow: React.FC<CarRowProps> = ({ index, car, deleteCar, updateCar }) => 
             </td>
             <td className="p-2 whitespace-nowrap">
                 <div className='flex items-center space-x-2'>
+                    {approveCar && <div onClick={approveCar(car)} className='border border-gray-200 rounded-lg p-1 cursor-pointer bg-white'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path opacity=".34" d="m8.38 11.998 2.41 2.42 4.83-4.84" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M10.75 2.45c.69-.59 1.82-.59 2.52 0l1.58 1.36c.3.26.86.47 1.26.47h1.7c1.06 0 1.93.87 1.93 1.93v1.7c0 .39.21.96.47 1.26l1.36 1.58c.59.69.59 1.82 0 2.52l-1.36 1.58c-.26.3-.47.86-.47 1.26v1.7c0 1.06-.87 1.93-1.93 1.93h-1.7c-.39 0-.96.21-1.26.47l-1.58 1.36c-.69.59-1.82.59-2.52 0l-1.58-1.36c-.3-.26-.86-.47-1.26-.47H6.18c-1.06 0-1.93-.87-1.93-1.93V16.1c0-.39-.21-.95-.46-1.25l-1.35-1.59c-.58-.69-.58-1.81 0-2.5l1.35-1.59c.25-.3.46-.86.46-1.25V6.2c0-1.06.87-1.93 1.93-1.93h1.73c.39 0 .96-.21 1.26-.47l1.58-1.35Z" stroke="#37d67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                    </div>}
                     <Link to={`/cars/${car._id}`} className='border border-gray-200 rounded-lg p-1 cursor-pointer'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path opacity=".4" d="M22 10v5c0 5-2 7-7 7H9c-5 0-7-2-7-7V9c0-5 2-7 7-7h5" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M22 10h-4c-3 0-4-1-4-4V2l8 8Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                     </Link>

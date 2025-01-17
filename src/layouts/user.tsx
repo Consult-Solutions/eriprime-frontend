@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import MainContents from '../components/admin/main-content.tsx';
-import SideBar from '../components/admin/side-bar.tsx';
 import { Outlet, useNavigate } from 'react-router-dom';
-import AlertMessage from '../components/alerts/alert-message.tsx';
 import { useAuth } from '../contexts/AuthContext.tsx';
-import { useGlobalAlert } from '../contexts/AlertContext.tsx';
 import api from '../services/api.ts';
+import { useGlobalAlert } from '../contexts/AlertContext.tsx';
+import AlertMessage from '../components/alerts/alert-message.tsx';
 
-const AuthAdminLayout: React.FC = () => {
+const AuthUserLayout: React.FC = () => {
     const navigate = useNavigate();
     const { user, isAuthenticated, setUser } = useAuth();
     const { setGlobalAlert } = useGlobalAlert();
@@ -44,7 +43,7 @@ const AuthAdminLayout: React.FC = () => {
     useEffect(() => {
         if (!isAuthenticated) {
             navigate('/login');
-        } else if (user && !user.roles.includes('admin')) {
+        } else if (user && !user.roles.includes('user')) {
             handleLogout();
         }
     }, [isAuthenticated, user, navigate, setUser]);
@@ -52,9 +51,6 @@ const AuthAdminLayout: React.FC = () => {
     return (
         <div className='bg-slate-50'>
             <div className="flex overflow-hidden px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                {/* Side Base */}
-                <SideBar />
-
                 {/* Main Content */}
                 <MainContents>
                     <Outlet />
@@ -67,4 +63,4 @@ const AuthAdminLayout: React.FC = () => {
     );
 };
 
-export default AuthAdminLayout;
+export default AuthUserLayout;

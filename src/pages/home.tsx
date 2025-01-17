@@ -1,29 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Hero from '../components/hero.tsx';
 import api from '../services/api.ts';
 import CarPostingCard from '../components/car-posting-card.tsx';
-import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import { Link } from 'react-router-dom';
 import MetaTags from '../components/MetaTags.tsx';
+import CTA from '../components/cta.tsx';
+import CardListingSkeleton from '../components/cards/CardListingSkeleton.tsx';
 
 const Home: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [cars, setCars] = useState<any[]>([]);
+   
+    const params = {
+        limit: 8,
+        orderBy: 'createdAt',
+        direction: 'desc',
+    };
 
-    const getCars = async () => {
+    /**
+     * Fetches the cars
+     * 
+     * @param customParams 
+     */
+    const getCars = async (customParams: Axios.AxiosXHRConfigBase<unknown> | undefined = {}) => {
         setIsLoading(true);
+
+        const formParams = {
+            ...params,
+            ...customParams,
+        };
         
         try {
-            api.get(`/cars/approved`, {
-                    params: {
-                        limit: 8,
-                        orderBy: 'createdAt',
-                        direction: 'desc',
-                    },
-                })
+            api.get(`/cars/approved`, { params: formParams })
                 .then((response: any) => {
                     setCars(response.data.data);
                     setIsLoading(false)
@@ -67,7 +79,7 @@ const Home: React.FC = () => {
             />
 
             {/* Hero Component */}
-            <Hero />
+            <Hero onLoading={isLoading} onChange={getCars} />
 
             <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
                 <div className="text-left mb-5">
@@ -77,15 +89,17 @@ const Home: React.FC = () => {
                     </p>
                 </div>
 
-                <div className='mt-10'>
-                    <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">
-                        {isLoading && <FetchLoader />}
-                        
+                {/* Skeleton */}
+                {isLoading && <CardListingSkeleton numberOfCards={params.limit} />}
+
+                {/* Car Postings */}
+                {!isLoading && <div className='mt-10'>
+                    <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                        
                         {cars.map((item, index) => (
                             <CarPostingCard key={index} car={item} />
                         ))}
                     </div>
-                </div>
+                </div>}
 
                 <div className="flex justify-center mt-10">
                     <Link to={'/listings'} className="px-6 py-2 bg-primary text-white rounded-full text-md flex items-center">
@@ -93,6 +107,11 @@ const Home: React.FC = () => {
                         <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
                     </Link>
                 </div>
+            </div>
+
+            {/* CTA */}
+            <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
+                <CTA />
             </div>
 
             {/* Alert Message */}

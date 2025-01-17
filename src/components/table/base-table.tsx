@@ -74,15 +74,15 @@ const BaseTable: React.FC<BaseTableProps> = ({ title, headers, data, itemsPerPag
                         </thead>
                         <tbody className="text-sm divide-y divide-gray-100">
                             {paginatedData.map((item, index) => (
-                                <tr key={index}>{renderRow((currentPage - 1) * itemsPerPage + index + 1, item)}</tr>
+                                <tr key={index} className='cursor-pointer'>{renderRow((currentPage - 1) * itemsPerPage + index + 1, item)}</tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
 
                 {(paginatedData.length === 0) && <div className='flex flex-col items-center justify-center my-10'>
-                        <img src="/images/empty-cuate.svg" alt="" className='w-80' />
-                        <span className='font-bold text-slate-400'>No car posted Yet.</span>
+                    <img src="/images/empty-cuate.svg" alt="" className='w-80' />
+                    <span className='font-bold text-slate-400'>No Records posted Yet.</span>
                 </div>}
                 
                 {/* Paginations */}
