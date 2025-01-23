@@ -60,7 +60,7 @@ const AdminDashboard: React.FC = () => {
      * @param errors 
      */
     const handleFormError = (error: any) => setFormValidation(error);
-    const handleCarSubmit = (response: any) => {}
+    const handleCarSubmit = (response: any) => window.location.reload();
 
     /**
      * Fetch All Cars
@@ -219,7 +219,7 @@ const AdminDashboard: React.FC = () => {
                 <AlertMessage message={alertMessage} type={alertType} />
 
                 {/* Confirm Model */}
-                <ConfirmModel isOpen={isDeleteOpen} onClose={closeDeleteModal} onConfirm={deleteSingleCar}  title='Delete Car' message='Are you sure you want to delete this car?' />
+                <ConfirmModel isOpen={isDeleteOpen} onClose={closeDeleteModal} onConfirm={deleteSingleCar}  title='Delete Car' message='Are you sure you want to delete this car?' isLoading={isLoading} />
             </div>
         </ErrorBoundary>
     );

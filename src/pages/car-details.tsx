@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import CarPostingSection from '../components/car-posting-section.tsx';
-import { useAuth } from '../contexts/AuthContext.tsx';
 import api from '../services/api.ts';
 import { useParams } from 'react-router-dom';
 import FetchLoader from '../components/loaders/fetching-loader.tsx';
@@ -37,7 +36,6 @@ const CarDetails: React.FC = () => {
 
     const [car, setCar] = useState<Car | null>(null);
     const [relatedCars, setRelatedCars] = useState<any[]>([]);
-    const { token } = useAuth();
     const { id } = useParams<{ id: string }>();
     const contactNumber = process.env.REACT_APP_ADMIN_PHONE;
     
@@ -108,11 +106,7 @@ const CarDetails: React.FC = () => {
         setIsloading(true);
 
         try {
-            api.get(`/cars/show/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response: any) => {
+            api.get(`/cars/show/${id}`).then((response: any) => {
                 setCar(response.data.data);
                 setIsloading(false);
             }).catch(() => {
@@ -129,11 +123,7 @@ const CarDetails: React.FC = () => {
 
     const fetchRelatedCars = async () => {
         try {
-            api.get(`/cars/related/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response: any) => {
+            api.get(`/cars/related/${id}`).then((response: any) => {
                 setRelatedCars(response.data.data);
                 setIsloading(false);
             }).catch(() => {
@@ -149,17 +139,15 @@ const CarDetails: React.FC = () => {
     }
 
     useEffect(() => {
-        if (token) {
-            fetchCarDetails();
-            fetchRelatedCars();
-        }
-    }, [token]);
-
-    useEffect(() => {
         if (car && car.images && car.images.length > 0) {
             setDefaultImage(car.images[0]);
         }
     }, [car]);
+
+    useEffect(() => {
+        fetchCarDetails();
+        fetchRelatedCars();
+    }, []);
 
     return (
         <div>

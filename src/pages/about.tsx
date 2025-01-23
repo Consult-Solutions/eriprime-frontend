@@ -27,7 +27,7 @@ const About: React.FC = () => {
 
                         <div className="relative pl-20 pr-6 sm:pl-6 md:px-0">
                             <div className="relative w-[500px] mt-4 mb-10 ml-auto">
-                                <img className="ml-auto" src="https://img.freepik.com/free-photo/family-enjoying-views-car-trip_23-2149401820.jpg?t=st=1734689217~exp=1734692817~hmac=939d7d3dffd544b63df7b1724100dca4d81eef3ac69f90475cf4906760d5f2de&w=1800" alt="Happy clients at Consult Solution" />
+                                <img className="ml-auto" src="https://i.etsystatic.com/20513864/r/il/09922b/4068615937/il_fullxfull.4068615937_f2cr.jpg" alt="Happy clients at Consult Solution" />
 
                                 <img className="absolute -top-4 -left-12" src="https://cdn.rareblocks.xyz/collection/celebration/images/features/1/wavey-lines.svg" alt="" />
 

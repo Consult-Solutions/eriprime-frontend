@@ -46,14 +46,14 @@ interface CarFormProps {
 const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, initialData, }) => {
     const [title, setTitle] = useState('');
     const [car_model, setCarModel] = useState('');
-    const [year, setYear] = useState<number | ''>('');
+    const [year, setYear] = useState<number | ''>(2024);
     const [color, setColor] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [location, setLocation] = useState('');
     const [make, setMake] = useState('');
-    const [mileage, setMileage] = useState<number | ''>('');
-    const [price, setPrice] = useState<number | ''>('');
+    const [mileage, setMileage] = useState<number | ''>(0);
+    const [price, setPrice] = useState<number | ''>(0);
     const [autonomy, setAutonomy] = useState('N/A');
     const [condition, setCondition] = useState('');
     const [transmission, setTransmission] = useState('');
@@ -78,7 +78,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
     const openSellerModal = () => setIsModalOpen(true);
     const closeSellerModal = () => setIsModalOpen(false);
-    const { token } = useAuth();
+    const { token, isAuthenticated, user } = useAuth();
 
     /**
      * When All input filled and let apply validation and submit
@@ -94,11 +94,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
         if (!title) missing.push('title');
         if (!car_model) missing.push('model');
         if (!year) missing.push('year');
-        if (!description) missing.push('description');
         if (!category) missing.push('type');
         if (!location) missing.push('location');
         if (!make) missing.push('make');
-        if (!mileage) missing.push('mileage');
         if (!price) missing.push('price');
         if (!condition) missing.push('condition');
         if (!transmission) missing.push('transmission');
@@ -106,7 +104,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
         if (images.length === 0) missing.push('images');
         if (features.length === 0) missing.push('features');
         if (seats <= 0) missing.push('seats');
-        if (!autonomy) missing.push('autonomy');
         if (!color) missing.push('color');
 
         if (missing.length > 0) {
@@ -163,6 +160,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
             const formData = new FormData();
             
+            formData.append('user', user.id);
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
             formData.append('year', carDetails.year.toString());
@@ -220,7 +218,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
      * 
      * @param car 
      */
-     const handleUpdateCar = () => {
+    const handleUpdateCar = () => {
         const missing: string[] = [];
 
         if (!carDetails) {
@@ -251,6 +249,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
             const formData = new FormData();
             
+            formData.append('user', user.id);
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
             formData.append('year', carDetails.year.toString());
@@ -344,6 +343,12 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     ];
 
     useEffect(() => {
+        if (isAuthenticated && user) {
+            setSellerFullname(user.name);
+            setSellerEmail(user.email);
+            setSellerPhonenumber(user.phone);
+        }
+
         if (initialData) {
             setTitle(initialData.title);
             setCarModel(initialData.car_model);
@@ -366,7 +371,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             setSeats(initialData.seats);
             setFeatures(initialData.features);
         }
-    }, [initialData]);
+    }, [initialData, isAuthenticated, user]);
 
     return (
         <div>
@@ -396,7 +401,8 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
                     placeholder="Eg: John Doe"
                     value={sellerFullname}
                     onChange={setSellerFullname}
-                    errorMessage={getErrorField('fullname')}>
+                    errorMessage={getErrorField('fullname')}
+                    disabled={true}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                 </TextInput>
                 <TextInput
@@ -404,7 +410,8 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
                     placeholder="example@example.com"
                     value={sellerEmail}
                     onChange={setSellerEmail}
-                    errorMessage={getErrorField('email')}>
+                    errorMessage={getErrorField('email')}
+                    disabled={true}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                 </TextInput>
                 <TextInput

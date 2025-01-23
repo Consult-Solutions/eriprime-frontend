@@ -171,7 +171,7 @@ const Listings: React.FC = () => {
                 <div className='py-10 md:py-19 relative px-4 md:px-28 lg:px-28 bg-center bg-cover bg-no-repeat' style={{ backgroundImage: 'url(https://visitrwanda.com/wp-content/uploads/fly-images/1210/Visit-Rwanda-Kigali-Centre-Roads-1920x1281.jpg)' }}>
                     <div className="absolute inset-0 bg-black opacity-20"></div>
                     
-                    <div className="px-4 py-2 mx-auto relative z-50 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-2 lg:px-8 lg:py-7 bg-white bg-opacity-90 rounded-lg">
+                    <div className="px-4 py-2 mx-auto relative z-40 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-2 lg:px-8 lg:py-7 bg-white bg-opacity-90 rounded-lg">
                         {/* Title */}
                         <div className='flex flex-wrap gap-4 items-center justify-center mb-5'>
                             <span className='text-slate-700 text-2xl font-bold text-center'>Find Your Dream Car Across the City</span>

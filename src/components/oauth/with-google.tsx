@@ -65,7 +65,7 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading }) => {
 
     const loginWithGoogle = useGoogleLogin({
         onSuccess: tokenResponse => handleSubmit(tokenResponse),
-        onError: error => console.log('Login Failed:', error),
+        onError: error => {},
     });
 
     return (

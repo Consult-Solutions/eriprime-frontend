@@ -6,16 +6,16 @@ function CTA() {
     <section className="bg-primary rounded-full">
         <div className="flex flex-col items-center pr-10 py-12 mx-auto xl:flex-row">
             <div className="flex justify-center xl:w-1/2">
-                <img className="h-80 w-80 sm:w-[20rem] sm:h-[20rem] flex-shrink-0 object-cover rounded-full" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80" alt="" />
+                <img className="h-80 w-80 sm:w-[20rem] sm:h-[20rem] flex-shrink-0 object-cover rounded-full" src="https://t4.ftcdn.net/jpg/09/74/69/61/360_F_974696133_7MDMWw7WyOvBmmjEm47XanwC9TxnkWRL.jpg" alt="" />
             </div>
 
             <div className="">
                 <h2 className="text-2xl font-semibold tracking-tight text-white xl:text-4xl capitalize">
-                    Connect with potential buyers or find your dream car today!
+                    Connect with potential buyers & find your dream car today!
                 </h2>
 
-                <p className="block max-w-2xl mt-5 text-gray-500 dark:text-gray-300">
-                    Whether you're selling your car to the right audience or hunting for the perfect ride, we've got you covered. Start now and make the process seamless and efficient.
+                <p className="block max-w-2xl mt-5 text-white">
+                    Whether you're selling your car to the right audience or hunting for the perfect car, we've got you covered. Start now and make the process seamless and efficient.
                 </p>
 
                 <div className="mt-10 flex items-center">
