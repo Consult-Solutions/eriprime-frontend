@@ -46,9 +46,13 @@ const Subscribers: React.FC = () => {
         }
     };
 
-    const deleteSubscriber = (userId: string) => async () => {
-        console.log(userId);
-    }
+    /**
+     * Delete Subscriber
+     * 
+     * @param userId 
+     * @returns 
+     */
+    const deleteSubscriber = (userId: string) => async () => {}
 
     useEffect(() => {
         if (token) 

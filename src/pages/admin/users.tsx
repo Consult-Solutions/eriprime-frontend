@@ -46,9 +46,13 @@ const Users: React.FC = () => {
         }
     };
 
-    const deleteUser = (userId: string) => async () => {
-        console.log(userId);
-    }
+    /**
+     * Delete User
+     * 
+     * @param userId 
+     * @returns 
+     */
+    const deleteUser = (userId: string) => async () => {}
 
     useEffect(() => {
         if (token) 
