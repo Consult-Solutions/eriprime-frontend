@@ -19,7 +19,6 @@ const BaseTable: React.FC<BaseTableProps> = ({ title, headers, data, itemsPerPag
                 if (a[sortConfig.key] < b[sortConfig.key]) 
                     return sortConfig.direction === 'asc' ? -1 : 1;
                 
-
                 if (a[sortConfig.key] > b[sortConfig.key]) 
                     return sortConfig.direction === 'asc' ? 1 : -1;
                 

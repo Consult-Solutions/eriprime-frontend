@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { useGlobalAlert } from '../contexts/AlertContext.tsx';
@@ -15,14 +15,19 @@ const NavBar: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [responsiveNavOpen, setResponsiveNavOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
-    const handleLogout = () => {
+    const confirmLogout = () => {
         try {
             const token = localStorage.getItem('accessToken');
+            setIsLoading(true);
 
             api.post('/auth/logout', {}, {
                 headers: {
@@ -34,27 +39,38 @@ const NavBar: React.FC = () => {
 
                 setUser(null);
                 setGlobalAlert("You have been logged out successfully", 'success');
+                
+                setIsLoading(false);
+                closeModal();
 
                 window.location.href = '/';
             }).catch((error) => {
                 setAlertMessage('An error occurred. ' + error.response.data.message);
                 setAlertType('error');
+                setIsLoading(false);
             });
         } catch (error) {
             setAlertMessage('An error occurred. Please try again later.');
             setAlertType('error');
+            setIsLoading(false);
         }
     };
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    const openResponsiveNav = () => setResponsiveNavOpen(!responsiveNavOpen);
 
-    const confirmLogout = () => {
-        closeModal();
-        handleLogout();
+    const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            setIsDropdownOpen(false);
+        }
     };
 
-    const openResponsiveNav = () => setResponsiveNavOpen(!responsiveNavOpen);
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <header className="bg-white lg:pb-0 border-b border-gray-200">
@@ -67,7 +83,7 @@ const NavBar: React.FC = () => {
                         </Link>
                     </div>
 
-                    <button onClick={openResponsiveNav} type="button" className="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
+                    <button onClick={openResponsiveNav} type="button" className="inline-flex p-2 text-black my-4 transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
                         <svg className="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16M4 16h16" />
                         </svg>
@@ -87,18 +103,6 @@ const NavBar: React.FC = () => {
                                         </svg>
                                     </span>
                                     <span className="ml-2">Home</span>
-                                    {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
-                                </>
-                            )}
-                        </NavLink>
-
-                        <NavLink to="/listings" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>
-                            {({ isActive }) => (
-                                <>
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                    </span>
-                                    <span className='ml-2'>Listings</span>
                                     {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
                                 </>
                             )}
@@ -125,6 +129,31 @@ const NavBar: React.FC = () => {
                                     {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
                                 </>)}
                         </NavLink>
+
+                        {!isAuthenticated && ( 
+                            <NavLink to="/login" className={({ isActive }) => `text-base relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center`}>{({ isActive }) => (
+                                <>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M20.59 22c0-3.87-3.85-7-8.59-7s-8.59 3.13-8.59 7" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                                    </span>
+                                    <span className='ml-2'>Login</span>
+                                    {isActive && <div className="absolute w-full bg-primary h-10 -bottom-[63px] rounded-[10px] right-0 left-0" />}
+                                </>)}
+                            </NavLink> 
+                        )}
+                    </div>
+
+                    <div className='hidden md:block ml-6'>
+                        <div className='flex items-center'>
+                            <Link to="/listings" className="inline-flex border border-gray-200 h-11 w-full items-center justify-center text-sm rounded-full bg-secondary px-5 font-medium tracking-wide text-slate-700 shadow-none outline-none transition duration-200 hover:bg-secondary/80 focus:ring sm:w-auto">
+                                <span className='mr-2'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                                <span className='uppercase'>Buy Car</span>
+                            </Link>
+                            <Link to="/postcar" className="inline-flex h-11 w-full items-center justify-center text-sm ml-2 rounded-full bg-primary px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
+                                <span className='uppercase'>Sell Car</span>
+                                <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
+                            </Link>
+                        </div>
                     </div>
 
                     <div className='ml-5 hidden md:block'>
@@ -138,7 +167,7 @@ const NavBar: React.FC = () => {
                                 </div>
                     
                                 {isDropdownOpen && (
-                                    <div className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-md shadow-lg z-20">
+                                    <div ref={dropdownRef} className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-md shadow-lg z-50">
                                         <div className="flex items-center gap-4 px-3 py-4">
                                             <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
                                             <div className="font-medium dark:text-white">
@@ -146,28 +175,22 @@ const NavBar: React.FC = () => {
                                                 <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
                                             </div>
                                         </div>
-                                        {user && user.roles.includes('admin') && (<Link to="/admin/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"> Administration</Link> )}                                        <Link to="/user/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
+                                        {user && user.roles.includes('admin') && (
+                                            <Link to="/admin/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Administration</Link>
+                                        )}
+                                        <Link to="/user/dashboard" title="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
                                         <NavLink to="#" onClick={openModal} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</NavLink>
                                     </div>
                                 )}
                             </nav>
                         )}
                     </div>
-
-                    {!isAuthenticated && (
-                        <div className='hidden md:block'>
-                            <Link to="/login" className="inline-flex h-11 w-full items-center justify-center text-sm ml-10 rounded-full bg-primary px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
-                                <span className='uppercase'>Sign In</span>
-                                <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
-                            </Link>
-                        </div>
-                    )}
                 </nav>
 
                 {responsiveNavOpen && <nav className="pt-4 pb-6 mb-5 bg-white border border-gray-200 rounded-md shadow-md lg:hidden">
                     <div className="flow-root">
                         <div className="flex flex-col px-6 -my-2 space-y-1">
-                            <Link to="/" title="" className="inline-flex py-2 relative text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
+                            <NavLink to="/" title="" className="inline-flex py-2 relative text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -177,16 +200,6 @@ const NavBar: React.FC = () => {
                                 <span className='ml-2'>
                                     Home
                                 </span>
-                            </Link>
-
-                            <NavLink to="/listings" title="" className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                    </svg>
-
-                                </span>
-                                <span className='ml-2'>Listings</span>
                             </NavLink>
                             <NavLink to="/about-us" title="" className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
                                 <span>
@@ -196,7 +209,7 @@ const NavBar: React.FC = () => {
                                 </span>
                                 <span className='ml-2'>About us</span>
                             </NavLink>
-                            <NavLink to="/contact-us" title="" className="inline-flex py-2 mb-5 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
+                            <NavLink to="/contact-us" title="" className="inline-flex py-2 mb-10 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
@@ -206,7 +219,7 @@ const NavBar: React.FC = () => {
                             </NavLink>
                             
                             {!isAuthenticated && (
-                                <NavLink to="/login" title="" className="text-base mt-10 relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                                <NavLink to="/login" title="" className="text-base mt-20 relative font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
                                     {({ isActive }) => (
                                         <>
                                             <span>
@@ -242,14 +255,18 @@ const NavBar: React.FC = () => {
                                 </Link>
                             )}
                         </div>
-                    </div>
 
-                    {!isAuthenticated && (
-                        <Link to="/signup" className="inline-flex h-11 w-full items-center justify-center text-sm ml-10 rounded-full bg-primary px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
-                            <span>Create Account</span>
-                            <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
-                        </Link>
-                    )}
+                        <div className='flex items-center px-3 mt-10'>
+                            <Link to="/listings" className="inline-flex border border-gray-200 h-11 w-full items-center justify-center text-sm rounded-full bg-secondary px-5 font-medium tracking-wide text-slate-700 shadow-none outline-none transition duration-200 hover:bg-secondary/80 focus:ring sm:w-auto">
+                                <span className='mr-2'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#03783d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                                <span className='uppercase'>Buy Car</span>
+                            </Link>
+                            <Link to="/postcar" className="inline-flex h-11 w-full items-center justify-center text-sm ml-2 rounded-full bg-primary px-5 font-medium tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
+                                <span className='uppercase'>Sell Car</span>
+                                <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
+                            </Link>
+                        </div>
+                    </div>
                 </nav>}
             </div>
 
@@ -259,6 +276,7 @@ const NavBar: React.FC = () => {
                 onConfirm={confirmLogout}
                 title="Logout Now"
                 message="Are you sure you want to log out?"
+                isLoading={isLoading}
             />
 
             {/* Alert Message */}

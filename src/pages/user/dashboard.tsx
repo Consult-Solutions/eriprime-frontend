@@ -81,9 +81,9 @@ const UserDashboard: React.FC = () => {
         { key: 'model', label: 'Model', sortable: true },
         { key: 'year', label: 'Year', sortable: true },
         { key: 'transmission', label: 'Transmission' },
-        { key: 'ecoFriendly', label: 'Eco Friendly' },
         { key: 'price', label: 'Price', sortable: true },
         { key: 'status', label: 'Status' },
+        { key: 'approved', label: 'Approved' },
         { key: 'actions', label: 'Actions' },
     ];
 
@@ -140,7 +140,7 @@ const UserDashboard: React.FC = () => {
      * @param errors 
      */
     const handleFormError = (error: any) => setFormValidation(error);
-    const handleCarSubmit = (response: any) => {}
+    const handleCarSubmit = (response: any) => window.location.reload();
 
     return (
         <ErrorBoundary>
@@ -201,6 +201,7 @@ const UserDashboard: React.FC = () => {
                     onConfirm={handleDeleteCar}  
                     title='Delete Car' 
                     message='Are you sure you want to delete this car?' 
+                    isLoading={false}
                 />
             </div>
         </ErrorBoundary>

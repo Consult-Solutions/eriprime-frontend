@@ -27,6 +27,13 @@ const CarPostingSection: React.FC<CarPostingSectionProps> = ({ title, descriptio
                         <CarPostingCard key={index} car={item} />
                     ))}
                 </div>
+
+                {(!cars || cars.length === 0) && <div className='flex items-center justify-center mt-10'>
+                    <div className='flex flex-col items-center justify-center'>
+                        <img src="/images/empty-pana.svg" alt="" className='w-80' />
+                        <span className='font-bold text-slate-400'>No Cars Result Found.</span>
+                    </div>
+                </div>}
             </div>
         </div>
     );
