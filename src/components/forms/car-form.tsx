@@ -160,7 +160,8 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
             const formData = new FormData();
             
-            formData.append('user', user.id);
+            if (isAuthenticated && user) formData.append('user', user.id);
+            
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
             formData.append('year', carDetails.year.toString());
@@ -202,11 +203,13 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
                 
                 onCallback(response);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
+                console.log(error)
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');
                 setIsloading(false);
             })
         } catch (error) {
+            console.log(error)
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
             setIsloading(false);

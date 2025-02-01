@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import CarForm from '../components/forms/car-form.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const Postcar: React.FC = () => {
+    const navigate = useNavigate();
     const [formValidation, setFormValidation] = useState('');
 
     /**
@@ -10,7 +12,7 @@ const Postcar: React.FC = () => {
      * @param errors 
      */
     const handleFormError = (error: any) => setFormValidation(error);
-    const handleCarSubmit = (response: any) => {}
+    const handleCarSubmit = (response: any) => navigate('/listings');
 
     return (
         <section className="bg-white">

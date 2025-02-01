@@ -151,7 +151,7 @@ const NavBar: React.FC = () => {
                             </Link>
                             <Link to="/postcar" className="inline-flex border border-gray-200 h-11 w-full items-center justify-center text-sm ml-2 rounded-full bg-secondary px-5 font-medium tracking-wide text-slate-700 shadow-none outline-none transition duration-200 hover:bg-secondary focus:ring sm:w-auto">
                                 <span className='uppercase'>Sell Car</span>
-                                <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#03783d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="10" stroke-width="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#03783d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="10" stroke-width="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
+                                <span className='ml-2'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path stroke="#03783d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path stroke="#03783d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3.5 12h16.83" opacity=".4"></path></svg></span>
                             </Link>
                         </div>
                     </div>

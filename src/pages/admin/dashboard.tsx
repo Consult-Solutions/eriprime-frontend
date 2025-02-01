@@ -183,7 +183,7 @@ const AdminDashboard: React.FC = () => {
                     { key: 'image', label: 'Image' },
                     { key: 'title', label: 'Title', sortable: true },
                     { key: 'seller', label: 'Seller' },
-                    { key: 'make', label: 'Make', sortable: true },
+                    { key: 'make', label: 'Brand', sortable: true },
                     { key: 'model', label: 'Model', sortable: true },
                     { key: 'year', label: 'Year', sortable: true },
                     { key: 'transmission', label: 'Transmission' },
