@@ -380,8 +380,8 @@ const CarDetails: React.FC = () => {
             {relatedCars.length > 1 && <section className='py-4 lg:py-4'>
                 {/* new cars */}
                 <CarPostingSection
-                    title="Related Listings"
-                    description="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis."
+                    title="Cars you might be interested In"
+                    description="Other listings that might interest you based on your current selection."
                     cars={relatedCars}
                     isLoading={isLoading}
                 />
