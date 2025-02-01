@@ -15,13 +15,14 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading }) => {
     const { setGlobalAlert } = useGlobalAlert();
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const navigate = useNavigate();
+    const googleApis = process.env.REACT_APP_GOOGLE_APIS_URL;
     
     const handleSubmit = async (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">) => {
         try {
             onLoading(true);
             setLoading(true);
 
-            const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            const userInfoResponse = await fetch(`${googleApis}/oauth2/v3/userinfo`, {
                 headers: { 'Authorization': `Bearer ${tokenResponse.access_token}` },
             });
 

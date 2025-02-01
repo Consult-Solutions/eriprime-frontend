@@ -401,8 +401,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
                     placeholder="Eg: John Doe"
                     value={sellerFullname}
                     onChange={setSellerFullname}
-                    errorMessage={getErrorField('fullname')}
-                    disabled={true}>
+                    errorMessage={getErrorField('fullname')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                 </TextInput>
                 <TextInput
@@ -410,8 +409,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
                     placeholder="example@example.com"
                     value={sellerEmail}
                     onChange={setSellerEmail}
-                    errorMessage={getErrorField('email')}
-                    disabled={true}>
+                    errorMessage={getErrorField('email')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                 </TextInput>
                 <TextInput

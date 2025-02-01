@@ -40,7 +40,7 @@ const Home: React.FC = () => {
                     setCars(response.data.data);
                     setIsLoading(false)
                 }).catch((error: { response: { data: { message: string; }; }; }) => {
-                    setAlertMessage('An error occurred. ' + error.response.data.message);
+                    setAlertMessage('An error occurred. try again later');
                     setAlertType('error');
                     setIsLoading(false);
                 });
