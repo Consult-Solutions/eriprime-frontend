@@ -147,7 +147,7 @@ const CarDetails: React.FC = () => {
     useEffect(() => {
         fetchCarDetails();
         fetchRelatedCars();
-    }, []);
+    }, [id]);
 
     return (
         <div>
@@ -378,7 +378,7 @@ const CarDetails: React.FC = () => {
 
             {/* Car Posting Section */}
             {relatedCars.length > 1 && <section className='py-4 lg:py-4'>
-                {/* new cars */}
+                {/* related cars */}
                 <CarPostingSection
                     title="Cars you might be interested In"
                     description="Other listings that might interest you based on your current selection."

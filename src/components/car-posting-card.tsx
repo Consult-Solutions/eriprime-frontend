@@ -47,11 +47,11 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                     </p>                
                     
                     <div>
-                        <a href="/" aria-label="Article" className="inline-block mb-3 mt-2 text-black transition-colors duration-200 hover:text-deep-purple-accent-700">
+                        <Link to={`/cars/${car._id}`} aria-label="Article" className="inline-block mb-3 mt-2 text-black transition-colors duration-200 hover:text-deep-purple-accent-700">
                             <p className="text-xl font-bold leading-5 text-slate-700">
                                 {new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(car.price))}
                             </p>                        
-                        </a>
+                        </Link>
                     </div>
 
                     <p className="mb-4 text-slate-700 line-clamp-2">
@@ -74,18 +74,18 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                                 </div>
                             </div>
                             <div className="flex space-x-4">
-                                <a href="/" aria-label="Likes" className="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
+                                <Link to={`/cars/${car._id}`} aria-label="Likes" className="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
                                     <div className="mr-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                                     </div>
                                     <p className="font-semibold text-sm text-slate-700">{car.mileage}</p>
-                                </a>
-                                <a href="/" aria-label="Comments" className="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
+                                </Link>
+                                <Link to={`/cars/${car._id}`} aria-label="Comments" className="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
                                     <div className="mr-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.15 2v20" stroke="#555555" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".34" d="M5.15 4h11.2c2.7 0 3.3 1.5 1.4 3.4l-1.2 1.2c-.8.8-.8 2.1 0 2.8l1.2 1.2c1.9 1.9 1.2 3.4-1.4 3.4H5.15" stroke="#555555" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                                     </div>
                                     <p className="font-semibold text-sm text-slate-700 uppercase">{car.condition}</p>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className='mt-5'>
