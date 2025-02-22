@@ -1,7 +1,7 @@
 import React from 'react';
 import Spinner from '../loaders/spinner.tsx';
 
-interface LoadingButtonProps {
+interface AuthButtonProps {
   text: string;
   isLoading: boolean;
   onClick?: () => void;
@@ -9,7 +9,7 @@ interface LoadingButtonProps {
   className?: string;
 }
 
-const LoadingButton: React.FC<LoadingButtonProps> = ({ text, isLoading, onClick, type = 'button', className = '' }) => {
+const AuthButton: React.FC<AuthButtonProps> = ({ text, isLoading, onClick, type = 'button', className = '' }) => {
   return (
     <button
       type={type}
@@ -27,4 +27,4 @@ const LoadingButton: React.FC<LoadingButtonProps> = ({ text, isLoading, onClick,
   );
 };
 
-export default LoadingButton;
+export default AuthButton;

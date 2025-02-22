@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FetchLoader from './loaders/fetching-loader.tsx';
+import FetchLoader from '../loaders/fetching-loader.tsx';
 
 interface HeroProps {
     onLoading?: Boolean;
@@ -24,8 +24,7 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
             
             <div className="relative mx-auto px-4 pt-16 sm:max-w-xl md:max-w-full md:px-8 lg:pb-32 xl:px-20">
                 <div className="flex flex-col md:flex-row items-center justify-between md:px-10">
-                    
-                    <div className="w-full sm:w-full md:w-3/5 mb-12 md:mb-0 bg-white rounded-lg p-10">
+                    <div className="w-full sm:w-full md:w-3/5 mb-12 md:mb-0 bg-white rounded-3xl p-10">
                         <div className="mb-16 text-center lg:mb-0 lg:max-w-lg lg:text-left">
                             <div className="mb-6 max-w-xl">
                                 <div>
@@ -74,7 +73,6 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             

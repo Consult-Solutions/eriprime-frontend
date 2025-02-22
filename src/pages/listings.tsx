@@ -100,7 +100,7 @@ const Listings: React.FC = () => {
         
         try {
             api.get('/cars/approved', { params }).then((response: any) => {
-                setAutoCars(response.data.data);
+                setNewCars(response.data.data);
                 setIsFetchingNewCar(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
                 setAlertMessage('An error occurred. ' + error.response.data.message);
@@ -129,7 +129,7 @@ const Listings: React.FC = () => {
         
         try {
             api.get('/cars/approved', { params }).then((response: any) => {
-                setNewCars(response.data.data);
+                setAutoCars(response.data.data);
                 setIsFetchingAutoCar(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
                 setAlertMessage('An error occurred. ' + error.response.data.message);

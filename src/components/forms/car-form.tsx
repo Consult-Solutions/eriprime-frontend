@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import LoadingButton from '../buttons/loading-button.tsx';
+import AuthButton from '../buttons/auth-button.tsx';
 import Stepper from '../stepper.tsx';
 
 // Steps
@@ -8,11 +8,11 @@ import StepTwo from './cars/step-two.tsx';
 import StepThree from './cars/step-three.tsx';
 import StepFour from './cars/step-four.tsx';
 import StepFive from './cars/step-five.tsx';
-import FormModal from '../models/form-model.tsx';
-import TextInput from '../inputs/text-input.tsx';
 import api from '../../services/api.ts';
 import AlertMessage from '../alerts/alert-message.tsx';
 import { useAuth } from '../../contexts/AuthContext.tsx';
+import AuthModal from '../auth/auth-modal.tsx';
+import SellerModal from './seller-form.tsx';
 
 interface Car {
     title: string;
@@ -43,6 +43,12 @@ interface CarFormProps {
     initialData?: any;
 }
 
+interface Seller {
+    fullname?: string; 
+    email?: string; 
+    phone?: string
+}
+
 const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, initialData, }) => {
     const [title, setTitle] = useState('');
     const [car_model, setCarModel] = useState('');
@@ -65,19 +71,21 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
     const [currentStep, setCurrentStep] = useState(0);
     const [missingFields, setMissingFields] = useState<string[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [isLoading, setIsloading] = useState(false);
-
-    // Seller information
-    const [sellerFullname, setSellerFullname] = useState('');
-    const [sellerEmail, setSellerEmail] = useState('');
-    const [sellerPhonenumber, setSellerPhonenumber] = useState('');
     const [carDetails, setCarDetails] = useState<Car | null>(null);
+    const [seller, setSeller] = useState<Seller>({});
+    
+    const [sellerModal, setSellerModal] = useState(false);
+    const [authModal, setAuthModal] = useState(false);
+    
+    const openSellerModal = () => setSellerModal(true);
+    const openAuthModal = () => setAuthModal(true);
 
-    const openSellerModal = () => setIsModalOpen(true);
-    const closeSellerModal = () => setIsModalOpen(false);
+    const closeSellerModal = () => setSellerModal(false);
+    const closeAuthModal = () => setAuthModal(false);
+
     const { token, isAuthenticated, user } = useAuth();
 
     /**
@@ -86,7 +94,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
      * @param e 
      * @returns 
      */
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleCarInformation = (e: React.FormEvent) => {
         e.preventDefault();
 
         const missing: string[] = [];
@@ -125,6 +133,26 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     };
 
     /**
+     * Handle Seller Information
+     * 
+     * @param sellerInfo 
+     */
+    const handleSellerInformation = (sellerInfo: any) => {
+        setSeller(sellerInfo);
+        closeSellerModal();
+        openAuthModal();
+    }
+
+    /**
+     * handle auth and submit car 
+     * 
+     * @param response
+     */
+    const handleAuthenticatedUser = (response: any) => {
+        return isEditing ? handleUpdateCar : handleSubmitCar();
+    }
+
+    /**
      * Submit Car
      * 
      * @param car 
@@ -138,9 +166,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             return;
         }
         
-        if (!sellerFullname) missing.push('fullname');
-        if (!sellerEmail) missing.push('email');
-        if (!sellerPhonenumber) missing.push('phonenumber');
+        if (!seller.fullname) missing.push('fullname');
+        if (!seller.email) missing.push('email');
+        if (!seller.phone) missing.push('phonenumber');
 
         if (missing.length > 0) {
             setMissingFields(missing);
@@ -151,12 +179,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
         try {
             setIsloading(true);
-
-            const seller = {
-                fullname: sellerFullname,
-                email: sellerEmail,
-                phone: sellerPhonenumber,
-            };
 
             const formData = new FormData();
             
@@ -203,13 +225,11 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
                 
                 onCallback(response);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
-                console.log(error)
                 setAlertMessage('An error occurred. '+error.response.data.message);
                 setAlertType('error');
                 setIsloading(false);
             })
         } catch (error) {
-            console.log(error)
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
             setIsloading(false);
@@ -230,9 +250,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             return;
         }
         
-        if (!sellerFullname) missing.push('fullname');
-        if (!sellerEmail) missing.push('email');
-        if (!sellerPhonenumber) missing.push('phonenumber');
+        if (!seller.fullname) missing.push('fullname');
+        if (!seller.email) missing.push('email');
+        if (!seller.phone) missing.push('phonenumber');
 
         if (missing.length > 0) {
             setMissingFields(missing);
@@ -243,12 +263,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
         try {
             setIsloading(true);
-
-            const seller = {
-                fullname: sellerFullname,
-                email: sellerEmail,
-                phone: sellerPhonenumber,
-            };
 
             const formData = new FormData();
             
@@ -347,9 +361,11 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
     useEffect(() => {
         if (isAuthenticated && user) {
-            setSellerFullname(user.name);
-            setSellerEmail(user.email);
-            setSellerPhonenumber(user.phone);
+            setSeller({
+                fullname: user.name,
+                email: user.email,
+                phone: user.phone
+            });
         }
 
         if (initialData) {
@@ -379,56 +395,21 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     return (
         <div>
             {/* Car form */}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleCarInformation}>
                 <Stepper steps={steps} currentStep={currentStep} onNext={handleNext} onPrevious={handlePrevious}/>
 
                 {currentStep === steps.length - 1 && (
                     <div className="flex items-center justify-between mt-4">
-                        <LoadingButton text={initialData ? 'Save Changes' : 'Submit'} isLoading={isLoading} type="submit" className="mt-5" />
+                        <AuthButton text={initialData ? 'Save Changes' : 'Submit'} isLoading={isLoading} type="submit" className="mt-5" />
                     </div>
                 )}
             </form>
 
             {/* Seller Form */}
-            <FormModal isOpen={isModalOpen} onClose={closeSellerModal}>
-                <h2 className="text-xl font-semibold mb-4 text-slate-700 flex items-center">
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 18.86h-.76c-.8 0-1.56.31-2.12.87l-1.71 1.69c-.78.77-2.05.77-2.83 0l-1.71-1.69c-.56-.56-1.33-.87-2.12-.87H6c-1.66 0-3-1.33-3-2.97V4.97C3 3.33 4.34 2 6 2h12c1.66 0 3 1.33 3 2.97v10.91c0 1.64-1.34 2.98-3 2.98Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M12.07 8.95h-.15A1.945 1.945 0 0 1 10.04 7c0-1.08.87-1.95 1.95-1.95s1.95.88 1.95 1.95c.01 1.06-.82 1.92-1.87 1.95ZM9.251 11.96c-1.33.89-1.33 2.34 0 3.23 1.51 1.01 3.99 1.01 5.5 0 1.33-.89 1.33-2.34 0-3.23-1.51-1-3.98-1-5.5 0Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                    <span className='ml-2'>Seller Information</span>
-                </h2>
-                <p>Reach potential Buyers with an eye-catching Listing. Fill out the details below to get started</p>
+            <SellerModal isOpen={sellerModal} onClose={closeSellerModal} callback={handleSellerInformation} getErrorField={getErrorField} />
 
-                <hr className="my-5 border-gray-200" />
-
-                <TextInput
-                    label="Full Name"
-                    placeholder="Eg: John Doe"
-                    value={sellerFullname}
-                    onChange={setSellerFullname}
-                    errorMessage={getErrorField('fullname')}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                </TextInput>
-                <TextInput
-                    label="Email Address"
-                    placeholder="example@example.com"
-                    value={sellerEmail}
-                    onChange={setSellerEmail}
-                    errorMessage={getErrorField('email')}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                </TextInput>
-                <TextInput
-                    label="Your Contact Number"
-                    placeholder="eg: +250..."
-                    value={sellerPhonenumber}
-                    onChange={setSellerPhonenumber}
-                    type="number"
-                    errorMessage={getErrorField('phonenumber')}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 7v10c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V7c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M14.5 4.5v2c0 1.1.9 2 2 2h2M8 13h4M8 17h8" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                </TextInput>
-
-                <div className="flex items-center justify-between mt-4">
-                    <LoadingButton onClick={isEditing ? handleUpdateCar : handleSubmitCar} text={"Confirm & Submit"} isLoading={isLoading} type="submit" className="mt-5" />
-                </div>
-            </FormModal>
+            {/* Auth Form */}
+            <AuthModal isOpen={authModal} onClose={closeAuthModal} callback={handleAuthenticatedUser} fallback={() => {}} />
 
             {/* Alert Message */}
             <AlertMessage message={alertMessage} type={alertType} />

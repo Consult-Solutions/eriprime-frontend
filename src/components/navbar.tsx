@@ -78,7 +78,7 @@ const NavBar: React.FC = () => {
                 <nav className="flex items-center justify-between">
                     <div className="flex-shrink-0">
                         <Link to="/" title="" className="flex items-center space-x-2">
-                            <img className="w-12 h-10 lg:h-12 bg-black" src="/images/logo.jpeg" alt="Consult Solutions" />
+                            <img className="w-14 h-10 lg:h-12 bg-black" src="/images/logo.jpeg" alt="Consult Solutions" />
                             <span className='font-bold capitalize leading-10'>Consult Solutions</span>
                         </Link>
                     </div>

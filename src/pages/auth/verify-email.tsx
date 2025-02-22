@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 import UsernameInput from '../../components/inputs/username-input.tsx';
 import AccountAuthSideHero from '../../components/account-auth-hero.tsx';
-import LoadingButton from '../../components/buttons/loading-button.tsx';
+import LoadingButton from '../../components/buttons/auth-button.tsx';
 import AlertMessage from '../../components/alerts/alert-message.tsx';
 
 // Utilities

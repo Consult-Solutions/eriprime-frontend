@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom'
 
 function CTA() {
   return (<>
-    <section className="bg-primary rounded-full">
+    <section className="bg-primary rounded-3xl my-5">
         <div className="flex flex-col items-center pr-10 py-12 mx-auto xl:flex-row">
             <div className="flex justify-center xl:w-1/2">
                 <img className="h-80 w-80 sm:w-[20rem] sm:h-[20rem] flex-shrink-0 object-cover rounded-full" src="https://t4.ftcdn.net/jpg/09/74/69/61/360_F_974696133_7MDMWw7WyOvBmmjEm47XanwC9TxnkWRL.jpg" alt="" />
