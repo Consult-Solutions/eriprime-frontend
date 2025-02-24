@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Digital: React.FC = () => {
     return (
-        <section className="relative bg-cover bg-center dark:bg-darkmode overflow-hidden my-5">
+        <section className="relative bg-cover bg-center dark:bg-darkmode overflow-hidden my-5 py-14">
             <div className="container mx-auto lg:max-w-screen-xl md:max-w-screen-md rounded-3xl bg-primary bg-no-repeat bg-right-top pb-60 relative" style={{ backgroundImage: 'url(/images/digital/bg.svg)' }}>
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                     {/* COLUMN-1 */}
@@ -12,7 +12,7 @@ const Digital: React.FC = () => {
                             Who we are
                         </h3>
                         <h4 className="text-65 sm:text-6xl font-bold text-white mb-8 leading-snug text-center lg:text-start">
-                            We are a digital agency that builds amazing products.
+                            We are a digital agency that Connects with Best Sellers & Buyers.
                         </h4>
                         <div className="text-center lg:text-start">
                             <Link

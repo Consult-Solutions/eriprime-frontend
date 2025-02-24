@@ -8,6 +8,7 @@ import { BRAND_OPTIONS, CONDITION_OPTIONS, FUELTYPE_OPTIONS, TRANSMISSION_OPTION
 import PriceRangeInput from '../components/inputs/PriceRangeInput.tsx';
 import MetaTags from '../components/MetaTags.tsx';
 import CardListingSkeleton from '../components/cards/CardListingSkeleton.tsx';
+import FormModal from '../components/models/form-model.tsx';
 
 const Listings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +30,10 @@ const Listings: React.FC = () => {
     const [transmissionFilter, setTransmissionFilter] = useState('');
     const [locationFilter, setLocationFilter] = useState('');
     const [fuelFilter, setFuelFilter] = useState('');
+    const [openModal, setOpenModal] = useState(false);
+
+    const openOpenModal = () => setOpenModal(true);
+    const closeOpenModal = () => setOpenModal(false);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') getCars();
@@ -167,8 +172,8 @@ const Listings: React.FC = () => {
             />
 
             <section className=''>
-                {/* Filter */}
-                <div className='py-10 md:py-19 relative px-4 md:px-28 lg:px-28 bg-center bg-cover bg-no-repeat' style={{ backgroundImage: 'url(https://visitrwanda.com/wp-content/uploads/fly-images/1210/Visit-Rwanda-Kigali-Centre-Roads-1920x1281.jpg)' }}>
+                {/* Search Filter */}
+                <div className='py-10 md:py-19 relative px-4 md:px-28 lg:px-28 bg-fixed bg-top bg-cover bg-no-repeat' style={{ backgroundImage: 'url(https://i.pinimg.com/1200x/d2/ba/bc/d2babc741f327b026efa7f73c4101c90.jpg)' }}>
                     <div className="absolute inset-0 bg-black opacity-20"></div>
                     
                     <div className="px-4 py-2 mx-auto relative z-40 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-2 lg:px-8 lg:py-7 bg-white bg-opacity-90 rounded-lg">
@@ -204,107 +209,26 @@ const Listings: React.FC = () => {
                                         className="border-none outline-none focus:border-none focus:outline-none ml-3 bg-white w-full h-full"
                                     />
                                 </div>
+                                <div onClick={openOpenModal} className='border cursor-pointer rounded-full px-4 py-3 w--auto text-sm focus:outline-none flex items-center bg-white ml-2'>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path opacity=".4" d="M3.35 2h8.9c.74 0 1.35.61 1.35 1.35v1.48c0 .54-.34 1.21-.67 1.55l-2.9 2.56c-.4.34-.67 1.01-.67 1.55v2.9c0 .4-.27.94-.61 1.15l-.94.61c-.88.54-2.09-.07-2.09-1.15v-3.57c0-.47-.27-1.08-.54-1.42l-2.56-2.7c-.34-.34-.61-.94-.61-1.35V3.41C2 2.61 2.61 2 3.35 2Z" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 11.998v3c0 5 2 7 7 7h6c5 0 7-2 7-7v-6c0-3.12-.78-5.08-2.59-6.1-.51-.29-1.53-.51-2.46-.66" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path opacity=".4" d="M13 13h5M11 17h7" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>                                    
+                                    </span>
+                                    <span className='ml-3 text-slate-400'>Filters</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className='md:flex px-4 py-2 mt-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-5'>
-                    {/* Side Filters */}
-                    <div className='md:max-w-80'>
-                        {/* Filters */}
-                        <div className="bg-white p-4 rounded-lg flex flex-wrap gap-4 items-center justify-between border border-gray-200">
-                            {/* Filter by Price */}
-                            <PriceRangeInput price={priceFilter} setPrice={setPriceFilter} />
-
-                            {/* Filter by Type */}
-                            <div className="flex items-center">
-                                <label className="text-sm font-semibold text-gray-600 mr-2">Type:</label>
-                                <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                    <select id="type" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white">
-                                        {TYPE_OPTIONS.map((item, index) => (
-                                            <option key={index} value={item.value}>{item.label}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            {/* Filter by Brand */}
-                            <div className="flex items-center">
-                                <label className="text-sm font-semibold text-gray-600 mr-2">Brand:</label>
-                                <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                    <select id="type" value={brandFilter} onChange={(e) => setBrandFilter(e.target.value)} className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white">
-                                        {BRAND_OPTIONS.map((item, index) => (
-                                            <option key={index} value={item.value}>{item.label}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            {/* Filter by Condition */}
-                            <div className="flex items-center">
-                                <label className="text-sm font-semibold text-gray-600 mr-2">Condition:</label>
-                                <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                    
-                                    <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={conditionFilter} onChange={(e) => setConditionFilter(e.target.value)}>
-                                        {CONDITION_OPTIONS.map((item, index) => (
-                                            <option key={index} value={item.value}>{item.label}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            {/* Filter by Transmission */}
-                            <div className="flex items-center">
-                                <label className="text-sm font-semibold text-gray-600 mr-2">Trans:</label>
-                                <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                    
-                                    <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={transmissionFilter} onChange={(e) => setTransmissionFilter(e.target.value)}>
-                                        {TRANSMISSION_OPTIONS.map((item, index) => (
-                                            <option key={index} value={item.value}>{item.label}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            {/* Filter by Fuel */}
-                            <div className="flex items-center">
-                                <label className="text-sm font-semibold text-gray-600 mr-2">Fuel:</label>
-                                <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                                    
-                                    <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={fuelFilter} onChange={(e) => setFuelFilter(e.target.value)}>
-                                        {FUELTYPE_OPTIONS.map((item, index) => (
-                                            <option key={index} value={item.value}>{item.label}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            {/* Apply Filter */}
-                            <div>
-                                <button onClick={() => getCars(9)} className="bg-primary text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
-                                    Apply Filter
-                                </button>
-                                <button onClick={clearFilter} className="bg-white text-primary px-4 py-2 rounded-lg text-sm focus:outline-none ml-2 border border-gray-200">
-                                    Clear Filter
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Listing */}
-                    <div className="md:ml-5 w-full mt-5 md:mt-0">
+                {/* Listing */}
+                <div className='px-4 py-2 mt-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-5'>
+                    <div className="w-full mt-5 md:mt-0">
                         {/* Skeleton */}
-                        {isLoading && <CardListingSkeleton numberOfCards={6} numberOfColumns={3} />}
+                        {isLoading && <CardListingSkeleton numberOfCards={8} numberOfColumns={4} />}
 
                         {/* Listing */}
                         {(!isLoading && cars.length > 0) && <div className=''>
-                            <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">                                
+                            <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                                
                                 {!isLoading && cars.map((item, index) => (
                                     <CarPostingCard key={index} car={item} />
                                 ))}
@@ -336,6 +260,92 @@ const Listings: React.FC = () => {
                     isLoading={isFetchingAutoCar}
                 />
             </section>
+
+            {/* Search Filter Modal */}
+            <FormModal isOpen={openModal} onClose={closeOpenModal}>
+                <h3 className='text-2xl text-slate-700 my-5 font-bold'>Filters</h3>
+
+                {/* Filter by Price */}
+                <PriceRangeInput price={priceFilter} setPrice={setPriceFilter} />
+
+                {/* Filter by Type */}
+                <div className="flex items-center my-3">
+                    <label className="text-sm font-semibold text-gray-600 mr-2">Type:</label>
+                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                        <select id="type" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white">
+                            {TYPE_OPTIONS.map((item, index) => (
+                                <option key={index} value={item.value}>{item.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                {/* Filter by Brand */}
+                <div className="flex items-center my-3">
+                    <label className="text-sm font-semibold text-gray-600 mr-2">Brand:</label>
+                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                        <select id="type" value={brandFilter} onChange={(e) => setBrandFilter(e.target.value)} className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white">
+                            {BRAND_OPTIONS.map((item, index) => (
+                                <option key={index} value={item.value}>{item.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                {/* Filter by Condition */}
+                <div className="flex items-center my-3">
+                    <label className="text-sm font-semibold text-gray-600 mr-2">Condition:</label>
+                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                        
+                        <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={conditionFilter} onChange={(e) => setConditionFilter(e.target.value)}>
+                            {CONDITION_OPTIONS.map((item, index) => (
+                                <option key={index} value={item.value}>{item.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                {/* Filter by Transmission */}
+                <div className="flex items-center my-3">
+                    <label className="text-sm font-semibold text-gray-600 mr-2">Trans:</label>
+                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                        
+                        <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={transmissionFilter} onChange={(e) => setTransmissionFilter(e.target.value)}>
+                            {TRANSMISSION_OPTIONS.map((item, index) => (
+                                <option key={index} value={item.value}>{item.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                {/* Filter by Fuel */}
+                <div className="flex items-center my-3">
+                    <label className="text-sm font-semibold text-gray-600 mr-2">Fuel:</label>
+                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                        
+                        <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={fuelFilter} onChange={(e) => setFuelFilter(e.target.value)}>
+                            {FUELTYPE_OPTIONS.map((item, index) => (
+                                <option key={index} value={item.value}>{item.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                {/* Apply Filter */}
+                <div className='mt-5 flex justify-between items-center'>
+                    <button onClick={() => getCars(9)} className="bg-primary text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
+                        Apply Filter
+                    </button>
+                    <button onClick={clearFilter} className="bg-white text-primary px-4 py-2 rounded-lg text-sm focus:outline-none ml-2 border border-gray-200">
+                        Clear Filter
+                    </button>
+                </div>
+            </FormModal>
 
             {/* Alert Message */}
             <AlertMessage message={alertMessage} type={alertType} />

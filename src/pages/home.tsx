@@ -58,6 +58,7 @@ const Home: React.FC = () => {
             transmission: 'automatic',
             direction: 'desc',
             limit: 8,
+            price: JSON.stringify([1000000, 100000000]),
         };
 
         setIsFetchingAutoCar(true);
@@ -109,7 +110,15 @@ const Home: React.FC = () => {
             {/* Hero Component */}
             <Hero onLoading={isLoading} onChange={getCars} />
 
-            <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
+            <div className="px-4 relative py-24 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
+                <div className="vector-1 absolute -top-20 right-20"> 
+                    <img src='/vectors/vector-3.png' alt="vector" className='w-48' />
+                </div>
+
+                <div className="vector-1 absolute -top-20 right-28"> 
+                    <img src='/vectors/vector-3.png' alt="vector" className='w-48' />
+                </div>
+
                 {/* Short list of cars */}
                 <ShortListings isLoading={isLoading} cars={cars} params={params}>
                     <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
@@ -123,9 +132,11 @@ const Home: React.FC = () => {
 
                 {/* Short list of auto cars */}
                 <ShortListings isLoading={isFetchingAutoCar} cars={autoCars} params={params}>
-                    <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
+                    <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">
+                        Discover the Perfect Car to <br /> Match Your <span className="inline-block text-primary">Lifestyle</span>.
+                    </h3>
                     <p className="max-w-xl text-base leading-relaxed text-gray-600 mt-6">
-                        Find your dream car from our extensive collection. Quality cars for every budget.
+                        Explore our extensive collection and find your dream car today. Quality and affordability guaranteed.
                     </p>
                 </ShortListings>
             

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Beliefs: React.FC = () => {
     return (
-        <section className="bg-cover bg-center dark:bg-darkmode overflow-hidden my-5">
+        <section className="bg-cover bg-center dark:bg-darkmode overflow-hidden my-5 py-14">
             <div className="container mx-auto lg:max-w-screen-xl md:max-w-screen-md">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                     {/* COLUMN-1 */}
@@ -39,8 +39,7 @@ const Beliefs: React.FC = () => {
                                 BUILD
                             </h2>
                             <h3 className="text-6xl sm:text-65xl font-bold text-black mb-5 text-center sm:text-start">
-                                <span className="text-primary">Build</span> that great idea that
-                                you have.
+                                <span className="text-primary">Get</span> that Car you Always Dream of.
                             </h3>
                             <h5 className="pt-2 mb-16 text-center sm:text-start text-black/75 text-lg">
                                 Quis ipsum suspendisse ultrices gravida risus commodo viverra
