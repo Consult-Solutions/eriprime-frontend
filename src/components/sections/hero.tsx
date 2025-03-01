@@ -18,12 +18,12 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
     };
 
     return (
-        <div className="relative bg-gradient-to-b from-primary to-[#08201D]">
+        <div className="relative bg-gradient-to-b from-[#061a35] to-[#05090c]">
             <section className="relative pt-20 pb-10 sm:pt-28 sm:pb-16 lg:min-h-[500px] lg:pb-24">
                 <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-xl text-center">
                         <h1 className="text-4xl font-bold sm:text-6xl">
-                            <span className="bg-gradient-to-r from-green-300 to-white bg-clip-text text-transparent font-airbnb"> Buy & Sell On #1 Marketplace for Cars in Africa </span>
+                            <span className="bg-gradient-to-r from-[#3898c8] to-white bg-clip-text text-transparent font-airbnb"> Buy & Sell On #1 Marketplace for Cars in Africa </span>
                         </h1>
 
                         <p className="mt-5 text-semibold font-airbnb text-white sm:text-xl">Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all.</p>

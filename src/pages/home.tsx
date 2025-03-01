@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [cars, setCars] = useState<any[]>([]);
     const [autoCars, setAutoCars] = useState<any[]>([]);
-   
+
     const params = {
         limit: 8,
         orderBy: 'createdAt',
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
             ...params,
             ...customParams,
         };
-        
+
         try {
             api.get(`/cars/approved`, { params: formParams })
                 .then((response: any) => {
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
         };
 
         setIsFetchingAutoCar(true);
-        
+
         try {
             api.get('/cars/approved', { params }).then((response: any) => {
                 setAutoCars(response.data.data);
@@ -96,13 +96,13 @@ const Home: React.FC = () => {
     return (
         <div>
             {/* SEO */}
-            <MetaTags 
-                title="Consult Solutions" 
+            <MetaTags
+                title="Consult Solutions"
                 description="Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all. Start your journey with us today and find the perfect car for you."
                 keywords="Consult Solutions, cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/`}
-                ogTitle="Consult Solutions" 
-                ogDescription="Find your dream car from our extensive collection. Quality cars for every budget." 
+                ogTitle="Consult Solutions"
+                ogDescription="Find your dream car from our extensive collection. Quality cars for every budget."
                 ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
                 twitterCard="summary_large_image"
             />
@@ -111,11 +111,11 @@ const Home: React.FC = () => {
             <Hero onLoading={isLoading} onChange={getCars} />
 
             <div className="px-4 relative py-24 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
-                <div className="vector-1 absolute -top-20 right-20"> 
+                <div className="vector-1 absolute -top-20 right-20">
                     <img src='/vectors/vector-3.png' alt="vector" className='w-48' />
                 </div>
 
-                <div className="vector-1 absolute -top-20 right-28"> 
+                <div className="vector-1 absolute -top-20 right-28">
                     <img src='/vectors/vector-3.png' alt="vector" className='w-48' />
                 </div>
 
@@ -139,7 +139,7 @@ const Home: React.FC = () => {
                         Explore our extensive collection and find your dream car today. Quality and affordability guaranteed.
                     </p>
                 </ShortListings>
-            
+
                 {/* Beliefs Section  */}
                 <Beliefs />
 
