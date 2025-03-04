@@ -47,13 +47,13 @@ const Contacts: React.FC = () => {
     return (
         <>
             <MetaTags
-                title="Contact Us - Consult Solutions" 
-                description="Get in touch with Consult Solutions. We're here to help you with all your car trading needs. Reach out to us today and let's start your journey towards finding the perfect car."
-                keywords="Consult Solutions, contact us, car trading, customer support, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                title="Contact Eriprime" 
+                description="Get in touch with Eriprime. We're here to help you with all your car trading needs. Reach out to us today and let's start your journey towards finding the perfect car."
+                keywords="Eriprime, contact us, car trading, customer support, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/contact`}
-                ogTitle="Contact Us - Consult Solutions" 
-                ogDescription="Reach out to Consult Solutions for all your car trading needs. Our team is here to support you every step of the way."
-                ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
+                ogTitle="Contact Eriprime" 
+                ogDescription="Reach out to Eriprime for all your car trading needs. Our team is here to support you every step of the way."
+                ogImage={`${process.env.PUBLIC_URL}/images/logos/logo.jpg`}
                 twitterCard="summary_large_image"
             />
 
@@ -106,7 +106,7 @@ const Contacts: React.FC = () => {
                                 </blockquote>
 
                                 <div className="flex items-center mt-8">
-                                    <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="/images/member1.jpeg" alt='Eric Niyongira at Consult Solutions' />
+                                    <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="/images/member1.jpeg" alt='Eric Niyongira at Eriprime' />
                                     <div className="ml-4">
                                         <p className="text-base font-semibold text-slate-700">Eric NIYONGIRA</p>
                                         <p className="mt-px text-sm text-gray-400">Research Officer</p>
@@ -209,7 +209,7 @@ const Contacts: React.FC = () => {
                             </blockquote>
 
                             <div className="flex items-center mt-8">
-                                <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="/images/member1.jpeg" alt='Eric Niyongira at Consult Solutions' />
+                                <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="/images/member1.jpeg" alt='Eric Niyongira at Eriprime' />
                                 <div className="ml-4">
                                     <p className="text-base font-semibold text-white">Eric NIYONGIRA</p>
                                     <p className="mt-px text-sm text-gray-400">Research Officer</p>

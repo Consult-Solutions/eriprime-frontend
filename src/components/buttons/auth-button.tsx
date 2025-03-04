@@ -14,7 +14,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({ text, isLoading, onClick, type 
     <button
       type={type}
       onClick={onClick}
-      className={`relative inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 border-none rounded-md bg-gradient-to-r from-[#6ca943] to-[#03783d] focus:outline-none hover:opacity-80 focus:opacity-80 ${className}`}
+      className={`relative inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 border-none rounded-md bg-gradient-to-r from-primary/50 to-primary focus:outline-none hover:opacity-80 focus:opacity-80 ${className}`}
       disabled={isLoading}
     >
       {isLoading && (

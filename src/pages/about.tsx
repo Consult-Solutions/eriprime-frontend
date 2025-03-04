@@ -5,13 +5,13 @@ const About: React.FC = () => {
     return (
         <>
             <MetaTags
-                title="About Us - Consult Solutions" 
-                description="Learn more about Consult Solutions, our mission, and our commitment to providing the best car trading experience. Discover how we can help you find your dream car and support you every step of the way."
-                keywords="Consult Solutions, about us, car trading, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                title="About Eriprime" 
+                description="Learn more about Eriprime, our mission, and our commitment to providing the best car trading experience. Discover how we can help you find your dream car and support you every step of the way."
+                keywords="Eriprime, about us, car trading, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/about-us`}
-                ogTitle="About Us - Consult Solutions" 
-                ogDescription="Discover more about Consult Solutions, our mission, and our dedication to providing the best car trading experience. Learn how we can help you find your dream car."
-                ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
+                ogTitle="About Eriprime" 
+                ogDescription="Discover more about Eriprime, our mission, and our dedication to providing the best car trading experience. Learn how we can help you find your dream car."
+                ogImage={`${process.env.PUBLIC_URL}/images/logos/logo.jpg`}
                 twitterCard="summary_large_image"
             />
 

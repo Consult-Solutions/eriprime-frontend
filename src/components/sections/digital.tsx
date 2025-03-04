@@ -14,11 +14,8 @@ const Digital: React.FC = () => {
                         <h4 className="text-65 sm:text-6xl font-bold text-white mb-8 leading-snug text-center lg:text-start">
                             We are a digital agency that Connects with Best Sellers & Buyers.
                         </h4>
-                        <div className="text-center lg:text-start">
-                            <Link
-                                to="#"
-                                className="text-xl font-semibold text-white bg-blue hover:bg-primary py-4 px-12 rounded-full"
-                            >
+                        <div className="text-center lg:text-start mt-20">
+                            <Link to="/signup" className="text-xl font-semibold text-primary bg-blue bg-white py-4 px-12 rounded-full">
                                 Get started
                             </Link>
                         </div>

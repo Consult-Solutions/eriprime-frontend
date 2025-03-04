@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../services/api.ts';
 import AlertMessage from './alerts/alert-message.tsx';
 import FetchLoader from './loaders/fetching-loader.tsx';
+import Logo from './logo.tsx';
 
 const Footer: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,7 @@ const Footer: React.FC = () => {
                 setAlertType('success');
                 setIsLoading(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
+                setAlertMessage('An error occurred. ' + error.response.data.message);
                 setAlertType('error');
                 setIsLoading(false);
             })
@@ -43,7 +44,9 @@ const Footer: React.FC = () => {
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                 <div className="grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-16 gap-x-12">
                     <div className="col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8">
-                        <img className="w-32" src="/images/logo.jpeg" alt="Consult Solutions" />
+                        <div className='mb-8'>
+                            <Logo />
+                        </div>
 
                         <p className="text-base leading-relaxed text-gray-600 mt-2">
                             Wide range of cars to suit every need and budget. Whether you're looking for the latest models, we have it all.
@@ -117,17 +120,17 @@ const Footer: React.FC = () => {
                     <div className="col-span-2 md:col-span-1 lg:col-span-2 lg:pl-8">
                         <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">Subscribe to Newsletter</p>
 
-                        <div className="flex mt-5 items-center justify-between w-full py-2 px-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-full focus:outline-none focus:border-[#03783d] caret-[#03783d]">
+                        <div className="flex mt-5 items-center justify-between w-full py-2 pl-4 pr-2 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-full focus:outline-none focus:border-primary caret-primary">
                             <label className="sr-only">Email</label>
                             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="Enter your email" className="border-none outline-none focus:outline-none focus:border-none" />
-                            {!isLoading && <button onClick={subscribe} type="submit" className="inline-flex items-center justify-center px-4 py-2 font-semibold text-white transition-all duration-200 bg-primary rounded-full hover:bg-primary/90 focus:bg-primary/90">Subscribe</button>}
                             {isLoading && <div className='mr-3'> <FetchLoader /> </div>}
+                            {!isLoading && <button onClick={subscribe} type="submit" className="inline-flex items-center justify-center px-4 py-2 font-semibold text-white transition-all duration-200 bg-primary rounded-full hover:bg-primary/90 focus:bg-primary/90">Subscribe</button>}
                         </div>
                     </div>
                 </div>
 
                 <hr className="mt-16 mb-10 border-gray-200" />
-                <p className="text-sm text-center text-gray-600">© Copyright 2024, All Rights Reserved by Consult Solutions</p>
+                <p className="text-sm text-center text-gray-600 font-bold">© Copyright 2025, All Rights Reserved by Eriprime</p>
             </div>
 
             {/* Alert Message */}

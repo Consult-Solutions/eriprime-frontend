@@ -152,11 +152,11 @@ const CarDetails: React.FC = () => {
     return (
         <div>
             <MetaTags
-                title={`${car?.title} - Consult Solutions`} 
+                title={`${car?.title} | Eriprime`} 
                 description={car ? car.description : 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
-                keywords="Consult Solutions, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                keywords="Eriprime, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/cars/${id}`}
-                ogTitle={`${car?.title} - Consult Solutions`} 
+                ogTitle={`${car?.title} - Eriprime`} 
                 ogDescription={car ? car.description : 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
                 ogImage={car ? car.images[0] : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'}
                 twitterCard="summary_large_image"
@@ -175,7 +175,7 @@ const CarDetails: React.FC = () => {
                                         <div className="swiper-container swiper-initialized swiper-horizontal swiper-pointer-events">
                                             <div className="swiper-wrapper" id="swiper-wrapper-5b26c8f3eb7d9756 rounded-lg" aria-live="polite">
                                                 <div className="swiper-slide swiper-slide-active w-[559px] h-[400px] border border-gray-200 rounded-lg" role="group" aria-label="1 / 5">
-                                                    <img src={selectedImage ? selectedImage : defaultImage} alt={car ? car.title : 'Consult solutions Image'} className='rounded-lg h-full w-full object-cover transform transition-transform duration-300 hover:scale-105' />
+                                                    <img src={selectedImage ? selectedImage : defaultImage} alt={car ? car.title : 'Eriprime Image'} className='rounded-lg h-full w-full object-cover transform transition-transform duration-300 hover:scale-105' />
                                                 </div>
                                             </div>
                                         </div>

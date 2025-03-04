@@ -194,13 +194,13 @@ const Listings: React.FC = () => {
     return (
         <div>
             <MetaTags
-                title="Car Listings - Consult Solutions"
-                description="Explore our extensive car listings to find the perfect vehicle for you. From the latest models to reliable used cars, we have something for everyone. Start your journey with Consult Solutions today!"
-                keywords="Consult Solutions, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                title="Car Listings On Eriprime"
+                description="Explore our extensive car listings to find the perfect vehicle for you. From the latest models to reliable used cars, we have something for everyone. Start your journey with Eriprime today!"
+                keywords="Eriprime, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/listings`}
-                ogTitle="Car Listings - Consult Solutions"
+                ogTitle="Car Listings On Eriprime"
                 ogDescription="Discover your dream car from our extensive listings. Quality cars for every budget and need."
-                ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
+                ogImage={`${process.env.PUBLIC_URL}/images/logos/logo.jpg`}
                 twitterCard="summary_large_image"
             />
 

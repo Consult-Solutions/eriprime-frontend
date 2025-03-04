@@ -38,7 +38,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, callback, fallba
     return (<>
         <FormModal isOpen={isOpen} onClose={onClose}> 
             {isLogin && <LoginForm onSuccess={loginSuccess} onError={loginFailed}> 
-                <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Sign In to consult Solutions</h2>
+                <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Sign In to Eriprime</h2>
                 <p className="mt-2 text-base text-gray-600 flex">Don’t have an account? <div onClick={() => setIslogin(false)} className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline cursor-pointer ml-3">Create a free account</div></p>
             </LoginForm>}
 

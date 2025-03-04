@@ -6,7 +6,7 @@ interface Car {
     _id: string;
     title: string;
     transmission: string;
-    price:string;
+    price: string;
     description: string;
     make: string;
     car_model: string;
@@ -55,29 +55,29 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                     </div>}
 
                     <div className="inline-flex absolute top-3 left-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-full text-gray-100 bg-primary/90 mt-1">{car.category ? car.category.name : 'Vehicle'}</div>
-                    
+
                     {car.status === 'sold' && (<div className="inline-flex absolute top-3 right-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-lg text-gray-100 bg-red-400 mt-1"> Sold </div>)}
                     {car.condition === 'new' && (<div className="inline-flex absolute bottom-3 left-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-lg text-gray-100 bg-primary/90 mt-1"> New </div>)}
-                    
-                    {car.eco_friendly && (<div className="inline-flex absolute bottom-3 right-3 px-2 py-2 text-xs font-semibold tracking-widest rounded-full text-gray-100 bg-primary/90 mt-1"> 
+
+                    {car.eco_friendly && (<div className="inline-flex absolute bottom-3 right-3 px-2 py-2 text-xs font-semibold tracking-widest rounded-full text-gray-100 bg-primary/90 mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-                        </svg>  
+                        </svg>
                     </div>)}
                 </div>
 
                 {/* Card content */}
-                <Link to={`/cars/${car._id}`} aria-label="Article">                    
-                    <div className="py-5">
+                <Link to={`/cars/${car._id}`} aria-label="Article" className=''>
+                    <div className="rounded-xl mt-3 hover:py-2 hover:px-2 hover:bg-gray-50 transition duration-100">
                         <p className="mb-2 text-xs font-semibold text-gray-600 uppercase">
                             {car.make}, {car.car_model} - {car.year}
-                        </p>                
-                        
+                        </p>
+
                         <div>
                             <Link to={`/cars/${car._id}`} aria-label="Article" className="inline-block mb-3 mt-2 text-black transition-colors duration-200 hover:text-deep-purple-accent-700">
                                 <p className="text-xl font-bold leading-5 text-slate-700">
                                     {new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(car.price))}
-                                </p>                        
+                                </p>
                             </Link>
                         </div>
 
@@ -114,11 +114,6 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                                         <p className="font-semibold text-sm text-slate-700 uppercase">{car.condition}</p>
                                     </Link>
                                 </div>
-                            </div>
-                            <div className='mt-5'>
-                                <Link to={`/cars/${car._id}`} className="inline-flex items-center justify-center rounded bg-primary px-3 py-1 font-medium text-sm tracking-wide text-white shadow-none outline-none transition duration-200 hover:bg-primary focus:ring sm:w-auto">
-                                    <span>Read More</span>
-                                </Link>
                             </div>
                         </div>
                     </div>

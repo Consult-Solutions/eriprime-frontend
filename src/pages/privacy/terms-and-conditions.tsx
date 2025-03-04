@@ -13,7 +13,7 @@ function TermsAndConditions() {
         <section className="bg-white p-6">
           <h2 className="text-xl font-semibold mb-4">Introduction</h2>
           <p className="mb-4">
-            Welcome to Consult Solutions! By accessing or using our website, you agree to comply with and be bound by these Terms and Conditions. Please read them carefully before using our services.
+            Welcome to Eriprime! By accessing or using our website, you agree to comply with and be bound by these Terms and Conditions. Please read them carefully before using our services.
           </p>
 
           <h2 className="text-xl font-semibold mb-4">Use of the Website</h2>

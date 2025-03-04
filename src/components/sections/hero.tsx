@@ -23,11 +23,11 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
                 <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-xl text-center">
                         <h1 className="text-4xl font-bold sm:text-6xl">
-                            <span className="bg-gradient-to-r from-[#3898c8] to-white bg-clip-text text-transparent font-airbnb"> Buy & Sell On #1 Marketplace for Cars in Africa </span>
+                            <span className="bg-gradient-to-r from-[#3898c8] to-white bg-clip-text text-transparent "> Buy & Sell On #1 Marketplace for Cars in Africa </span>
                         </h1>
 
-                        <p className="mt-5 text-semibold font-airbnb text-white sm:text-xl">Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all.</p>
-                        
+                        <p className="mt-5 text-sm text-semibold text-white sm:text-sm md:text-md">Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all.</p>
+
                         <div className="flex flex-col items-center justify-center mt-12">
                             <div className='border border-gray-300 rounded-full pl-4 pr-2 py-2 w-full text-sm focus:outline-none flex items-center bg-white'>
                                 <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M11 20a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M18.93 20.689c.53 1.6 1.74 1.76 2.67.36.85-1.28.29-2.33-1.25-2.33-1.14-.01-1.78.88-1.42 1.97Z" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>

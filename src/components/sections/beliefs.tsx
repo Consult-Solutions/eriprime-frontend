@@ -19,15 +19,11 @@ const Beliefs: React.FC = () => {
                             </span>
                         </h3>
                         <h5 className="text-primary/75 pt-2 mb-16 text-center sm:text-start">
-                            Quis ipsum suspendisse ultrices gravida risus commodo viverra
-                            maecenas accumsan lacus vel facilisis.
+                            We believe in honesty and hard work. Our commitment to these values ensures that you receive the best service and quality. Trust us to help you find the car that meets your needs and exceeds your expectations.
                         </h5>
                         <div className="text-center sm:text-start">
-                            <Link
-                                to="#"
-                                className="text-xl py-5 px-14 mt-5 font-semibold text-white rounded-full duration-300 bg-primary border border-primary hover:bg-darkmode hover:border-darkmode"
-                            >
-                                Get Started
+                            <Link to="#" className="text-xl py-5 px-14 mt-5 font-semibold text-white rounded-full duration-300 bg-primary border border-primary hover:bg-darkmode hover:border-darkmode">
+                                About us
                             </Link>
                         </div>
                     </div>
@@ -42,8 +38,7 @@ const Beliefs: React.FC = () => {
                                 <span className="text-primary">Get</span> that Car you Always Dream of.
                             </h3>
                             <h5 className="pt-2 mb-16 text-center sm:text-start text-black/75 text-lg">
-                                Quis ipsum suspendisse ultrices gravida risus commodo viverra
-                                maecenas accumsan lacus vel facilisis.
+                                Discover the car you've always dreamed of. Our collection offers a wide range of options to suit your style and needs. Experience the joy of driving your perfect car today.
                             </h5>
                             <div className="text-center sm:text-start">
                                 <Link

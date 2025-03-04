@@ -21,6 +21,7 @@ const Home: React.FC = () => {
         limit: 8,
         orderBy: 'createdAt',
         direction: 'desc',
+        condition: 'new',
     };
 
     /**
@@ -97,13 +98,13 @@ const Home: React.FC = () => {
         <div>
             {/* SEO */}
             <MetaTags
-                title="Consult Solutions"
+                title="Eriprime"
                 description="Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all. Start your journey with us today and find the perfect car for you."
-                keywords="Consult Solutions, cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                keywords="Eriprime, cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/`}
-                ogTitle="Consult Solutions"
+                ogTitle="Eriprime"
                 ogDescription="Find your dream car from our extensive collection. Quality cars for every budget."
-                ogImage={`${process.env.PUBLIC_URL}/images/logo.jpeg`}
+                ogImage={`${process.env.PUBLIC_URL}/images/logos/logo.jpg`}
                 twitterCard="summary_large_image"
             />
 
@@ -122,7 +123,7 @@ const Home: React.FC = () => {
                 {/* Short list of cars */}
                 <ShortListings isLoading={isLoading} cars={cars} params={params}>
                     <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
-                    <p className="max-w-xl text-base leading-relaxed text-gray-600 mt-6">
+                    <p className="max-w-xl text-sm leading-relaxed text-gray-600 mt-3">
                         Find your dream car from our extensive collection. Quality cars for every budget.
                     </p>
                 </ShortListings>
@@ -135,7 +136,7 @@ const Home: React.FC = () => {
                     <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">
                         Discover the Perfect Car to <br /> Match Your <span className="inline-block text-primary">Lifestyle</span>.
                     </h3>
-                    <p className="max-w-xl text-base leading-relaxed text-gray-600 mt-6">
+                    <p className="max-w-xl text-sm leading-relaxed text-gray-600 mt-3">
                         Explore our extensive collection and find your dream car today. Quality and affordability guaranteed.
                     </p>
                 </ShortListings>

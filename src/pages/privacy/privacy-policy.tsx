@@ -13,7 +13,7 @@ function PrivacyPolicy() {
         <section className="bg-white p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Introduction</h2>
           <p className="mb-4">
-            Welcome to Consult Solutions! Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your personal information.
+            Welcome to Eriprime! Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your personal information.
           </p>
 
           <h2 className="text-xl font-semibold mb-4">Information We Collect</h2>

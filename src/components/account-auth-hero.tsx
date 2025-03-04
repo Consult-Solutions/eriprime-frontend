@@ -4,7 +4,7 @@ const AccountAuthSideHero: React.FC = () => {
   return (
     <div className="relative flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
       <div className="absolute inset-0">
-        <img className="object-cover w-full h-full" src="https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/673ca5e5f71208a2ee204fad_most-fuel-efficient-awd_main.webp" alt="" />
+        <img className="object-cover w-full h-full" src="https://images.unsplash.com/photo-1541348263662-e068662d82af?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
 
