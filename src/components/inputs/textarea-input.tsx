@@ -12,7 +12,7 @@ interface TextAreaInputProps {
 const TextAreaInput: React.FC<TextAreaInputProps> = ({ label, placeholder, value, onChange, errorMessage, children }) => {
     return (
         <div className='mt-3'>
-            <label className="text-base font-medium text-slate-700 capitalize">{label}</label>
+            <label className="font-semibold text-slate-700 capitalize">{label}</label>
             <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
                 <textarea
                     value={value}

@@ -15,7 +15,7 @@ interface TextInputProps {
 const TextInput: React.FC<TextInputProps> = ({ label, placeholder, value, type, errorMessage, onChange, onKeyDown, children, disabled=false }) => {
     return (
         <div className='mt-3'>
-            <label className="text-base font-medium text-slate-700 capitalize">{label}</label>
+            <label className="font-semibold text-slate-700 capitalize">{label}</label>
             <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600 transition-all duration-200">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     {children}

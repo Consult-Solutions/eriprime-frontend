@@ -12,7 +12,7 @@ interface SelectInputProps {
 const SelectInput: React.FC<SelectInputProps> = ({ label, value, options, onChange, errorMessage, children }) => {
     return (
         <div className='mt-3'>
-            <label className="text-base font-medium text-gray-900">{label}</label>
+            <label className="font-semibold text-slate-700">{label}</label>
             
             <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600 transition-all duration-200">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
