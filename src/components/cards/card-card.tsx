@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Slider from './Slider';
+import Slider from '../Slider';
 
 interface Car {
     _id: string;
@@ -20,16 +20,16 @@ interface Car {
     category: { name: string };
 }
 
-interface CarPostingCardProps {
+interface CarCardProps {
     car: Car;
 }
 
-const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
+const CarCard: React.FC<CarCardProps> = ({ car }) => {
     const [page, setPage] = useState(1);
 
     return (
-        <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
-            <div className="overflow-hidden transition-shadow duration-300 rounded-xl relative">
+        <div className="overflow-hidden rounded-xl relative hover:scale-105 transform transition-transform duration-300">
+            <div className="overflow-hidden transition-shadow duration-300 rounded-xl relative border border-gray-200">
                 {/* Card images */}
                 <div className="relative">
                     <Slider className="" page={page} setPage={setPage}>
@@ -38,7 +38,7 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                                 key={index}
                                 src={image}
                                 alt={car.title}
-                                className="w-full object-cover h-60 rounded-xl"
+                                className="w-full object-cover h-60 rounded-t-xl"
                             />
                         ))}
                     </Slider>
@@ -54,7 +54,9 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                         ))}
                     </div>}
 
-                    <div className="inline-flex absolute top-3 left-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-full text-gray-100 bg-primary/90 mt-1">{car.category ? car.category.name : 'Vehicle'}</div>
+                    <div className="inline-flex absolute top-3 left-3 px-4 text-sm py-1 font-semibold tracking-widest rounded-full text-gray-100 bg-primary/90 mt-1">
+                        <span className='text-[12px]'>{car.category ? car.category.name : 'Vehicle'}</span>
+                    </div>
 
                     {car.status === 'sold' && (<div className="inline-flex absolute top-3 right-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-lg text-gray-100 bg-red-400 mt-1"> Sold </div>)}
                     {car.condition === 'new' && (<div className="inline-flex absolute bottom-3 left-3 px-2 py-1 text-xs font-semibold tracking-widest rounded-lg text-gray-100 bg-primary/90 mt-1"> New </div>)}
@@ -67,31 +69,32 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                 </div>
 
                 {/* Card content */}
-                <Link to={`/cars/${car._id}`} aria-label="Article" className=''>
-                    <div className="rounded-xl mt-3 hover:py-2 hover:px-2 hover:bg-gray-50 transition duration-100">
-                        <p className="mb-2 text-xs font-semibold text-gray-600 uppercase">
+                <Link to={`/cars/${car._id}`} aria-label="Article">
+                    <div className="py-3 px-3 transition duration-100 text-slate-700">
+                        <p className="mb-2 text-xs font-semibold uppercase text-slate-700">
                             {car.make}, {car.car_model} - {car.year}
                         </p>
 
                         <div>
-                            <Link to={`/cars/${car._id}`} aria-label="Article" className="inline-block mb-3 mt-2 text-black transition-colors duration-200 hover:text-deep-purple-accent-700">
+                            <Link to={`/cars/${car._id}`} aria-label="Article" className="inline-block mb-3 mt-2 transition-colors duration-200 hover:text-deep-purple-accent-700">
                                 <p className="text-xl font-bold leading-5 text-slate-700">
                                     {new Intl.NumberFormat('en-RW', { style: 'currency', currency: 'RWF' }).format(Number(car.price))}
                                 </p>
                             </Link>
                         </div>
 
-                        <p className="mb-4 text-slate-700 line-clamp-2">
+                        <p className="mb-4 line-clamp-2 text-slate-700">
                             {car.description}
                         </p>
 
                         <div className="h-0 mt-6 mb-4 border-t-2 border-gray-200 border-dashed"></div>
+
                         <div className='flex justify-between items-center'>
                             <div>
-                                <div className="text-xs font-semibold mb-3 text-gray-600 uppercase flex items-center">
+                                <div className="text-xs font-semibold mb-3 text-slate-700 uppercase flex items-center">
                                     <div className='flex items-center mr-2'>
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7Z" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#555555" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"><path d="M15.57 18.502v-3.9M15.57 7.45V5.5M15.569 12.65a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2ZM8.43 18.5v-1.95M8.43 9.4V5.5M8.43 16.552a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2Z"></path></g></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7Z" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><g opacity=".4" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"><path d="M15.57 18.502v-3.9M15.57 7.45V5.5M15.569 12.65a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2ZM8.43 18.5v-1.95M8.43 9.4V5.5M8.43 16.552a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2Z"></path></g></svg>
                                         </span>
                                         <span className='ml-2'>{car.transmission}</span>
                                     </div>
@@ -101,17 +104,16 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
                                     </div>
                                 </div>
                                 <div className="flex space-x-4">
-                                    <Link to={`/cars/${car._id}`} aria-label="Likes" className="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
+                                    <Link to={`/cars/${car._id}`} aria-label="Likes" className="flex items-start text-slate-700 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
                                         <div className="mr-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><g opacity=".4" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                        </div>
-                                        <p className="font-semibold text-sm text-slate-700">{car.mileage}</p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.51 2.828H8.49c-2.49 0-3.04 1.24-3.36 2.76L4 10.998h16l-1.13-5.41c-.32-1.52-.87-2.76-3.36-2.76ZM21.989 19.82c.11 1.17-.83 2.18-2.03 2.18h-1.88c-1.08 0-1.23-.46-1.42-1.03l-.2-.6c-.28-.82-.46-1.37-1.9-1.37h-5.12c-1.44 0-1.65.62-1.9 1.37l-.2.6c-.19.57-.34 1.03-1.42 1.03h-1.88c-1.2 0-2.14-1.01-2.03-2.18l.56-6.09c.14-1.5.43-2.73 3.05-2.73h12.76c2.62 0 2.91 1.23 3.05 2.73l.56 6.09ZM4 8H3M21 8h-1" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><g opacity=".4" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M10.5 5h3"></path></g><path opacity=".4" d="M6 15h3M15 15h3" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>                                        </div>
+                                        <p className="font-semibold text-sm">{car.mileage}</p>
                                     </Link>
-                                    <Link to={`/cars/${car._id}`} aria-label="Comments" className="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
+                                    <Link to={`/cars/${car._id}`} aria-label="Comments" className="flex items-start text-slate-700 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
                                         <div className="mr-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.15 2v20" stroke="#555555" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".34" d="M5.15 4h11.2c2.7 0 3.3 1.5 1.4 3.4l-1.2 1.2c-.8.8-.8 2.1 0 2.8l1.2 1.2c1.9 1.9 1.2 3.4-1.4 3.4H5.15" stroke="#555555" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.15 2v20" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path opacity=".34" d="M5.15 4h11.2c2.7 0 3.3 1.5 1.4 3.4l-1.2 1.2c-.8.8-.8 2.1 0 2.8l1.2 1.2c1.9 1.9 1.2 3.4-1.4 3.4H5.15" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                                         </div>
-                                        <p className="font-semibold text-sm text-slate-700 uppercase">{car.condition}</p>
+                                        <p className="font-semibold text-sm uppercase">{car.condition}</p>
                                     </Link>
                                 </div>
                             </div>
@@ -123,4 +125,4 @@ const CarPostingCard: React.FC<CarPostingCardProps> = ({ car }) => {
     );
 };
 
-export default CarPostingCard;
+export default CarCard;

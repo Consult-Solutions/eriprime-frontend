@@ -8,7 +8,7 @@ interface OauthProps {
 const OAuth: React.FC<OauthProps> = ({ onLoading }) => {
   return (
     <div className="mt-3 space-y-3">
-        <ContinueWithGoogle onLoading={onLoading} />
+      <ContinueWithGoogle onLoading={onLoading} />
     </div>
   )
 }

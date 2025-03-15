@@ -5,9 +5,10 @@ import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import MetaTags from '../components/MetaTags.tsx';
 import CTA from '../components/sections/cta.tsx';
-import Digital from '../components/sections/digital.tsx';
 import Beliefs from '../components/sections/beliefs.tsx';
 import ShortListings from '../components/sections/short-listings.tsx';
+import PremiumBrands from '../components/sections/premium-blands.tsx';
+import BrowseByType from '../components/sections/browse-by-type.tsx';
 
 const Home: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -111,7 +112,9 @@ const Home: React.FC = () => {
             {/* Hero Component */}
             <Hero onLoading={isLoading} onChange={getCars} />
 
-            <div className="px-4 relative py-24 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
+            <PremiumBrands />
+
+            <div className="px-4 relative mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 md:py-12">
                 <div className="vector-1 absolute -top-20 right-20">
                     <img src='/vectors/vector-3.png' alt="vector" className='w-48' />
                 </div>
@@ -122,14 +125,14 @@ const Home: React.FC = () => {
 
                 {/* Short list of cars */}
                 <ShortListings isLoading={isLoading} cars={cars} params={params}>
-                    <h3 className="text-2xl font-bold text-slate-700 sm:text-3xl lg:text-4xl capitalize md:leading-loose">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
+                    <h3 className="text-2xl font-bold text-slate-700 sm:text-2xl lg:text-3xl capitalize md:leading-loose">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
                     <p className="max-w-xl text-sm leading-relaxed text-gray-600 mt-3">
                         Find your dream car from our extensive collection. Quality cars for every budget.
                     </p>
                 </ShortListings>
 
                 {/* Digital Section */}
-                <Digital />
+                <BrowseByType />
 
                 {/* Short list of auto cars */}
                 <ShortListings isLoading={isFetchingAutoCar} cars={autoCars} params={params}>

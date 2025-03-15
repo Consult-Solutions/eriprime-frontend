@@ -72,7 +72,7 @@ const NavBar: React.FC = () => {
     }, []);
 
     return (
-        <header className="bg-white lg:pb-0 border-b border-gray-200">
+        <header className="bg-transparent lg:pb-0 border-b border-gray-200">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <nav className="flex items-center justify-between">
                     <div className="flex-shrink-0">

@@ -1,7 +1,7 @@
 import React from "react";
-import CardListingSkeleton from "../cards/CardListingSkeleton.tsx";
-import CarPostingCard from "../car-posting-card.tsx";
 import { Link } from "react-router-dom";
+import CarCard from "../cards/card-card.tsx";
+import CarCardListingSkeleton from "../cards/car-card -listing-skeleton.tsx";
 
 interface ShortListingsProps {
     isLoading: boolean;
@@ -18,13 +18,13 @@ const ShortListings: React.FC<ShortListingsProps> = ({ children, isLoading, cars
             </div>
 
             {/* Skeleton */}
-            {isLoading && <CardListingSkeleton numberOfCards={params.limit} />}
+            {isLoading && <CarCardListingSkeleton numberOfCards={params.limit} />}
 
             {/* Car Postings */}
             {!isLoading && <div className='mt-10'>
-                <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                        
+                <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">
                     {cars.map((item, index) => (
-                        <CarPostingCard key={index} car={item} />
+                        <CarCard key={index} car={item} />
                     ))}
                 </div>
             </div>}

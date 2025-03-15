@@ -16,8 +16,10 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading }) => {
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const navigate = useNavigate();
     const googleApis = process.env.REACT_APP_GOOGLE_APIS_URL;
-    
+
     const handleSubmit = async (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">) => {
+        console.log(tokenResponse);
+
         try {
             onLoading(true);
             setLoading(true);
@@ -26,36 +28,46 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading }) => {
                 headers: { 'Authorization': `Bearer ${tokenResponse.access_token}` },
             });
 
-            const userInfo = await userInfoResponse.json();
-            const { name, email, picture, email_verified } = userInfo;
+            const userInfoText = await userInfoResponse.text();
 
-            if (!email_verified) {
-                setAlertMessage('Email is not verified. Please verify your email address.');
+            try {
+                const userInfo = JSON.parse(userInfoText);
+                const { name, email, picture, email_verified } = userInfo;
+
+                if (!email_verified) {
+                    setAlertMessage('Email is not verified. Please verify your email address.');
+                    setAlertType('error');
+                    onLoading(false);
+                    setLoading(false);
+                    return;
+                }
+
+                api.post<{ access_token: string, message: string }>('/auth/oauth/callback', { name, picture, email, password: email }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                }).then((response) => {
+                    const accessToken = response.data.access_token;
+
+                    localStorage.setItem('accessToken', accessToken);
+
+                    setGlobalAlert('Authentication With Google Success', 'success');
+                    setAlertMessage(response.data.message);
+                    setAlertType('success');
+
+                    navigate('/user/dashboard');
+                }).catch((error) => {
+                    setAlertMessage('An error occurred. ' + error.response.data.message);
+                    setAlertType('error');
+                });
+            } catch (jsonError) {
+                console.error('Failed to parse JSON:', userInfoText);
+                setAlertMessage('An error occurred. Please try again.');
                 setAlertType('error');
-                onLoading(false);
-                setLoading(false);
-                return;
             }
-
-            api.post<{ access_token: string, message: string }>('/auth/oauth/callback', { name, picture, email, password: email }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-            }).then((response) => {                
-                const accessToken = response.data.access_token;
-                localStorage.setItem('accessToken', accessToken);
-
-                setGlobalAlert('Authentication With Google Success', 'success');  
-                setAlertMessage(response.data.message);
-                setAlertType('success');
-
-                navigate('/user/dashboard');
-            }).catch((error) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
-                setAlertType('error');
-            })
         } catch (error) {
+            console.log(error);
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
         } finally {
@@ -66,7 +78,7 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading }) => {
 
     const loginWithGoogle = useGoogleLogin({
         onSuccess: tokenResponse => handleSubmit(tokenResponse),
-        onError: error => {},
+        onError: error => { },
     });
 
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CarPostingCardSkeleton: React.FC = () => {
+const CarCardSkeleton: React.FC = () => {
     return (
         <div className="overflow-hidden transition-shadow duration-300 bg-white rounded animate-pulse">
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
@@ -49,4 +49,4 @@ const CarPostingCardSkeleton: React.FC = () => {
     );
 };
 
-export default CarPostingCardSkeleton;
+export default CarCardSkeleton;

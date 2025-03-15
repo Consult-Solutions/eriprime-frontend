@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 function CTA() {
   return (<>
     <section className="bg-primary rounded-3xl my-5">
-        <div className="flex flex-col items-center pr-10 py-12 mx-auto xl:flex-row">
-            <div className="flex justify-center xl:w-1/2">
+        <div className="flex flex-col items-center pr-10 py-12 mx-auto xl:flex-row justify-center">
+            <div className="flex justify-center xl:w-1/2 ml-5 md:ml-0">
                 <img className="h-80 w-80 sm:w-[20rem] sm:h-[20rem] flex-shrink-0 object-cover rounded-full" src="https://t4.ftcdn.net/jpg/09/74/69/61/360_F_974696133_7MDMWw7WyOvBmmjEm47XanwC9TxnkWRL.jpg" alt="" />
             </div>
 
-            <div className="">
+            <div className="ml-5 md:ml-0 mt-5 md:mt-0">
                 <h2 className="text-2xl font-semibold tracking-tight text-white xl:text-4xl capitalize">
                     Connect with potential buyers & find your dream car today!
                 </h2>

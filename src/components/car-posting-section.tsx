@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import CarPostingCard from './car-posting-card.tsx';
-import CardListingSkeleton from './cards/CardListingSkeleton.tsx';
+import CarCard from './cards/card-card.tsx';
+import CarCardListingSkeleton from './cards/car-card -listing-skeleton.tsx';
 
 interface CarPostingSectionProps {
     title: string;
@@ -20,11 +20,11 @@ const CarPostingSection: React.FC<CarPostingSectionProps> = ({ title, descriptio
 
             <div className='mt-10'>
                 {/* Skeleton */}
-                {isLoading && <CardListingSkeleton numberOfCards={8} numberOfColumns={4} />}
+                {isLoading && <CarCardListingSkeleton numberOfCards={8} numberOfColumns={4} />}
 
                 <div className="grid gap-5 lg:grid-cols-4 sm:max-w-sm sm:mx-auto lg:max-w-full">                    
                     {cars && cars.map((item, index) => (
-                        <CarPostingCard key={index} car={item} />
+                        <CarCard key={index} car={item} />
                     ))}
                 </div>
 

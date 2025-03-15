@@ -61,7 +61,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ formTitle, onSuccess, onError, 
         try {
             setLoading(true);
 
-            api.post('/auth/signup', { name: fullName, email, password }, {
+            api.post('/auth/signup', { name: fullName, email, password, path:  "manual_signup" }, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
