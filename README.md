@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c33b7025-95d4-4715-9f55-79a6876180c9/deploy-status)](https://app.netlify.com/sites/eriprime/deploys) 
+
 # Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
