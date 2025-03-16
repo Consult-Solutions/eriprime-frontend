@@ -37,6 +37,20 @@ const Listings: React.FC = () => {
 
     const openOpenModal = () => setOpenModal(true);
     const closeOpenModal = () => setOpenModal(false);
+    const apiUrl = `/cars/approved`;
+
+    interface SetUrlParams {
+        (key: string, value: string): void;
+    }
+
+    const setUrlParams: SetUrlParams = (key, value) => {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if (value !== '') {
+            urlParams.set(key, value);
+            window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`);
+        }
+    }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') getCars();
@@ -64,20 +78,19 @@ const Listings: React.FC = () => {
             direction: 'desc',
             limit: limit,
             price: JSON.stringify(priceFilter),
+            type: typeFilter,
+            brand: brandFilter,
+            condition: conditionFilter,
+            search: searchQuery,
+            transmission: transmissionFilter,
+            location: locationFilter,
+            fuel: fuelFilter,
         };
-
-        if (typeFilter !== '') params.type = typeFilter;
-        if (brandFilter !== '') params.make = brandFilter;
-        if (conditionFilter !== '') params.condition = conditionFilter;
-        if (searchQuery !== '') params.query = searchQuery;
-        if (locationFilter !== '') params.location = locationFilter;
-        if (transmissionFilter !== '') params.transmission = transmissionFilter;
-        if (fuelFilter !== '') params.fuel_type = fuelFilter;
 
         setIsLoading(true);
 
         try {
-            api.get(`/cars/approved`, { params })
+            api.get(apiUrl, { params })
                 .then((response: any) => {
                     setCars(response.data.data);
                     setIsLoading(false);
@@ -138,7 +151,7 @@ const Listings: React.FC = () => {
         setIsFetchingNewCar(true);
 
         try {
-            api.get('/cars/approved', { params }).then((response: any) => {
+            api.get(apiUrl, { params }).then((response: any) => {
                 setNewCars(response.data.data);
                 setIsFetchingNewCar(false);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
@@ -187,10 +200,41 @@ const Listings: React.FC = () => {
      * @returns void
      */
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const price = urlParams.get('price');
+        const type = urlParams.get('type');
+        const brand = urlParams.get('brand');
+        const condition = urlParams.get('condition');
+        const search = urlParams.get('search');
+        const transmission = urlParams.get('transmission');
+        const location = urlParams.get('location');
+        const fuel = urlParams.get('fuel');
+
+        if (price) setPriceFilter(JSON.parse(price));
+        if (type) setTypeFilter(type);
+        if (brand) setBrandFilter(brand);
+        if (condition) setConditionFilter(condition);
+        if (search) setSearchQuery(search);
+        if (transmission) setTransmissionFilter(transmission);
+        if (location) setLocationFilter(location);
+        if (fuel) setFuelFilter(fuel);
+
         getCars(9);
         getNewCars();
         getAutoCars();
     }, []);
+
+    useEffect(() => {
+        setUrlParams('price', JSON.stringify(priceFilter));
+        setUrlParams('type', typeFilter);
+        setUrlParams('brand', brandFilter);
+        setUrlParams('condition', conditionFilter);
+        setUrlParams('search', searchQuery);
+        setUrlParams('transmission', transmissionFilter);
+        setUrlParams('location', locationFilter);
+        setUrlParams('fuel', fuelFilter);
+    }, [priceFilter, typeFilter, brandFilter, conditionFilter, searchQuery, transmissionFilter, locationFilter, fuelFilter]);
 
     return (
         <div>
@@ -245,7 +289,7 @@ const Listings: React.FC = () => {
                                 </div>
                                 <div onClick={openOpenModal} className='border cursor-pointer rounded-full px-4 py-3 w--auto text-sm focus:outline-none flex items-center bg-white ml-2'>
                                     <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path opacity=".4" d="M3.35 2h8.9c.74 0 1.35.61 1.35 1.35v1.48c0 .54-.34 1.21-.67 1.55l-2.9 2.56c-.4.34-.67 1.01-.67 1.55v2.9c0 .4-.27.94-.61 1.15l-.94.61c-.88.54-2.09-.07-2.09-1.15v-3.57c0-.47-.27-1.08-.54-1.42l-2.56-2.7c-.34-.34-.61-.94-.61-1.35V3.41C2 2.61 2.61 2 3.35 2Z" stroke="#697689" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 11.998v3c0 5 2 7 7 7h6c5 0 7-2 7-7v-6c0-3.12-.78-5.08-2.59-6.1-.51-.29-1.53-.51-2.46-.66" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path opacity=".4" d="M13 13h5M11 17h7" stroke="#697689" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path opacity=".4" d="M3.35 2h8.9c.74 0 1.35.61 1.35 1.35v1.48c0 .54-.34 1.21-.67 1.55l-2.9 2.56c-.4.34-.67 1.01-.67 1.55v2.9c0 .4-.27.94-.61 1.15l-.94.61c-.88.54-2.09-.07-2.09-1.15v-3.57c0-.47-.27-1.08-.54-1.42l-2.56-2.7c-.34-.34-.61-.94-.61-1.35V3.41C2 2.61 2.61 2 3.35 2Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M2 11.998v3c0 5 2 7 7 7h6c5 0 7-2 7-7v-6c0-3.12-.78-5.08-2.59-6.1-.51-.29-1.53-.51-2.46-.66" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M13 13h5M11 17h7" stroke="#697689" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                                     </span>
                                     <span className='ml-3 text-slate-400'>AI & Filters</span>
                                 </div>
@@ -308,7 +352,7 @@ const Listings: React.FC = () => {
                             <FetchLoader />
                         </button>}
                         {!isLoading && (<button onClick={searchByAI} className="bg-primary text-white rounded-xl font-semibold px-4 py-1 hover:bg-indigo-400 focus:bg-indigo-600 focus:outline-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 11a9 9 0 1 1-9-9" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path opacity=".4" d="M18.93 20.689c.53 1.6 1.74 1.76 2.67.36.85-1.28.29-2.33-1.25-2.33-1.14-.01-1.78.88-1.42 1.97ZM14 5h6M14 8h3" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 11a9 9 0 1 1-9-9" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M18.93 20.689c.53 1.6 1.74 1.76 2.67.36.85-1.28.29-2.33-1.25-2.33-1.14-.01-1.78.88-1.42 1.97ZM14 5h6M14 8h3" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                         </button>)}
                     </div>
                     <div className="glow glow-1 z-10 bg-primary absolute"></div>
