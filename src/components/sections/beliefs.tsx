@@ -21,7 +21,7 @@ const Beliefs: React.FC = () => {
                             We believe in honesty and hard work. Our commitment to these values ensures that you receive the best service and quality. Trust us to help you find the car that meets your needs and exceeds your expectations.
                         </h5>
                         <div className="text-center sm:text-start">
-                            <Link to="#" className="text-xl py-3 px-8 sm:py-5 sm:px-14 mt-5 font-semibold text-white rounded-full duration-300 bg-primary border border-primary hover:bg-darkmode hover:border-darkmode">
+                            <Link to="/about-us" className="text-base py-3 px-8 sm:py-5 sm:px-14 mt-5 font-semibold text-white rounded-full duration-300 bg-primary border border-primary hover:bg-darkmode hover:border-darkmode">
                                 About us
                             </Link>
                         </div>
@@ -39,10 +39,7 @@ const Beliefs: React.FC = () => {
                             Discover the car you've always dreamed of. Our collection offers a wide range of options to suit your style and needs. Experience the joy of driving your perfect car today.
                         </h5>
                         <div className="text-center sm:text-start">
-                            <Link
-                                to="#"
-                                className="text-xl py-3 px-8 sm:py-5 sm:px-14 mt-5 font-semibold text-white rounded-full bg-primary border border-primary hover:bg-darkmode hover:border-darkmode"
-                            >
+                            <Link  to="/about-us" className="text-base py-3 px-8 sm:py-5 sm:px-14 mt-5 font-semibold text-white rounded-full bg-primary border border-primary hover:bg-darkmode hover:border-darkmode">
                                 Learn more
                             </Link>
                         </div>

@@ -1,15 +1,17 @@
 import React from 'react';
 import MetaTags from '../components/MetaTags.tsx';
+import Beliefs from '../components/sections/beliefs.tsx';
+import CTA from '../components/sections/cta.tsx';
 
 const About: React.FC = () => {
     return (
         <>
             <MetaTags
-                title="About Eriprime" 
+                title="About Eriprime"
                 description="Learn more about Eriprime, our mission, and our commitment to providing the best car trading experience. Discover how we can help you find your dream car and support you every step of the way."
                 keywords="Eriprime, about us, car trading, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/about-us`}
-                ogTitle="About Eriprime" 
+                ogTitle="About Eriprime"
                 ogDescription="Discover more about Eriprime, our mission, and our dedication to providing the best car trading experience. Learn how we can help you find your dream car."
                 ogImage={`${process.env.PUBLIC_URL}/images/logos/logo.jpg`}
                 twitterCard="summary_large_image"
@@ -43,6 +45,11 @@ const About: React.FC = () => {
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section className="px-4 relative mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 md:py-12">
+                <Beliefs />
+                <CTA />
             </section>
         </>
     );
