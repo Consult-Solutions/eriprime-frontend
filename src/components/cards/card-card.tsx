@@ -29,7 +29,7 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
 
     return (
         <div className="overflow-hidden rounded-xl relative hover:scale-105 transform transition-transform duration-300">
-            <div className="overflow-hidden transition-shadow duration-300 rounded-xl relative border border-gray-200">
+            <div className="overflow-hidden transition-shadow duration-300 rounded-xl relative border border-gray-200 bg-white">
                 {/* Card images */}
                 <div className="relative">
                     <Slider className="" page={page} setPage={setPage}>
