@@ -19,7 +19,7 @@ const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
 
     return (
         <div className="relative bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541443131876-44b03de101c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
-            <div className="absolute inset-0 bg-black opacity-20"></div> {/* Black overlay */}
+            <div className="absolute inset-0 bg-black opacity-30"></div> {/* Black overlay */}
 
             <section className="relative pt-20 pb-10 sm:pt-28 sm:pb-16 lg:min-h-[500px] lg:pb-24">
                 <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
