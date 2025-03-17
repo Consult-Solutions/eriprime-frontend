@@ -251,7 +251,7 @@ const Listings: React.FC = () => {
 
             <section>
                 {/* Search Filter */}
-                <div className='py-10 md:py-19 relative px-4 md:px-28 lg:px-28 bg-fixed bg-top bg-cover bg-no-repeat' style={{ backgroundImage: 'url(https://img.freepik.com/free-photo/anxiety-induced-by-traffic_23-2150981883.jpg?t=st=1742120633~exp=1742124233~hmac=751d64923b919d46d838c2c8b757dfcae62d0e1fabe39dd53af02d39e0b90ed2&w=1800)' }}>
+                <div className='py-10 md:py-19 relative px-4 md:px-28 lg:px-28 bg-fixed bg-top bg-cover bg-no-repeat' style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1579771940178-c0146e22f921?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)' }}>
                     <div className="absolute inset-0 bg-black opacity-20"></div>
 
                     <div className="px-4 py-10 md:py-3 mx-auto relative z-40 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-2 lg:px-8 lg:py-7 bg-white bg-opacity-90 rounded-lg">
