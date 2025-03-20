@@ -125,7 +125,7 @@ const Home: React.FC = () => {
 
                 {/* Short list of cars */}
                 <ShortListings isLoading={isLoading} cars={cars} params={params}>
-                    <h3 className="text-xl font-bold text-slate-700 sm:text-xl md:text-2xl capitalize">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
+                    <h3 className="text-xl font-bold text-slate-700 md:text-3xl capitalize">wide range of cars to <br /> suit every need and  <span className="inline-block text-primary">budget</span>.</h3>
                     <p className="max-w-xl text-sm leading-relaxed text-gray-600 mt-3">
                         Find your dream car from our extensive collection. Quality cars for every budget.
                     </p>
@@ -136,7 +136,7 @@ const Home: React.FC = () => {
 
                 {/* Short list of auto cars */}
                 <ShortListings isLoading={isFetchingAutoCar} cars={autoCars} params={params}>
-                    <h3 className="text-xl font-bold text-slate-700 sm:text-xl md:text-2xl capitalize">
+                    <h3 className="text-xl font-bold text-slate-700 md:text-3xl capitalize">
                         Discover the Perfect Car to <br /> Match Your <span className="inline-block text-primary">Lifestyle</span>.
                     </h3>
                     <p className="max-w-xl text-sm leading-relaxed text-gray-600 mt-3">

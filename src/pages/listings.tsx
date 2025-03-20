@@ -3,14 +3,28 @@ import React, { useEffect, useState } from 'react';
 import CarPostingSection from '../components/car-posting-section.tsx';
 import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
-import PriceRangeInput from '../components/inputs/PriceRangeInput.tsx';
 import MetaTags from '../components/MetaTags.tsx';
 import FormModal from '../components/models/form-model.tsx';
-import FetchLoader from '../components/loaders/fetching-loader.tsx';
 import CarCard from '../components/cards/card-card.tsx';
 import CarCardListingSkeleton from '../components/cards/car-card -listing-skeleton.tsx';
+import FiltersForm from '../components/forms/filters-form.tsx';
 
-import { BRAND_OPTIONS, CONDITION_OPTIONS, FUELTYPE_OPTIONS, TRANSMISSION_OPTIONS, TYPE_OPTIONS } from '../services/constants.ts';
+interface GetCarsParams {
+    direction?: string;
+    limit?: number;
+    price?: string;
+    type?: string;
+    brand?: string;
+    condition?: string;
+    search?: string;
+    transmission?: string;
+    location?: string;
+    fuel?: string;
+}
+
+interface SetUrlParams {
+    (key: string, value: string): void;
+}
 
 const Listings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +43,6 @@ const Listings: React.FC = () => {
     const [brandFilter, setBrandFilter] = useState('');
     const [conditionFilter, setConditionFilter] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchAIQuery, setSearchAIQuery] = useState('');
     const [transmissionFilter, setTransmissionFilter] = useState('');
     const [locationFilter, setLocationFilter] = useState('');
     const [fuelFilter, setFuelFilter] = useState('');
@@ -38,10 +51,6 @@ const Listings: React.FC = () => {
     const openOpenModal = () => setOpenModal(true);
     const closeOpenModal = () => setOpenModal(false);
     const apiUrl = `/cars/approved`;
-
-    interface SetUrlParams {
-        (key: string, value: string): void;
-    }
 
     const setUrlParams: SetUrlParams = (key, value) => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -56,35 +65,18 @@ const Listings: React.FC = () => {
         if (e.key === 'Enter') getCars();
     };
 
-    const clearFilter = () => {
-        setPriceFilter([1000000, 100000000]);
-        setTypeFilter('');
-        setBrandFilter('');
-        setConditionFilter('');
-        setSearchQuery('');
-        setTransmissionFilter('');
-        setLocationFilter('');
-        setFuelFilter('');
-        getCars(9);
-    }
-
     /**
      * Fetches the cars
      * 
      * @returns void
      */
-    const getCars = async (limit = 50) => {
-        const params: any = {
+    const getCars = async (limit: number = 50, parsedParams?: GetCarsParams): Promise<void> => {
+        const params: GetCarsParams = {
             direction: 'desc',
             limit: limit,
-            price: JSON.stringify(priceFilter),
-            type: typeFilter,
-            brand: brandFilter,
-            condition: conditionFilter,
             search: searchQuery,
-            transmission: transmissionFilter,
             location: locationFilter,
-            fuel: fuelFilter,
+            ...parsedParams
         };
 
         setIsLoading(true);
@@ -101,37 +93,6 @@ const Listings: React.FC = () => {
                 });
         } catch (error) {
             setAlertMessage('An error occurred. Something went wrong');
-            setAlertType('error');
-            setIsLoading(false);
-        }
-    }
-
-    /**
-     * Fetches the cars
-     * 
-     * @returns void
-     */
-    const searchByAI = async () => {
-        setIsLoading(true);
-
-        if (searchAIQuery) {
-            try {
-                api.get(`/cars/approved/search/genai`, { params: { query: searchAIQuery } })
-                    .then((response: any) => {
-                        setCars(response.data.data);
-                        setIsLoading(false);
-                    }).catch((error: { response: { data: { message: string; }; }; }) => {
-                        setAlertMessage('An error occurred. ' + error.response.data.message);
-                        setAlertType('error');
-                        setIsLoading(false);
-                    });
-            } catch (error) {
-                setAlertMessage('An error occurred. Something went wrong');
-                setAlertType('error');
-                setIsLoading(false);
-            }
-        } else {
-            setAlertMessage('Please enter a valid search query');
             setAlertType('error');
             setIsLoading(false);
         }
@@ -249,8 +210,8 @@ const Listings: React.FC = () => {
                 twitterCard="summary_large_image"
             />
 
+            {/* Search Filter */}
             <section>
-                {/* Search Filter */}
                 <div className='py-10 md:py-19 relative px-4 md:px-28 lg:px-28 bg-fixed bg-top bg-cover bg-no-repeat' style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1579771940178-c0146e22f921?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)' }}>
                     <div className="absolute inset-0 bg-black opacity-20"></div>
 
@@ -319,7 +280,7 @@ const Listings: React.FC = () => {
 
                         {(!isLoading && cars.length === 0) && <div className='flex items-center justify-center mt-10'>
                             <div className='flex flex-col items-center justify-center'>
-                                <img src="/images/empty-pana.svg" alt="" className='w-80' />
+                                <img src="/images/svgs/empty-dealer.svg" alt="" className='w-80' />
                                 <span className='font-bold text-slate-400'>No Search Result Found.</span>
                             </div>
                         </div>}
@@ -345,110 +306,7 @@ const Listings: React.FC = () => {
 
             {/* Search Filter Modal */}
             <FormModal isOpen={openModal} onClose={closeOpenModal}>
-                <h3 className='text-2xl text-slate-700 my-5 font-bold'>Your AI Search Engine</h3>
-
-                <div className="overflow-hidden z-0 rounded-xl relative p-1">
-                    <div className="relative flex z-50 bg-white rounded-xl p-1">
-                        <input value={searchAIQuery}
-                            onChange={(e) => setSearchAIQuery(e.target.value)}
-                            onKeyDown={(e) => (e.key === 'Enter') ? searchByAI : {}} type="text" placeholder="List of New SUV cars in Kigali city" className="rounded-full flex-1 px-6 py-4 text-gray-700 focus:outline-none" />
-                        {isLoading && <button className="bg-primary text-white rounded-xl font-semibold px-4 py-1 hover:bg-indigo-400 focus:bg-indigo-600 focus:outline-none">
-                            <FetchLoader />
-                        </button>}
-                        {!isLoading && (<button onClick={searchByAI} className="bg-primary text-white rounded-xl font-semibold px-4 py-1 hover:bg-indigo-400 focus:bg-indigo-600 focus:outline-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 11a9 9 0 1 1-9-9" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M18.93 20.689c.53 1.6 1.74 1.76 2.67.36.85-1.28.29-2.33-1.25-2.33-1.14-.01-1.78.88-1.42 1.97ZM14 5h6M14 8h3" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                        </button>)}
-                    </div>
-                    <div className="glow glow-1 z-10 bg-primary absolute"></div>
-                    <div className="glow glow-2 z-20 bg-green-600 absolute"></div>
-                    <div className="glow glow-3 z-30 bg-[#061a35] absolute"></div>
-                    <div className="glow glow-4 z-40 bg-[#1f4868] absolute"></div>
-                </div>
-
-                <hr className='my-5 border border-gray-200' />
-
-                <h3 className='text-2xl text-slate-700 my-5 font-bold'>Filters</h3>
-
-                {/* Filter by Price */}
-                <PriceRangeInput price={priceFilter} setPrice={setPriceFilter} />
-
-                {/* Filter by Type */}
-                <div className="flex items-center my-3">
-                    <label className="text-sm font-semibold text-gray-600 mr-2">Type:</label>
-                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                        <select id="type" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white">
-                            {TYPE_OPTIONS.map((item, index) => (
-                                <option key={index} value={item.value}>{item.label}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-
-                {/* Filter by Brand */}
-                <div className="flex items-center my-3">
-                    <label className="text-sm font-semibold text-gray-600 mr-2">Brand:</label>
-                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-                        <select id="type" value={brandFilter} onChange={(e) => setBrandFilter(e.target.value)} className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white">
-                            {BRAND_OPTIONS.map((item, index) => (
-                                <option key={index} value={item.value}>{item.label}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-
-                {/* Filter by Condition */}
-                <div className="flex items-center my-3">
-                    <label className="text-sm font-semibold text-gray-600 mr-2">Condition:</label>
-                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-
-                        <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={conditionFilter} onChange={(e) => setConditionFilter(e.target.value)}>
-                            {CONDITION_OPTIONS.map((item, index) => (
-                                <option key={index} value={item.value}>{item.label}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-
-                {/* Filter by Transmission */}
-                <div className="flex items-center my-3">
-                    <label className="text-sm font-semibold text-gray-600 mr-2">Trans:</label>
-                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-
-                        <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={transmissionFilter} onChange={(e) => setTransmissionFilter(e.target.value)}>
-                            {TRANSMISSION_OPTIONS.map((item, index) => (
-                                <option key={index} value={item.value}>{item.label}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-
-                {/* Filter by Fuel */}
-                <div className="flex items-center my-3">
-                    <label className="text-sm font-semibold text-gray-600 mr-2">Fuel:</label>
-                    <div className='border rounded-md px-4 py-2 text-sm focus:ring focus:ring-blue-300 focus:outline-none flex items-center'>
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5.4 2.102h13.2c1.1 0 2 .9 2 2v2.2c0 .8-.5 1.8-1 2.3l-4.3 3.8c-.6.5-1 1.5-1 2.3v4.3c0 .6-.4 1.4-.9 1.7l-1.4.9c-1.3.8-3.1-.1-3.1-1.7v-5.3c0-.7-.4-1.6-.8-2.1l-3.8-4c-.5-.5-.9-1.4-.9-2v-2.3c0-1.2.9-2.1 2-2.1Z" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path opacity=".4" d="M10.93 2.102 6 10.002" stroke="#697689" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
-
-                        <select id="model" className="border-none outline-none focus:border-none focus:outline-none ml-2 bg-white" value={fuelFilter} onChange={(e) => setFuelFilter(e.target.value)}>
-                            {FUELTYPE_OPTIONS.map((item, index) => (
-                                <option key={index} value={item.value}>{item.label}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-
-                {/* Apply Filter */}
-                <div className='mt-5 flex justify-between items-center'>
-                    <button onClick={() => getCars(9)} className="bg-primary text-white px-4 py-2 rounded-lg text-sm focus:outline-none">
-                        Apply Filter
-                    </button>
-                    <button onClick={clearFilter} className="bg-white text-primary px-4 py-2 rounded-lg text-sm focus:outline-none ml-2 border border-gray-200">
-                        Clear Filter
-                    </button>
-                </div>
+                <FiltersForm onReset={() => getCars(9, {})} onSubmit={(params: GetCarsParams) => getCars(params.limit, params)} />
             </FormModal>
 
             {/* Alert Message */}

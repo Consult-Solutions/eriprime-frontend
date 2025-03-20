@@ -14,8 +14,8 @@ const CarPostingSection: React.FC<CarPostingSectionProps> = ({ title, descriptio
     return (
         <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12">
             <div className="text-left mb-5">
-                <h3 className="text-xl font-bold text-slate-700 sm:text-xl md:text-2xl capitalize">{title}</h3>
-                <p className="max-w-xl text-sm mt-4 leading-relaxed text-gray-600">{description}</p>
+                <h3 className="text-xl font-bold text-slate-700 md:text-3xl capitalize">{title}</h3>
+                <p className="max-w-xl text-sm mt-2 leading-relaxed text-gray-600">{description}</p>
             </div>
 
             <div className='mt-10'>
