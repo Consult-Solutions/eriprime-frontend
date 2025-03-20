@@ -7,7 +7,7 @@ const Postcar: React.FC = () => {
     const [formValidation, setFormValidation] = useState('');
 
     const handleFormError = (error: any) => setFormValidation(error);
-    const handleCarSubmit = (response: any) => navigate('/listings');
+    const handleCarSubmit = (response: any) => navigate('/user/dashboard');
 
     return (
         <section className="bg-white">
