@@ -6,11 +6,6 @@ const Postcar: React.FC = () => {
     const navigate = useNavigate();
     const [formValidation, setFormValidation] = useState('');
 
-    /**
-     *  Handle Callbacks
-     * 
-     * @param errors 
-     */
     const handleFormError = (error: any) => setFormValidation(error);
     const handleCarSubmit = (response: any) => navigate('/listings');
 

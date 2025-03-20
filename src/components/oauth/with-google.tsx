@@ -3,23 +3,22 @@ import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
 import api from '../../services/api.ts';
 import { useGlobalAlert } from '../../contexts/AlertContext.tsx';
 import AlertMessage from '../alerts/alert-message.tsx';
-import { useNavigate } from 'react-router-dom';
 
 interface OauthProps {
-    onLoading: (loading: boolean) => void
+    onLoading: (loading: boolean) => void;
+    callback: (response: any) => void;
+    fallback: (error: any) => void;
 }
 
-const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading }) => {
+const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading, callback, fallback }) => {
     const [loading, setLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const { setGlobalAlert } = useGlobalAlert();
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
-    const navigate = useNavigate();
+
     const googleApis = process.env.REACT_APP_GOOGLE_APIS_URL;
 
     const handleSubmit = async (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">) => {
-        console.log(tokenResponse);
-
         try {
             onLoading(true);
             setLoading(true);
@@ -55,21 +54,21 @@ const ContinueWithGoogle: React.FC<OauthProps> = ({ onLoading }) => {
                     setGlobalAlert('Authentication With Google Success', 'success');
                     setAlertMessage(response.data.message);
                     setAlertType('success');
-
-                    navigate('/user/dashboard');
+                    callback(response);
                 }).catch((error) => {
                     setAlertMessage('An error occurred. ' + error.response.data.message);
                     setAlertType('error');
+                    fallback(error);
                 });
             } catch (jsonError) {
-                console.error('Failed to parse JSON:', userInfoText);
                 setAlertMessage('An error occurred. Please try again.');
                 setAlertType('error');
+                fallback(jsonError);
             }
         } catch (error) {
-            console.log(error);
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
+            fallback(error);
         } finally {
             onLoading(false);
             setLoading(false);

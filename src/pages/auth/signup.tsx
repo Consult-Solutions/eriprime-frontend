@@ -23,6 +23,7 @@ const Signup: React.FC = () => {
 
     const signupSuccess = (response: any) => {
         setGlobalAlert('Successfully account created', 'success');
+        navigate('/login');
     }
 
     const signupFailed = (error: any) => {

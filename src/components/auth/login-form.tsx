@@ -34,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formTitle, onSuccess, onError, ch
         return newErrors;
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const validationErrors = validate();
@@ -75,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formTitle, onSuccess, onError, ch
         {children}      
 
         <div className='signup-form mt-5'>
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleFormSubmit} className="space-y-5">
                 <EmailInput
                     label="Email Address"
                     placeholder="Enter your email address"
@@ -102,7 +102,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formTitle, onSuccess, onError, ch
         </div>
 
         {/* Continue with oauth */}
-        <OAuth onLoading={setLoading} />
+        <OAuth onLoading={setLoading} callback={onSuccess} fallback={onError} />
     </>)
 }
 

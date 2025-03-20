@@ -13,6 +13,7 @@ import AlertMessage from '../alerts/alert-message.tsx';
 import { useAuth } from '../../contexts/AuthContext.tsx';
 import AuthModal from '../auth/auth-modal.tsx';
 import SellerModal from './seller-form.tsx';
+import FetchLoader from '../loaders/fetching-loader.tsx';
 
 interface Car {
     title: string;
@@ -38,14 +39,14 @@ interface Car {
 
 interface CarFormProps {
     onCallback: (car: Car) => void;
-    onFallback?: (car: Car, id: string) => void;
+    onFallback?: (error: any) => void;
     isEditing: boolean;
     initialData?: any;
 }
 
 interface Seller {
-    fullname?: string; 
-    email?: string; 
+    fullname?: string;
+    email?: string;
     phone?: string
 }
 
@@ -76,10 +77,10 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     const [isLoading, setIsloading] = useState(false);
     const [carDetails, setCarDetails] = useState<Car | null>(null);
     const [seller, setSeller] = useState<Seller>({});
-    
+
     const [sellerModal, setSellerModal] = useState(false);
     const [authModal, setAuthModal] = useState(false);
-    
+
     const openSellerModal = () => setSellerModal(true);
     const openAuthModal = () => setAuthModal(true);
 
@@ -98,7 +99,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
         e.preventDefault();
 
         const missing: string[] = [];
-        
+
         if (!title) missing.push('title');
         if (!car_model) missing.push('model');
         if (!year) missing.push('year');
@@ -140,6 +141,10 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     const handleSellerInformation = (sellerInfo: any) => {
         setSeller(sellerInfo);
         closeSellerModal();
+
+        if (isAuthenticated && isEditing) return handleUpdateCar();
+        if (isAuthenticated && !isEditing) return handleSubmitCar();
+
         openAuthModal();
     }
 
@@ -149,15 +154,29 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
      * @param response
      */
     const handleAuthenticatedUser = (response: any) => {
-        return isEditing ? handleUpdateCar : handleSubmitCar();
-    }
+        setAlertMessage('Successfully Authenticated. Submitting Car...');
+        setAlertType('success');
+        setIsloading(true);
+
+        if (isEditing) {
+            handleUpdateCar();
+        } else {
+            handleSubmitCar();
+        }
+    };
+
+    const handleAuthError = () => {
+        setAlertMessage('An error occurred during authentication. Please try again.');
+        setAlertType('error');
+        setIsloading(false);
+    };
 
     /**
      * Submit Car
      * 
      * @param car 
      */
-    const handleSubmitCar = () => {        
+    const handleSubmitCar = () => {
         const missing: string[] = [];
 
         if (!carDetails) {
@@ -165,7 +184,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             setAlertType('error');
             return;
         }
-        
+
         if (!seller.fullname) missing.push('fullname');
         if (!seller.email) missing.push('email');
         if (!seller.phone) missing.push('phonenumber');
@@ -181,9 +200,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             setIsloading(true);
 
             const formData = new FormData();
-            
+
             if (isAuthenticated && user) formData.append('user', user.id);
-            
+
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
             formData.append('year', carDetails.year.toString());
@@ -221,26 +240,28 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
                 setAlertMessage('Your car has been successfully posted! It will be reviewed and approved shortly before appearing on the website.');
                 setAlertType('success');
-                setIsloading(false);   
-                
+                setIsloading(false);
+
                 onCallback(response);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
+                setAlertMessage('An error occurred. ' + error.response.data.message);
                 setAlertType('error');
                 setIsloading(false);
+                onFallback && onFallback(error);
             })
         } catch (error) {
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
             setIsloading(false);
+            onFallback && onFallback(error);
         }
     };
 
-     /**
-     * Update Car
-     * 
-     * @param car 
-     */
+    /**
+    * Update Car
+    * 
+    * @param car 
+    */
     const handleUpdateCar = () => {
         const missing: string[] = [];
 
@@ -249,7 +270,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             setAlertType('error');
             return;
         }
-        
+
         if (!seller.fullname) missing.push('fullname');
         if (!seller.email) missing.push('email');
         if (!seller.phone) missing.push('phonenumber');
@@ -265,7 +286,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             setIsloading(true);
 
             const formData = new FormData();
-            
+
             formData.append('user', user.id);
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
@@ -301,16 +322,19 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             }).then((response: any) => {
                 setAlertMessage('Car Updated Successfully.');
                 setAlertType('success');
-                setIsloading(false);  
+                setIsloading(false);
+                onCallback(response);
             }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. '+error.response.data.message);
+                setAlertMessage('An error occurred. ' + error.response.data.message);
                 setAlertType('error');
-                setIsloading(false);  
+                setIsloading(false);
+                onFallback && onFallback(error);
             })
         } catch (error) {
             setAlertMessage('An error occurred. Please try again.');
             setAlertType('error');
-            setIsloading(false);  
+            setIsloading(false);
+            onFallback && onFallback(error);
         }
     }
 
@@ -396,7 +420,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
         <div>
             {/* Car form */}
             <form onSubmit={handleCarInformation}>
-                <Stepper steps={steps} currentStep={currentStep} onNext={handleNext} onPrevious={handlePrevious}/>
+                <Stepper steps={steps} currentStep={currentStep} onNext={handleNext} onPrevious={handlePrevious} />
 
                 {currentStep === steps.length - 1 && (
                     <div className="flex items-center justify-between mt-4">
@@ -409,10 +433,19 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             <SellerModal isOpen={sellerModal} onClose={closeSellerModal} callback={handleSellerInformation} getErrorField={getErrorField} />
 
             {/* Auth Form */}
-            <AuthModal isOpen={authModal} onClose={closeAuthModal} callback={handleAuthenticatedUser} fallback={() => {}} />
+            <AuthModal isOpen={authModal} onClose={closeAuthModal} callback={handleAuthenticatedUser} fallback={handleAuthError} />
 
             {/* Alert Message */}
             <AlertMessage message={alertMessage} type={alertType} />
+
+            {isLoading && <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                <div className="bg-white rounded-lg shadow-lg p-6 w-96 text-center">
+                    <FetchLoader />
+                    <div className="mt-5">
+                        <span className='font-bold'>Please wait...</span>
+                    </div>
+                </div>
+            </div>}
         </div>
     );
 };

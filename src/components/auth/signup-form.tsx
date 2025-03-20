@@ -119,7 +119,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ formTitle, onSuccess, onError, 
         </div>
 
         {/* Continue with oauth */}
-        <OAuth onLoading={setLoading} />
+        <OAuth onLoading={setLoading} callback={onSuccess} fallback={onError} />
     </>)
 }
 

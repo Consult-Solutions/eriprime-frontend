@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormModal from '../models/form-model.tsx';
 import TextInput from '../inputs/text-input.tsx';
 import AuthButton from '../buttons/auth-button.tsx';
+import { useAuth } from '../../contexts/AuthContext.tsx';
 
 interface SellerModalProps {
     isOpen: boolean;
     onClose: () => void;
     callback: (reponse: any) => void;
-    getErrorField: (field: string) => any
+    getErrorField: (field: string) => any;
+    fallback?: () => void;
 }
 
-const SellerModal: React.FC<SellerModalProps> = ({ isOpen, onClose, getErrorField, callback }) => {
+const SellerModal: React.FC<SellerModalProps> = ({ isOpen, onClose, getErrorField, callback, fallback }) => {
     const [sellerFullname, setSellerFullname] = useState('');
     const [sellerEmail, setSellerEmail] = useState('');
     const [sellerPhonenumber, setSellerPhonenumber] = useState('');
+    const { isAuthenticated, user } = useAuth();
 
     const handleSeller = () => {
         callback({
@@ -22,6 +25,14 @@ const SellerModal: React.FC<SellerModalProps> = ({ isOpen, onClose, getErrorFiel
             phone: sellerPhonenumber
         });
     }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            setSellerFullname(user.name);
+            setSellerEmail(user.email);
+            setSellerPhonenumber(user.phone);
+        }
+    }, [isAuthenticated, user]);
 
     return (<>
         <FormModal isOpen={isOpen} onClose={onClose}>

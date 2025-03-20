@@ -244,7 +244,7 @@ const NavBar: React.FC = () => {
                                 )}
 
                                 {isAuthenticated && user && (
-                                    <Link to="/user/dashboard" title="" className="text-base font-medium mt-10 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
+                                    <Link to="/user/dashboard" title="" className="text-base font-medium mt-20 text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600 flex items-center">
                                         <div className="flex items-center gap-4">
                                             <img className="w-10 h-10 rounded-full object-cover" src={user.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'} alt={user.name} />
                                             <div className="font-medium dark:text-white">
