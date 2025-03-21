@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CarForm from '../components/forms/car-form.tsx';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext.tsx';
+import AuthModal from '../components/auth/auth-modal.tsx';
 
 const Postcar: React.FC = () => {
     const navigate = useNavigate();
     const [formValidation, setFormValidation] = useState('');
+    const [authModal, setAuthModal] = useState(false);
+    const { isAuthenticated } = useAuth();
 
     const handleFormError = (error: any) => setFormValidation(error);
     const handleCarSubmit = (response: any) => navigate('/user/dashboard');
+    const handleAuthenticatedUser = () => setAuthModal(false);
+    const closeAuthModal = () => setAuthModal(false);
+    const handleAuthError = () => setAuthModal(true);;
+    
+    useEffect(() => {
+        if (!isAuthenticated) setAuthModal(true);
+    }, [isAuthenticated]);
 
     return (
         <section className="bg-white">
@@ -82,6 +93,8 @@ const Postcar: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
+                <AuthModal isOpen={authModal} onClose={closeAuthModal} callback={handleAuthenticatedUser} fallback={handleAuthError} />
             </div>
         </section>
     );
