@@ -47,7 +47,7 @@ const Contacts: React.FC = () => {
     return (
         <>
             <MetaTags
-                title="Contact Eriprime" 
+                title="Contact us" 
                 description="Get in touch with Eriprime. We're here to help you with all your car trading needs. Reach out to us today and let's start your journey towards finding the perfect car."
                 keywords="Eriprime, contact us, car trading, customer support, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/contact`}

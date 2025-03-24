@@ -99,7 +99,7 @@ const Home: React.FC = () => {
         <div>
             {/* SEO */}
             <MetaTags
-                title="Eriprime"
+                title="Eriprime Rwanda"
                 description="Discover a wide range of cars to suit every need and budget. Whether you're looking for the latest models, reliable used cars, or something in between, we have it all. Start your journey with us today and find the perfect car for you."
                 keywords="Eriprime, cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
                 canonical={`${process.env.PUBLIC_URL}/`}

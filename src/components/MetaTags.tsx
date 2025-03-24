@@ -1,15 +1,15 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-const MetaTags = ({ 
-  title, 
-  description, 
-  keywords, 
-  canonical, 
-  ogTitle, 
-  ogDescription, 
-  ogImage, 
-  twitterCard 
+const MetaTags = ({
+  title,
+  description,
+  keywords,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  twitterCard
 }) => {
   return (
     <Helmet>

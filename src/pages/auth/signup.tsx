@@ -33,7 +33,7 @@ const Signup: React.FC = () => {
 
     return (<>
         <MetaTags
-            title="Get Started"
+            title="Get Started Now"
             description="Create your Eriprime account to explore our extensive car listings and manage your preferences. Sign up now to find your dream car and enjoy a seamless car trading experience."
             keywords="Eriprime, signup, sign up, register, car trading, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
             canonical={`${process.env.PUBLIC_URL}/signup`}

@@ -44,6 +44,7 @@ const Login: React.FC = () => {
             ogImage={`${process.env.PUBLIC_URL}/images/logos/logo.jpg`}
             twitterCard="summary_large_image"
         />
+        
         <section className="bg-white">
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 {/* Hero Side section */}

@@ -3,6 +3,7 @@ import CarForm from '../components/forms/car-form.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import AuthModal from '../components/auth/auth-modal.tsx';
+import MetaTags from '../components/MetaTags.tsx';
 
 const Postcar: React.FC = () => {
     const navigate = useNavigate();
@@ -15,12 +16,24 @@ const Postcar: React.FC = () => {
     const handleAuthenticatedUser = () => setAuthModal(false);
     const closeAuthModal = () => setAuthModal(false);
     const handleAuthError = () => setAuthModal(true);;
-    
+
     useEffect(() => {
         if (!isAuthenticated) setAuthModal(true);
     }, [isAuthenticated]);
 
-    return (
+    return (<>
+        <MetaTags
+            title="Sell Your Car with Eriprime"
+            description="Join Eriprime and become a car trader. List your car in minutes and reach potential buyers with an eye-catching listing. Discover how we can help you find your dream car and support you every step of the way."
+            keywords="Eriprime, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda, become seller, sell car"
+            canonical={`${process.env.PUBLIC_URL}/postcar`}
+            ogTitle="Sell Your Car with Eriprime"
+            ogDescription="Join Eriprime and become a car trader. List your car in minutes and reach potential buyers with an eye-catching listing. Discover how we can help you find your dream car and support you every step of the way."
+            ogImage={`${process.env.PUBLIC_URL}/images/logos/logo.jpg`}
+            twitterCard="summary_large_image"
+        />
+
+
         <section className="bg-white">
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 {/* Hero Side section */}
@@ -39,7 +52,7 @@ const Postcar: React.FC = () => {
                                 <li className="flex items-center space-x-3">
                                     <div className="inline-flex items-center justify-center flex-shrink-0 w-5 h-5 bg-blue-500 rounded-full">
                                         <svg className="w-3.5 h-3.5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                                         </svg>
                                     </div>
                                     <span className="text-lg font-medium text-white"> Commercial License </span>
@@ -47,7 +60,7 @@ const Postcar: React.FC = () => {
                                 <li className="flex items-center space-x-3">
                                     <div className="inline-flex items-center justify-center flex-shrink-0 w-5 h-5 bg-blue-500 rounded-full">
                                         <svg className="w-3.5 h-3.5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                                         </svg>
                                     </div>
                                     <span className="text-lg font-medium text-white"> Trusted Certificates </span>
@@ -55,7 +68,7 @@ const Postcar: React.FC = () => {
                                 <li className="flex items-center space-x-3">
                                     <div className="inline-flex items-center justify-center flex-shrink-0 w-5 h-5 bg-blue-500 rounded-full">
                                         <svg className="w-3.5 h-3.5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                                         </svg>
                                     </div>
                                     <span className="text-lg font-medium text-white"> 120+ Cars Listed </span>
@@ -63,7 +76,7 @@ const Postcar: React.FC = () => {
                                 <li className="flex items-center space-x-3">
                                     <div className="inline-flex items-center justify-center flex-shrink-0 w-5 h-5 bg-blue-500 rounded-full">
                                         <svg className="w-3.5 h-3.5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                                         </svg>
                                     </div>
                                     <span className="text-lg font-medium text-white"> Recommendations </span>
@@ -84,11 +97,11 @@ const Postcar: React.FC = () => {
                         </div>)}
 
                         <div className='mt-5'>
-                            <CarForm 
-                                onCallback={handleCarSubmit} 
+                            <CarForm
+                                onCallback={handleCarSubmit}
                                 onFallback={handleFormError}
-                                isEditing={false} 
-                                initialData={null} 
+                                isEditing={false}
+                                initialData={null}
                             />
                         </div>
                     </div>
@@ -97,7 +110,7 @@ const Postcar: React.FC = () => {
                 <AuthModal isOpen={authModal} onClose={closeAuthModal} callback={handleAuthenticatedUser} fallback={handleAuthError} />
             </div>
         </section>
-    );
+    </>);
 }
 
 export default Postcar;
