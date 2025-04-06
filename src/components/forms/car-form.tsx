@@ -19,7 +19,6 @@ interface Car {
     title: string;
     car_model: string;
     year: number;
-    description: string;
     category: string;
     location: string;
     make: string;
@@ -55,7 +54,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     const [car_model, setCarModel] = useState('');
     const [year, setYear] = useState<number | ''>(2024);
     const [color, setColor] = useState('');
-    const [description, setDescription] = useState('');
+    // const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [location, setLocation] = useState('');
     const [make, setMake] = useState('');
@@ -122,7 +121,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             return;
         }
 
-        const payload = { title, car_model, year: Number(year), description, category, location, make, mileage: Number(mileage), price: Number(price), condition, transmission, fuel_type, images, status, features, seats, autonomy, color };
+        const payload = { title, car_model, year: Number(year), category, location, make, mileage: Number(mileage), price: Number(price), condition, transmission, fuel_type, images, status, features, seats, autonomy, color };
 
         if (isEditing) {
             setCarDetails(payload);
@@ -206,7 +205,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
             formData.append('year', carDetails.year.toString());
-            formData.append('description', carDetails.description);
             formData.append('category', carDetails.category);
             formData.append('location', carDetails.location);
             formData.append('make', carDetails.make);
@@ -291,7 +289,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
             formData.append('year', carDetails.year.toString());
-            formData.append('description', carDetails.description);
             formData.append('category', carDetails.category);
             formData.append('location', carDetails.location);
             formData.append('make', carDetails.make);
@@ -345,7 +342,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
         setTitle('');
         setCarModel('');
         setYear('');
-        setDescription('');
         setCategory('');
         setLocation('');
         setMake('');
@@ -377,7 +373,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     // Steps
     const steps = [
         <StepOne key="step1" getErrorField={getErrorField} name={title} setName={setTitle} model={car_model} setModel={setCarModel} year={year === '' ? 2024 : year} setYear={(value) => setYear(value)} color={color} setColor={setColor} />,
-        <StepTwo key="step2" getErrorField={getErrorField} category={category} description={description} location={location} status={status} setCategory={setCategory} setDescription={setDescription} setLocation={setLocation} setStatus={setStatus} inEditMode={initialData ? true : false} />,
+        <StepTwo key="step2" getErrorField={getErrorField} category={category} location={location} status={status} setCategory={setCategory} setLocation={setLocation} setStatus={setStatus} inEditMode={initialData ? true : false} />,
         <StepThree key="step3" getErrorField={getErrorField} make={make} setMake={setMake} mileage={mileage === '' ? 0 : mileage} setMileage={setMileage} price={price === '' ? 0 : price} setPrice={setPrice} autonomy={autonomy} setAutonomy={setAutonomy} />,
         <StepFour key="step4" getErrorField={getErrorField} condition={condition} setCondition={setCondition} transmission={transmission} setTransmission={setTransmission} fuelType={fuel_type} setFuelType={setFuelType} seats={seats} setSeats={setSeats} />,
         <StepFive key="step5" getErrorField={getErrorField} images={images} setImages={setImages} currentImages={initialData ? (initialData.images ?? []) : []} features={features} setFeatures={setFeatures} />,
@@ -397,11 +393,8 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             setCarModel(initialData.car_model);
             setYear(initialData.year);
             setColor(initialData.color);
-
-            setDescription(initialData.description);
             setCategory(initialData.category);
             setLocation(initialData.location);
-
             setMake(initialData.make);
             setMileage(initialData.mileage);
             setPrice(initialData.price);

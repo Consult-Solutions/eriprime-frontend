@@ -110,7 +110,7 @@ const CarDetails: React.FC = () => {
 
                             <div className="mb-3"><span>Dealer:</span> <span className="font-semibold">{car.seller?.fullname}</span></div>
                             <div className="h-0 mt-6 mb-4 border-t-2 border-gray-200 border-dashed"></div>
-                            <p className="mb-8">{car && car.description}</p>
+                            {/* <p className="mb-8">{car && car.description}</p> */}
 
                             <div className="mb-8">
                                 <div className="flex flex-wrap items-center mt-8">

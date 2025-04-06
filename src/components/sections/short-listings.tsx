@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CarCard from "../cards/card-card.tsx";
-import CarCardListingSkeleton from "../cards/car-card -listing-skeleton.tsx";
+import CarCard from "../cards/card.tsx";
+import CarCardListingSkeleton from "../cards/card-listing-skeleton.tsx";
 
 interface ShortListingsProps {
     isLoading: boolean;

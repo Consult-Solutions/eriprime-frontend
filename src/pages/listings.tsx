@@ -5,8 +5,8 @@ import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import MetaTags from '../components/MetaTags.tsx';
 import FormModal from '../components/models/form-model.tsx';
-import CarCard from '../components/cards/card-card.tsx';
-import CarCardListingSkeleton from '../components/cards/car-card -listing-skeleton.tsx';
+import CarCard from '../components/cards/card.tsx';
+import CarCardListingSkeleton from '../components/cards/card-listing-skeleton.tsx';
 import FiltersForm from '../components/forms/filters-form.tsx';
 
 interface GetCarsParams {
