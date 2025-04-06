@@ -54,7 +54,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     const [car_model, setCarModel] = useState('');
     const [year, setYear] = useState<number | ''>(2024);
     const [color, setColor] = useState('');
-    // const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [location, setLocation] = useState('');
     const [make, setMake] = useState('');
@@ -75,7 +74,8 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [isLoading, setIsloading] = useState(false);
     const [carDetails, setCarDetails] = useState<Car | null>(null);
-    const [seller, setSeller] = useState<Seller>({});
+    const [sellerDetails, setSellerDetails] = useState<Seller>({});
+    const [currentSeller, setCurrentSeller] = useState<Seller>({});
 
     const [sellerModal, setSellerModal] = useState(false);
     const [authModal, setAuthModal] = useState(false);
@@ -137,12 +137,13 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
      * 
      * @param sellerInfo 
      */
-    const handleSellerInformation = (sellerInfo: any) => {
-        setSeller(sellerInfo);
+    const handleSellerInformation = (sellerInfo: Seller) => {
+        setSellerDetails(sellerInfo);
+
         closeSellerModal();
 
-        if (isAuthenticated && isEditing) return handleUpdateCar();
-        if (isAuthenticated && !isEditing) return handleSubmitCar();
+        if (isAuthenticated && isEditing) return handleUpdateCar(sellerInfo);
+        if (isAuthenticated && !isEditing) return handleSubmitCar(sellerInfo);
 
         openAuthModal();
     }
@@ -158,9 +159,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
         setIsloading(true);
 
         if (isEditing) {
-            handleUpdateCar();
+            handleUpdateCar(sellerDetails);
         } else {
-            handleSubmitCar();
+            handleSubmitCar(sellerDetails);
         }
     };
 
@@ -175,7 +176,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
      * 
      * @param car 
      */
-    const handleSubmitCar = () => {
+    const handleSubmitCar = (sellerDetails: Seller) => {
         const missing: string[] = [];
 
         if (!carDetails) {
@@ -184,9 +185,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             return;
         }
 
-        if (!seller.fullname) missing.push('fullname');
-        if (!seller.email) missing.push('email');
-        if (!seller.phone) missing.push('phonenumber');
+        if (!sellerDetails.fullname) missing.push('fullname');
+        if (!sellerDetails.email) missing.push('email');
+        if (!sellerDetails.phone) missing.push('phonenumber');
 
         if (missing.length > 0) {
             setMissingFields(missing);
@@ -218,7 +219,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             formData.append('autonomy', carDetails.autonomy);
             formData.append('color', carDetails.color);
             formData.append('features', JSON.stringify(carDetails.features));
-            formData.append('seller', JSON.stringify(seller));
+            formData.append('seller', JSON.stringify(sellerDetails));
 
             // Append images array
             if (carDetails.images && carDetails.images.length > 0) {
@@ -260,7 +261,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     * 
     * @param car 
     */
-    const handleUpdateCar = () => {
+    const handleUpdateCar = (sellerDetails: Seller) => {
         const missing: string[] = [];
 
         if (!carDetails) {
@@ -269,9 +270,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             return;
         }
 
-        if (!seller.fullname) missing.push('fullname');
-        if (!seller.email) missing.push('email');
-        if (!seller.phone) missing.push('phonenumber');
+        if (!sellerDetails.fullname) missing.push('fullname');
+        if (!sellerDetails.email) missing.push('email');
+        if (!sellerDetails.phone) missing.push('phonenumber');
 
         if (missing.length > 0) {
             setMissingFields(missing);
@@ -302,7 +303,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             formData.append('autonomy', carDetails.autonomy);
             formData.append('color', carDetails.color);
             formData.append('features', JSON.stringify(carDetails.features));
-            formData.append('seller', JSON.stringify(seller));
+            formData.append('seller', JSON.stringify(sellerDetails));
 
             if (carDetails.images && carDetails.images.length > 0) {
                 carDetails.images.forEach((image: File) => {
@@ -381,7 +382,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
     useEffect(() => {
         if (isAuthenticated && user) {
-            setSeller({
+            setCurrentSeller({
                 fullname: user.name,
                 email: user.email,
                 phone: user.phone
@@ -423,7 +424,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             </form>
 
             {/* Seller Form */}
-            <SellerModal isOpen={sellerModal} onClose={closeSellerModal} callback={handleSellerInformation} getErrorField={getErrorField} />
+            <SellerModal currentSeller={currentSeller} isOpen={sellerModal} onClose={closeSellerModal} callback={handleSellerInformation} getErrorField={getErrorField} />
 
             {/* Auth Form */}
             <AuthModal isOpen={authModal} onClose={closeAuthModal} callback={handleAuthenticatedUser} fallback={handleAuthError} />
