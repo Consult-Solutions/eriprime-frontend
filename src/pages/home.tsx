@@ -12,17 +12,14 @@ import BrowseByType from '../components/sections/browse-by-type.tsx';
 
 const Home: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [isFetchingAutoCar, setIsFetchingAutoCar] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [cars, setCars] = useState<any[]>([]);
-    const [autoCars, setAutoCars] = useState<any[]>([]);
 
     const params = {
-        limit: 8,
+        limit: 12,
         orderBy: 'createdAt',
         direction: 'desc',
-        condition: 'new',
     };
 
     /**
@@ -55,32 +52,6 @@ const Home: React.FC = () => {
         }
     };
 
-    const getAutoCars = async () => {
-        const params: any = {
-            transmission: 'automatic',
-            direction: 'desc',
-            limit: 8,
-            price: JSON.stringify([1000000, 100000000]),
-        };
-
-        setIsFetchingAutoCar(true);
-
-        try {
-            api.get('/cars/approved', { params }).then((response: any) => {
-                setAutoCars(response.data.data);
-                setIsFetchingAutoCar(false);
-            }).catch((error: { response: { data: { message: string; }; }; }) => {
-                setAlertMessage('An error occurred. try again later');
-                setAlertType('error');
-                setIsFetchingAutoCar(false);
-            });
-        } catch (error) {
-            setAlertMessage('An error occurred. Something went wrong');
-            setAlertType('error');
-            setIsFetchingAutoCar(false);
-        }
-    };
-
     /**
      * Fetches the cars
      * 
@@ -89,7 +60,6 @@ const Home: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             getCars();
-            getAutoCars();
         };
 
         fetchData();
@@ -133,16 +103,6 @@ const Home: React.FC = () => {
 
                 {/* Digital Section */}
                 <BrowseByType />
-
-                {/* Short list of auto cars */}
-                <ShortListings isLoading={isFetchingAutoCar} cars={autoCars} params={params}>
-                    <h3 className="text-xl font-bold text-slate-700 md:text-3xl capitalize">
-                        Discover the Perfect Car to <br /> Match Your <span className="inline-block text-primary">Lifestyle</span>.
-                    </h3>
-                    <p className="max-w-xl text-sm leading-relaxed text-gray-600 mt-3">
-                        Explore our extensive collection and find your dream car today. Quality and affordability guaranteed.
-                    </p>
-                </ShortListings>
 
                 {/* Beliefs Section  */}
                 <Beliefs />

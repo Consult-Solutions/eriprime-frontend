@@ -33,7 +33,6 @@ const Postcar: React.FC = () => {
             twitterCard="summary_large_image"
         />
 
-
         <section className="bg-white">
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 {/* Hero Side section */}

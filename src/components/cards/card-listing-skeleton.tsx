@@ -1,5 +1,5 @@
 import React from 'react';
-import CarCardSkeleton from './car-card-skeleton.tsx';
+import CarCardSkeleton from './card-skeleton.tsx';
 
 interface CarCardListingSkeletonProps {
   numberOfCards: number;

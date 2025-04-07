@@ -19,7 +19,6 @@ interface Car {
     title: string;
     car_model: string;
     year: number;
-    description: string;
     category: string;
     location: string;
     make: string;
@@ -55,7 +54,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     const [car_model, setCarModel] = useState('');
     const [year, setYear] = useState<number | ''>(2024);
     const [color, setColor] = useState('');
-    const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [location, setLocation] = useState('');
     const [make, setMake] = useState('');
@@ -76,7 +74,8 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [isLoading, setIsloading] = useState(false);
     const [carDetails, setCarDetails] = useState<Car | null>(null);
-    const [seller, setSeller] = useState<Seller>({});
+    const [sellerDetails, setSellerDetails] = useState<Seller>({});
+    const [currentSeller, setCurrentSeller] = useState<Seller>({});
 
     const [sellerModal, setSellerModal] = useState(false);
     const [authModal, setAuthModal] = useState(false);
@@ -122,7 +121,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             return;
         }
 
-        const payload = { title, car_model, year: Number(year), description, category, location, make, mileage: Number(mileage), price: Number(price), condition, transmission, fuel_type, images, status, features, seats, autonomy, color };
+        const payload = { title, car_model, year: Number(year), category, location, make, mileage: Number(mileage), price: Number(price), condition, transmission, fuel_type, images, status, features, seats, autonomy, color };
 
         if (isEditing) {
             setCarDetails(payload);
@@ -138,12 +137,13 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
      * 
      * @param sellerInfo 
      */
-    const handleSellerInformation = (sellerInfo: any) => {
-        setSeller(sellerInfo);
+    const handleSellerInformation = (sellerInfo: Seller) => {
+        setSellerDetails(sellerInfo);
+
         closeSellerModal();
 
-        if (isAuthenticated && isEditing) return handleUpdateCar();
-        if (isAuthenticated && !isEditing) return handleSubmitCar();
+        if (isAuthenticated && isEditing) return handleUpdateCar(sellerInfo);
+        if (isAuthenticated && !isEditing) return handleSubmitCar(sellerInfo);
 
         openAuthModal();
     }
@@ -159,9 +159,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
         setIsloading(true);
 
         if (isEditing) {
-            handleUpdateCar();
+            handleUpdateCar(sellerDetails);
         } else {
-            handleSubmitCar();
+            handleSubmitCar(sellerDetails);
         }
     };
 
@@ -176,7 +176,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
      * 
      * @param car 
      */
-    const handleSubmitCar = () => {
+    const handleSubmitCar = (sellerDetails: Seller) => {
         const missing: string[] = [];
 
         if (!carDetails) {
@@ -185,9 +185,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             return;
         }
 
-        if (!seller.fullname) missing.push('fullname');
-        if (!seller.email) missing.push('email');
-        if (!seller.phone) missing.push('phonenumber');
+        if (!sellerDetails.fullname) missing.push('fullname');
+        if (!sellerDetails.email) missing.push('email');
+        if (!sellerDetails.phone) missing.push('phonenumber');
 
         if (missing.length > 0) {
             setMissingFields(missing);
@@ -206,7 +206,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
             formData.append('year', carDetails.year.toString());
-            formData.append('description', carDetails.description);
             formData.append('category', carDetails.category);
             formData.append('location', carDetails.location);
             formData.append('make', carDetails.make);
@@ -220,7 +219,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             formData.append('autonomy', carDetails.autonomy);
             formData.append('color', carDetails.color);
             formData.append('features', JSON.stringify(carDetails.features));
-            formData.append('seller', JSON.stringify(seller));
+            formData.append('seller', JSON.stringify(sellerDetails));
 
             // Append images array
             if (carDetails.images && carDetails.images.length > 0) {
@@ -262,7 +261,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     * 
     * @param car 
     */
-    const handleUpdateCar = () => {
+    const handleUpdateCar = (sellerDetails: Seller) => {
         const missing: string[] = [];
 
         if (!carDetails) {
@@ -271,9 +270,9 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             return;
         }
 
-        if (!seller.fullname) missing.push('fullname');
-        if (!seller.email) missing.push('email');
-        if (!seller.phone) missing.push('phonenumber');
+        if (!sellerDetails.fullname) missing.push('fullname');
+        if (!sellerDetails.email) missing.push('email');
+        if (!sellerDetails.phone) missing.push('phonenumber');
 
         if (missing.length > 0) {
             setMissingFields(missing);
@@ -291,7 +290,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             formData.append('title', carDetails.title);
             formData.append('car_model', carDetails.car_model);
             formData.append('year', carDetails.year.toString());
-            formData.append('description', carDetails.description);
             formData.append('category', carDetails.category);
             formData.append('location', carDetails.location);
             formData.append('make', carDetails.make);
@@ -305,7 +303,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             formData.append('autonomy', carDetails.autonomy);
             formData.append('color', carDetails.color);
             formData.append('features', JSON.stringify(carDetails.features));
-            formData.append('seller', JSON.stringify(seller));
+            formData.append('seller', JSON.stringify(sellerDetails));
 
             if (carDetails.images && carDetails.images.length > 0) {
                 carDetails.images.forEach((image: File) => {
@@ -345,7 +343,6 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
         setTitle('');
         setCarModel('');
         setYear('');
-        setDescription('');
         setCategory('');
         setLocation('');
         setMake('');
@@ -377,7 +374,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
     // Steps
     const steps = [
         <StepOne key="step1" getErrorField={getErrorField} name={title} setName={setTitle} model={car_model} setModel={setCarModel} year={year === '' ? 2024 : year} setYear={(value) => setYear(value)} color={color} setColor={setColor} />,
-        <StepTwo key="step2" getErrorField={getErrorField} category={category} description={description} location={location} status={status} setCategory={setCategory} setDescription={setDescription} setLocation={setLocation} setStatus={setStatus} inEditMode={initialData ? true : false} />,
+        <StepTwo key="step2" getErrorField={getErrorField} category={category} location={location} status={status} setCategory={setCategory} setLocation={setLocation} setStatus={setStatus} inEditMode={initialData ? true : false} />,
         <StepThree key="step3" getErrorField={getErrorField} make={make} setMake={setMake} mileage={mileage === '' ? 0 : mileage} setMileage={setMileage} price={price === '' ? 0 : price} setPrice={setPrice} autonomy={autonomy} setAutonomy={setAutonomy} />,
         <StepFour key="step4" getErrorField={getErrorField} condition={condition} setCondition={setCondition} transmission={transmission} setTransmission={setTransmission} fuelType={fuel_type} setFuelType={setFuelType} seats={seats} setSeats={setSeats} />,
         <StepFive key="step5" getErrorField={getErrorField} images={images} setImages={setImages} currentImages={initialData ? (initialData.images ?? []) : []} features={features} setFeatures={setFeatures} />,
@@ -385,7 +382,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
 
     useEffect(() => {
         if (isAuthenticated && user) {
-            setSeller({
+            setCurrentSeller({
                 fullname: user.name,
                 email: user.email,
                 phone: user.phone
@@ -397,11 +394,8 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             setCarModel(initialData.car_model);
             setYear(initialData.year);
             setColor(initialData.color);
-
-            setDescription(initialData.description);
             setCategory(initialData.category);
             setLocation(initialData.location);
-
             setMake(initialData.make);
             setMileage(initialData.mileage);
             setPrice(initialData.price);
@@ -430,7 +424,7 @@ const CarForm: React.FC<CarFormProps> = ({ onCallback, onFallback, isEditing, in
             </form>
 
             {/* Seller Form */}
-            <SellerModal isOpen={sellerModal} onClose={closeSellerModal} callback={handleSellerInformation} getErrorField={getErrorField} />
+            <SellerModal currentSeller={currentSeller} isOpen={sellerModal} onClose={closeSellerModal} callback={handleSellerInformation} getErrorField={getErrorField} />
 
             {/* Auth Form */}
             <AuthModal isOpen={authModal} onClose={closeAuthModal} callback={handleAuthenticatedUser} fallback={handleAuthError} />
