@@ -4,7 +4,6 @@ import Hero from '../components/sections/hero.tsx';
 import api from '../services/api.ts';
 import AlertMessage from '../components/alerts/alert-message.tsx';
 import MetaTags from '../components/MetaTags.tsx';
-import CTA from '../components/sections/cta.tsx';
 import Beliefs from '../components/sections/beliefs.tsx';
 import ShortListings from '../components/sections/short-listings.tsx';
 import PremiumBrands from '../components/sections/premium-blands.tsx';
@@ -106,9 +105,6 @@ const Home: React.FC = () => {
 
                 {/* Beliefs Section  */}
                 <Beliefs />
-
-                {/* CTA */}
-                <CTA />
             </div>
 
             {/* Alert Message */}

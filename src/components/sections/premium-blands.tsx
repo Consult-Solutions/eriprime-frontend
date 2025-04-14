@@ -11,15 +11,11 @@ const brands = [
 
 export default function PremiumBrands() {
     return (
-        <section className="px-4 border-t border-gray-300 py-8 md:py-24 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12 bg-[#F9FBFC] rounded-t-3xl w-full relative -top-5 md:-top-10 z-10">
+        <section className="px-4 border-t border-gray-300 py-8 md:py-24 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-12 bg-white rounded-t-3xl w-full relative -top-0 md:-top-10 z-10">
             <div className="flex justify-between items-center">
                 <h2 className="text-xl font-bold text-slate-700 sm:text-xl md:text-2xl capitalize">
                     Explore Our Premium Brands
                 </h2>
-                
-                <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center transition">
-                    Show All Brands <span className="ml-1">↗</span>
-                </button>
             </div>
 
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">

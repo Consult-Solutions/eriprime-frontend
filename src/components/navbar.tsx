@@ -73,9 +73,6 @@ const NavBar: React.FC = () => {
 
     return (
         <>
-            <div>
-                <p className="mb-0 py-3 bg-lime-500 text-center">We're testing this app, Your suggesions and thought can be really helpful.</p>
-            </div>
             <header className="bg-transparent lg:pb-0 border-b border-gray-200">
                 <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <nav className="flex items-center justify-between">

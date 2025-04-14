@@ -17,7 +17,7 @@ const About: React.FC = () => {
                 twitterCard="summary_large_image"
             />
 
-            <section className="py-10 bg-white sm:py-16 lg:py-24">
+            <section className="py-10 bg-white sm:py-16 lg:py-20">
                 <div className="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
                     <div className="grid items-center grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-20">
                         <div className="">
@@ -29,27 +29,15 @@ const About: React.FC = () => {
 
                         <div className="relative pl-20 pr-6 sm:pl-6 md:px-0">
                             <div className="relative w-[500px] mt-4 mb-10 ml-auto">
-                                <img className="ml-auto" src="https://i.etsystatic.com/20513864/r/il/09922b/4068615937/il_fullxfull.4068615937_f2cr.jpg" alt="Happy clients at Consult Solution" />
-
-                                <img className="absolute -top-4 -left-12" src="https://cdn.rareblocks.xyz/collection/celebration/images/features/1/wavey-lines.svg" alt="" />
-
-                                <div className="absolute -bottom-10 -left-16">
-                                    <div className="bg-yellow-300">
-                                        <div className="px-8 py-10">
-                                            <span className="block text-4xl font-bold text-black lg:text-5xl"> 50% </span>
-                                            <span className="block mt-2 text-base leading-tight text-black"> Low Price Rate <br />On Everything </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <img className="ml-auto rounded-lg" src="https://images.unsplash.com/photo-1533630217389-3a5e4dff5683?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Happy clients at Consult Solution" />
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className="px-4 relative mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 md:py-12">
+            <section className="px-4 relative mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
                 <Beliefs />
-                <CTA />
             </section>
         </>
     );
