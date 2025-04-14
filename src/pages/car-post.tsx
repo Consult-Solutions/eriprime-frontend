@@ -38,10 +38,10 @@ const Postcar: React.FC = () => {
                 {/* Hero Side section */}
                 <div className="relative flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
                     <div className="absolute inset-0">
-                        <img className="object-cover w-full h-full" src="https://www.nationscreen.com/wp-content/uploads/2020/10/fpmympre6y4-2048x1365.jpg" alt="" />
+                        <img className="object-cover w-full h-full rounded-br-3xl" src="https://www.nationscreen.com/wp-content/uploads/2020/10/fpmympre6y4-2048x1365.jpg" alt="" />
                     </div>
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent object-cover w-full h-full rounded-br-3xl"></div>
 
                     <div className="relative h-[48vh]">
                         <div className="w-full max-w-xl xl:w-full xl:mx-auto xl:pr-24 xl:max-w-xl">
