@@ -1,7 +1,6 @@
 import React from 'react';
 import MetaTags from '../components/MetaTags.tsx';
 import Beliefs from '../components/sections/beliefs.tsx';
-import CTA from '../components/sections/cta.tsx';
 
 const About: React.FC = () => {
     return (

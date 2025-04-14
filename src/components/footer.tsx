@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import api from '../services/api.ts';
 import AlertMessage from './alerts/alert-message.tsx';
 import FetchLoader from './loaders/fetching-loader.tsx';
-import Logo from './logo.tsx';
 import CTA from './sections/cta.tsx';
 
 const Footer: React.FC = () => {
