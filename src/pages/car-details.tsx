@@ -75,16 +75,18 @@ const CarDetails: React.FC = () => {
 
     return (
         <div>
-            <MetaTags
-                title={`${car?.title} | Eriprime`}
-                description={car ? car.description : 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
-                keywords="Eriprime, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
-                canonical={`${process.env.PUBLIC_URL}/cars/${id}`}
-                ogTitle={`${car?.title} - Eriprime`}
-                ogDescription={car ? car.description : 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
-                ogImage={car ? car.images[0] : 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'}
-                twitterCard="summary_large_image"
-            />
+            {car && (
+                <MetaTags
+                    title={`${car.title} | Eriprime`}
+                    description={car.description || 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
+                    keywords="Eriprime, car listings, cars, new cars, used cars, car trader, car trader africa, car trader rwanda, car trader kenya, car trader nigeria, car trader ghana, car trader south africa, car trader tanzania, car trader uganda"
+                    canonical={`${process.env.PUBLIC_URL}/cars/${id}`}
+                    ogTitle={`${car.title} - Eriprime`}
+                    ogDescription={car.description || 'Discover your dream car from our extensive listings. Quality cars for every budget and need.'}
+                    ogImage={car.images[0] || 'https://cdn.bestsuppliers.com/seo_products_img/biuloo/23798d3c6f853ade868f0f64491471bf.jpg!/rotate/180'}
+                    twitterCard="summary_large_image"
+                />
+            )}
 
             {isLoading && (<div className='h-96 flex items-center justify-center'><FetchLoader /></div>)}
 
