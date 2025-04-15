@@ -9,7 +9,7 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onLoading, onChange }) => {
     return (
         <>
-            <section className="bg-[#00577e] overflow-hidden">
+            <section className="bg-primary overflow-hidden">
                 <div className="relative pt-18 pb-18">
 
                     <img className="hidden md:block absolute top-0 -left-10 mt-28 w-24 sm:w-32 lg:w-48 xl:w-80 h-64 sm:h-96 object-cover rounded-3xl blur-[1px]" src="https://www.focus2move.com/wp-content/uploads/2025/01/Volkswagen-Tiguan-2024-1280-1d58b6625615e0decdb3ef3ea10e945376-1068x801.jpg" alt="" />
