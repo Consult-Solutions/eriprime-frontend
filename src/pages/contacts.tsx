@@ -62,10 +62,10 @@ const Contacts: React.FC = () => {
                     <div className="grid grid-cols-1 md:items-stretch md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-10">
                         <div className="flex flex-col justify-between lg:py-5">
                             <div>
-                                <h2 className="text-3xl font-bold leading-tight text-slate-700 sm:text-4xl lg:leading-tight lg:text-5xl">It’s time to build something exciting!</h2>
+                                <h2 className="text-3xl font-bold leading-tight text-slate-700 sm:text-4xl lg:leading-tight lg:text-5xl">Find Your Dream Car Today!</h2>
                                 
                                 <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-slate-700">
-                                    Partner with us to unlock the full potential of your business. Reach out today and let's turn your vision into reality. Your success story begins with a single step!
+                                    Explore our marketplace to discover a wide range of cars tailored to your needs. Start your journey with us and drive home your perfect car. Your dream ride is just a click away!
                                 </p>
 
                                 <img className="relative z-10 max-w-xs mx-auto -mb-16 md:hidden" src="https://cdn.rareblocks.xyz/collection/celebration/images/contact/4/curve-line-mobile.svg" alt="" />
@@ -102,16 +102,8 @@ const Contacts: React.FC = () => {
                                 </div>
 
                                 <blockquote className="mt-6">
-                                    <p className="text-lg leading-relaxed text-slate-700">You made it so simple. This site is so much faster and easier to work with than my old site. I just choose the page, make the change and click save.</p>
+                                    <p className="text-lg leading-relaxed text-slate-700">Finding my dream car has never been easier. The site is user-friendly, fast, and offers a wide range of options to choose from. Highly recommended!</p>
                                 </blockquote>
-
-                                <div className="flex items-center mt-8">
-                                    <img className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="/images/member1.jpeg" alt='Eric Niyongira at Eriprime' />
-                                    <div className="ml-4">
-                                        <p className="text-base font-semibold text-slate-700">Eric NIYONGIRA</p>
-                                        <p className="mt-px text-sm text-gray-400">Research Officer</p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
